@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { extractColors } from '../services/productService';
+import { extractColors } from '../../services/productService';
 
 const ProductForm = ({ productData, onProductChange }) => {
   const [colorPalette, setColorPalette] = useState([]);
