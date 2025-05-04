@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
-import { generateImage } from '../services/templateService';
+import { generateImage } from '../../services/templateService';
 
 const ExportOptions = ({ template, productData, companyData }) => {
   const [exporting, setExporting] = useState(false);
