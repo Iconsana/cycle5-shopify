@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { processTemplate } from '../utils/svgUtils';
+import { processTemplate } from '../../utils/svgUtils';
 
 const TemplatePreview = ({ template, productData, companyData }) => {
   const [processedSvg, setProcessedSvg] = useState('');
