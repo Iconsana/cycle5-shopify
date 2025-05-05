@@ -4,7 +4,7 @@ import Navbar from './components/layout/Navbar';
 import Home from './pages/Home';
 import TemplateGenerator from './pages/TemplateGenerator';
 import Settings from './pages/Settings';
-import { CompanyProvider } from './context/CompanyContext';
+import { CompanyProvider } from './CompanyContext';
 import './App.css';
 
 function App() {
