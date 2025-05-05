@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import CompanyContext from '../../context/CompanyContext';
+import CompanyContext from '../../CompanyContext';
 
 const Navbar = () => {
   const { companyData } = useContext(CompanyContext);
