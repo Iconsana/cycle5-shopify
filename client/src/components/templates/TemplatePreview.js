@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-// Try to import from utils directory first
-let processTemplate;
-try {
-  // This should work if we successfully created the utils directory
-  const svgUtils = require('../../utils/svgUtils');
-  processTemplate = svgUtils.processTemplate;
-  console.log("Successfully imported from utils/svgUtils");
-} catch (error) {
-  console.error("Could not import from utils/svgUtils, using inline implementation", error);
+// Completely self-contained component with no external dependencies
+const TemplatePreview = ({ template, productData, companyData }) => {
+  const [processedSvg, setProcessedSvg] = useState('');
   
-  // Fallback: inline implementation
-  processTemplate = (svgContent, productData, companyData) => {
+  // Internal function to process the template
+  // No external imports needed
+  const processTemplate = (svgContent, productData, companyData) => {
     let processed = svgContent;
     
     // Replace product data placeholders
@@ -65,10 +60,6 @@ try {
     
     return processed;
   };
-}
-
-const TemplatePreview = ({ template, productData, companyData }) => {
-  const [processedSvg, setProcessedSvg] = useState('');
   
   useEffect(() => {
     if (template && template.content) {
