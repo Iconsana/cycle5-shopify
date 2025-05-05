@@ -3,7 +3,7 @@ import TemplateSelector from '../components/templates/TemplateSelector';
 import ProductForm from '../components/products/ProductForm';
 import TemplatePreview from '../components/templates/TemplatePreview';
 import ExportOptions from '../components/export/ExportOptions';
-import CompanyContext from '../context/CompanyContext';
+import CompanyContext from '../CompanyContext';
 import { getTemplates } from '../services/templateService';
 
 const TemplateGenerator = () => {
