@@ -4,9 +4,9 @@ const morgan = require('morgan');
 const path = require('path');
 require('dotenv').config();
 
-// Import routes
-const templateRoutes = require('./routes/templateRoutes');
-const productRoutes = require('./routes/productRoutes');
+// Import routes - Updated paths to point directly to route files
+const templateRoutes = require('./templateRoutes');
+const productRoutes = require('./productRoutes');
 
 const app = express();
 
