@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import CompanyContext from '../context/CompanyContext';
+import CompanyContext from '../CompanyContext';
 
 const Settings = () => {
   const { companyData, updateCompanyData } = useContext(CompanyContext);
