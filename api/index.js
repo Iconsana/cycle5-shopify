@@ -1,59 +1,30 @@
-// This is a simple example of a serverless function that will handle API requests
+// This is a serverless API handler for Vercel
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs').promises;
-const path = require('path');
+const templatesRouter = require('./templates');
 
 // Create Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Templates endpoint
-app.get('/api/templates', async (req, res) => {
-  try {
-    // In serverless functions, we can't access the file system directly
-    // So we'll return sample data instead
-    const templates = [
-      {
-        id: 'battery-style',
-        name: 'Battery Style',
-        file: 'battery-style.svg'
-      },
-      {
-        id: 'circuit-promo',
-        name: 'Circuit Promo',
-        file: 'circuit-promo.svg'
-      },
-      {
-        id: 'gradient-seasonal',
-        name: 'Gradient Seasonal',
-        file: 'gradient-seasonal.svg'
-      },
-      {
-        id: 'tech-enhanced',
-        name: 'Tech Enhanced',
-        file: 'tech-enhanced.svg'
-      }
-    ];
-    
-    res.json({ success: true, data: templates });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ success: false, error: 'Server error' });
-  }
-});
+// Use the templates router for /api/templates
+app.use('/api/templates', templatesRouter);
 
-// Get specific template
-app.get('/api/templates/:id', async (req, res) => {
-  // In a real implementation, you would fetch the template content
+// Products endpoint (basic implementation)
+app.post('/api/products/extract-colors', (req, res) => {
+  // Simple mock implementation since we can't process images in a serverless function
   res.json({
     success: true,
     data: {
-      id: req.params.id,
-      name: req.params.id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-      file: `${req.params.id}.svg`,
-      content: '<svg>...</svg>' // Placeholder for actual content
+      dominant: 'rgb(45,56,128)',
+      palette: [
+        'rgb(45,56,128)', 
+        'rgb(67,89,156)', 
+        'rgb(120,145,190)', 
+        'rgb(200,210,230)', 
+        'rgb(245,245,250)'
+      ]
     }
   });
 });
