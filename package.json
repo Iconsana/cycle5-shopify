@@ -23,6 +23,8 @@
   "author": "B SHOCKED",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "express": "^4.18.2",
+  "cors": "^2.8.5"
   }
 }
