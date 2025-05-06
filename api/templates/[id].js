@@ -1,4 +1,4 @@
-// Vercel serverless function for retrieving a specific template
+// Vercel serverless function for retrieving a specific template using CommonJS syntax
 
 // Hardcoded templates with their SVG content (same as in templates.js)
 const templates = [
@@ -65,8 +65,8 @@ const templates = [
   }
 ];
 
-// Vercel API handler
-export default function handler(req, res) {
+// Handler function using CommonJS syntax
+module.exports = (req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -100,4 +100,4 @@ export default function handler(req, res) {
     success: true,
     data: template
   });
-}
+};
