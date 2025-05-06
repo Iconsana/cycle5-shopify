@@ -1,92 +1,60 @@
-// Return template data as JSON with proper content-type headers
-const templates = [
-  {
+// Ultra-simplified API handler that returns basic JSON with SVG as string
+const templates = {
+  'battery-style': {
     id: 'battery-style',
     name: 'Battery Style',
-    file: 'battery-style.svg',
-    content: `<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1200" height="1200" fill="#001428"/>
-      <rect width="1200" height="1200" fill="url(#glowCenter)"/>
-      <polygon points="0,350 1200,500 1200,1200 0,1200" fill="white" opacity="0.97"/>
-      <text x="150" y="150" font-family="Arial" font-size="70" fill="white">{{COMPANY_NAME}}</text>
-      <text x="150" y="500" font-family="Arial" font-size="40" fill="#002651">{{PRODUCT_TITLE}}</text>
-      <text x="150" y="600" font-family="Arial" font-size="30" fill="#002651">{{PRODUCT_DESCRIPTION}}</text>
-      <text x="150" y="700" font-family="Arial" font-size="25" fill="#002651">SKU: {{PRODUCT_SKU}}</text>
-      <text x="200" y="950" font-family="Arial" font-size="40" fill="#002651">{{PRODUCT_PRICE}}</text>
-    </svg>`
+    content: '<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="1200" fill="#001428"/><rect width="1200" height="1200" fill="url(#glowCenter)"/><polygon points="0,350 1200,500 1200,1200 0,1200" fill="white" opacity="0.97"/><text x="150" y="150" font-family="Arial" font-size="70" fill="white">{{COMPANY_NAME}}</text><text x="150" y="500" font-family="Arial" font-size="40" fill="#002651">{{PRODUCT_TITLE}}</text><text x="150" y="600" font-family="Arial" font-size="30" fill="#002651">{{PRODUCT_DESCRIPTION}}</text><text x="150" y="700" font-family="Arial" font-size="25" fill="#002651">SKU: {{PRODUCT_SKU}}</text><text x="200" y="950" font-family="Arial" font-size="40" fill="#002651">{{PRODUCT_PRICE}}</text></svg>'
   },
-  {
+  'circuit-promo': {
     id: 'circuit-promo',
     name: 'Circuit Promo',
-    file: 'circuit-promo.svg',
-    content: `<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1200" height="1200" fill="#001428"/>
-      <path d="M600,0 C800,50 900,200 900,400 C900,600 800,800 900,1000 C1000,1200 1200,1200 1200,1200 L1200,0 Z" fill="white"/>
-      <text x="150" y="150" font-family="Arial" font-size="70" fill="white">{{COMPANY_NAME}}</text>
-      <text x="900" y="300" font-family="Arial" font-size="40" fill="#002651">{{PRODUCT_TITLE}}</text>
-      <text x="900" y="400" font-family="Arial" font-size="30" fill="#002651">{{PRODUCT_DESCRIPTION}}</text>
-      <text x="300" y="500" font-family="Arial" font-size="25" fill="white">SKU: {{PRODUCT_SKU}}</text>
-      <text x="900" y="700" font-family="Arial" font-size="40" fill="#FFB900">{{PRODUCT_PRICE}}</text>
-    </svg>`
+    content: '<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="1200" fill="#001428"/><path d="M600,0 C800,50 900,200 900,400 C900,600 800,800 900,1000 C1000,1200 1200,1200 1200,1200 L1200,0 Z" fill="white"/><text x="150" y="150" font-family="Arial" font-size="70" fill="white">{{COMPANY_NAME}}</text><text x="900" y="300" font-family="Arial" font-size="40" fill="#002651">{{PRODUCT_TITLE}}</text><text x="900" y="400" font-family="Arial" font-size="30" fill="#002651">{{PRODUCT_DESCRIPTION}}</text><text x="300" y="500" font-family="Arial" font-size="25" fill="white">SKU: {{PRODUCT_SKU}}</text><text x="900" y="700" font-family="Arial" font-size="40" fill="#FFB900">{{PRODUCT_PRICE}}</text></svg>'
   },
-  {
+  'gradient-seasonal': {
     id: 'gradient-seasonal',
     name: 'Gradient Seasonal',
-    file: 'gradient-seasonal.svg',
-    content: `<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1200" height="1200" fill="#001428"/>
-      <path d="M0,400 C200,350 400,450 600,400 C800,350 1000,450 1200,400 L1200,1200 L0,1200 Z" fill="#001428" opacity="0.6"/>
-      <text x="150" y="150" font-family="Arial" font-size="70" fill="white">{{COMPANY_NAME}}</text>
-      <text x="600" y="350" font-family="Arial" font-size="40" fill="white" text-anchor="middle">{{PRODUCT_TITLE}}</text>
-      <text x="600" y="450" font-family="Arial" font-size="30" fill="#FFB900" text-anchor="middle">{{PRODUCT_DESCRIPTION}}</text>
-      <text x="600" y="700" font-family="Arial" font-size="25" fill="#FFB900" text-anchor="middle">SKU: {{PRODUCT_SKU}}</text>
-      <text x="600" y="800" font-family="Arial" font-size="40" fill="white" text-anchor="middle">{{PRODUCT_PRICE}}</text>
-    </svg>`
+    content: '<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="1200" fill="#001428"/><path d="M0,400 C200,350 400,450 600,400 C800,350 1000,450 1200,400 L1200,1200 L0,1200 Z" fill="#001428" opacity="0.6"/><text x="150" y="150" font-family="Arial" font-size="70" fill="white">{{COMPANY_NAME}}</text><text x="600" y="350" font-family="Arial" font-size="40" fill="white" text-anchor="middle">{{PRODUCT_TITLE}}</text><text x="600" y="450" font-family="Arial" font-size="30" fill="#FFB900" text-anchor="middle">{{PRODUCT_DESCRIPTION}}</text><text x="600" y="700" font-family="Arial" font-size="25" fill="#FFB900" text-anchor="middle">SKU: {{PRODUCT_SKU}}</text><text x="600" y="800" font-family="Arial" font-size="40" fill="white" text-anchor="middle">{{PRODUCT_PRICE}}</text></svg>'
   },
-  {
+  'tech-enhanced': {
     id: 'tech-enhanced',
     name: 'Tech Enhanced',
-    file: 'tech-enhanced.svg',
-    content: `<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1000" height="1000" fill="#001428"/>
-      <polygon points="0,250 1000,400 1000,1000 0,1000" fill="#002651" opacity="0.6"/>
-      <text x="150" y="150" font-family="Arial" font-size="70" fill="white">{{COMPANY_NAME}}</text>
-      <text x="500" y="330" font-family="Arial" font-size="40" fill="#FFB900" text-anchor="middle">{{PRODUCT_TITLE}}</text>
-      <text x="500" y="500" font-family="Arial" font-size="30" fill="white" text-anchor="middle">{{PRODUCT_DESCRIPTION}}</text>
-      <text x="500" y="600" font-family="Arial" font-size="25" fill="white" text-anchor="middle">SKU: {{PRODUCT_SKU}}</text>
-      <text x="500" y="730" font-family="Arial" font-size="40" fill="#FFB900" text-anchor="middle">{{PRODUCT_PRICE}}</text>
-    </svg>`
+    content: '<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><rect width="1000" height="1000" fill="#001428"/><polygon points="0,250 1000,400 1000,1000 0,1000" fill="#002651" opacity="0.6"/><text x="150" y="150" font-family="Arial" font-size="70" fill="white">{{COMPANY_NAME}}</text><text x="500" y="330" font-family="Arial" font-size="40" fill="#FFB900" text-anchor="middle">{{PRODUCT_TITLE}}</text><text x="500" y="500" font-family="Arial" font-size="30" fill="white" text-anchor="middle">{{PRODUCT_DESCRIPTION}}</text><text x="500" y="600" font-family="Arial" font-size="25" fill="white" text-anchor="middle">SKU: {{PRODUCT_SKU}}</text><text x="500" y="730" font-family="Arial" font-size="40" fill="#FFB900" text-anchor="middle">{{PRODUCT_PRICE}}</text></svg>'
   }
-];
+};
 
+// Simple serverless handler
 module.exports = (req, res) => {
-  // Set proper headers
+  // Basic CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Content-Type', 'application/json');
   
-  // Handle OPTIONS request for CORS preflight
+  // Handle OPTIONS request
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
   
-  // Get the template ID from the URL
-  const { id } = req.query;
-  console.log('Template ID requested:', id);
+  // Force content type to JSON
+  res.setHeader('Content-Type', 'application/json');
   
-  // Find the requested template
-  const template = templates.find(t => t.id === id);
+  // Log request details
+  console.log('Request for template:', req.query.id);
   
+  // Get template ID
+  const id = req.query.id;
+  const template = templates[id];
+  
+  // Return 404 if template not found
   if (!template) {
-    console.log('Template not found:', id);
+    console.log('Template not found for ID:', id);
     return res.status(404).json({
       success: false,
       error: 'Template not found'
     });
   }
   
-  // Return properly formatted JSON
+  // Return the template data
+  console.log('Returning template:', id);
   return res.status(200).json({
     success: true,
     data: template
