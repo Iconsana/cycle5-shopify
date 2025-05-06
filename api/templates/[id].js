@@ -1,7 +1,4 @@
-// Simple serverless function that returns template data as plain text instead of JSON
-// This avoids JSON parsing issues
-
-// Import the templates data (simplified for demonstration)
+// Return template data as JSON with proper content-type headers
 const templates = [
   {
     id: 'battery-style',
@@ -62,34 +59,36 @@ const templates = [
   }
 ];
 
-// Simple serverless function handler
 module.exports = (req, res) => {
-  // Add CORS headers
+  // Set proper headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Content-Type', 'application/json');
   
-  // Handle OPTIONS request for CORS
+  // Handle OPTIONS request for CORS preflight
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
   
   // Get the template ID from the URL
   const { id } = req.query;
+  console.log('Template ID requested:', id);
   
   // Find the requested template
   const template = templates.find(t => t.id === id);
   
   if (!template) {
-    // Set proper content type for JSON
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(404).json({ 
-      success: false, 
-      error: 'Template not found' 
+    console.log('Template not found:', id);
+    return res.status(404).json({
+      success: false,
+      error: 'Template not found'
     });
   }
   
-  // Return SVG content directly with SVG content type
-  res.setHeader('Content-Type', 'image/svg+xml');
-  return res.status(200).send(template.content);
+  // Return properly formatted JSON
+  return res.status(200).json({
+    success: true,
+    data: template
+  });
 };
