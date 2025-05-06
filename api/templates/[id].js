@@ -70,7 +70,7 @@ module.exports = (req, res) => {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS');
   res.setHeader(
     'Access-Control-Allow-Headers',
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
@@ -81,6 +81,12 @@ module.exports = (req, res) => {
     return res.status(200).end();
   }
   
+  // Add content type header for clarity
+  res.setHeader('Content-Type', 'application/json');
+  
+  // Log the incoming request for debugging
+  console.log('Template request for ID:', req.query.id);
+  
   // Get the template ID from the URL
   const { id } = req.query;
   
@@ -89,11 +95,15 @@ module.exports = (req, res) => {
   
   // If template not found, return 404
   if (!template) {
+    console.log('Template not found:', id);
     return res.status(404).json({
       success: false,
       error: 'Template not found'
     });
   }
+  
+  // Log success
+  console.log('Returning template:', template.id);
   
   // Return the template data
   return res.status(200).json({
