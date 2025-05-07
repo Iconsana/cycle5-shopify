@@ -37,16 +37,12 @@ module.exports = (req, res) => {
   // Force content type to JSON
   res.setHeader('Content-Type', 'application/json');
   
-  // Log request details
-  console.log('Request for template:', req.query.id);
-  
   // Get template ID
   const id = req.query.id;
   const template = templates[id];
   
   // Return 404 if template not found
   if (!template) {
-    console.log('Template not found for ID:', id);
     return res.status(404).json({
       success: false,
       error: 'Template not found'
@@ -54,7 +50,6 @@ module.exports = (req, res) => {
   }
   
   // Return the template data
-  console.log('Returning template:', id);
   return res.status(200).json({
     success: true,
     data: template
