@@ -1,15 +1,11 @@
 // This is a serverless API handler for Vercel
 const express = require('express');
 const cors = require('cors');
-const templatesRouter = require('./templates');
 
 // Create Express app
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-// Use the templates router for /api/templates
-app.use('/api/templates', templatesRouter);
 
 // Products endpoint (basic implementation)
 app.post('/api/products/extract-colors', (req, res) => {
