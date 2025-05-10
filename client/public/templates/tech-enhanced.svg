@@ -162,7 +162,8 @@
               fill="url(#innerFrameGradient)"/>
       
       <!-- Product image -->
-      <image x="-160" y="-130" width="320" height="280" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
+<!-- In your SVG templates -->
+<image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
       
       <!-- Tech corner accents with glowing effect -->
       <linearGradient id="cornerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
