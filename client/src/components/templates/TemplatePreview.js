@@ -16,6 +16,9 @@ const TemplatePreview = ({ template, productData, companyData }) => {
   if (productData?.sku) params.append('sku', productData.sku);
   if (productData?.description) params.append('description', productData.description);
   
+  // Include the product image URL if available
+  if (productData?.image) params.append('imageUrl', productData.image);
+  
   // Add company data
   if (companyData?.name) params.append('company', companyData.name);
   if (companyData?.phone) params.append('phone', companyData.phone);
