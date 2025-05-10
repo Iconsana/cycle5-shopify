@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd client && npm install --legacy-peer-deps && npm run build",
+  "buildCommand": "cd client && CI=false npm install --legacy-peer-deps && npm run build",
   "outputDirectory": "client/build",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
