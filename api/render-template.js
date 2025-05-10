@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Missing templateId parameter' });
     }
     
-    // Get all parameters from query string
+    // Get parameters from query
     const {
       title,
       price,
@@ -16,7 +16,8 @@ module.exports = async (req, res) => {
       company,
       phone,
       email,
-      website
+      website,
+      imageUrl
     } = req.query;
     
     // Read template SVG
@@ -44,6 +45,33 @@ module.exports = async (req, res) => {
     if (phone) svgContent = svgContent.replace(/{{PHONE_NUMBER}}/g, phone);
     if (email) svgContent = svgContent.replace(/{{EMAIL}}/g, email);
     if (website) svgContent = svgContent.replace(/{{WEBSITE}}/g, website);
+    
+    // Handle image embedding - use a placeholder if no image is provided
+    if (imageUrl) {
+      // If it's already a data URI, use it directly
+      if (imageUrl.startsWith('data:')) {
+        svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, imageUrl);
+      } else {
+        // For image URLs, try to fetch and convert to data URI
+        try {
+          const fetch = require('node-fetch');
+          const response = await fetch(imageUrl);
+          const arrayBuffer = await response.arrayBuffer();
+          const buffer = Buffer.from(arrayBuffer);
+          const base64Image = buffer.toString('base64');
+          const mimeType = response.headers.get('content-type') || 'image/jpeg';
+          const dataUri = `data:${mimeType};base64,${base64Image}`;
+          svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, dataUri);
+        } catch (error) {
+          console.error('Error fetching image:', error);
+          // Use a transparent placeholder
+          svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+        }
+      }
+    } else {
+      // Use a transparent placeholder if no image
+      svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+    }
     
     // Replace any remaining placeholders with empty strings
     svgContent = svgContent.replace(/{{[^}]+}}/g, '');
