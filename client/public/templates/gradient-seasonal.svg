@@ -172,8 +172,8 @@
     <rect x="-200" y="-150" width="400" height="300" rx="5" fill="white" filter="url(#shadow)"/>
     
     <!-- Product image -->
-    <image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
-  </g>
+<!-- In your SVG templates -->
+<image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>  </g>
   
   <!-- Product specs - right side -->
   <g id="product-specs" transform="translate(850, 580)">
