@@ -1,111 +1,44 @@
 // client/src/components/templates/TemplatePreview.js
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 const TemplatePreview = ({ template, productData, companyData }) => {
-  const [processedSvg, setProcessedSvg] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  
-  useEffect(() => {
-    // Reset states when template changes
-    if (!template) {
-      setProcessedSvg('');
-      setError(null);
-      return;
-    }
-    
-    const fetchTemplate = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        // If we already have content, use it directly
-        if (template.content) {
-          processAndSetSvg(template.content);
-          return;
-        }
-        
-        // Create image URL for preview instead of fetching JSON
-        const imgUrl = `/api/templates/${template.id}`;
-        setProcessedSvg(`<img src="${imgUrl}" alt="Template Preview" style="max-width: 100%;" />`);
-      } catch (err) {
-        console.error('Error fetching template:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    // Helper function to process SVG content
-    const processAndSetSvg = (svgContent) => {
-      let processed = svgContent;
-      
-      // Replace product data placeholders
-      if (productData) {
-        if (productData.title) {
-          processed = processed.replace(/{{PRODUCT_TITLE}}/g, productData.title);
-        }
-        if (productData.price) {
-          processed = processed.replace(/{{PRODUCT_PRICE}}/g, productData.price);
-        }
-        if (productData.sku) {
-          processed = processed.replace(/{{PRODUCT_SKU}}/g, productData.sku);
-        }
-        if (productData.description) {
-          processed = processed.replace(/{{PRODUCT_DESCRIPTION}}/g, productData.description);
-        }
-        if (productData.image) {
-          processed = processed.replace(/{{PRODUCT_IMAGE}}/g, productData.image);
-        }
-      }
-      
-      // Replace company data placeholders
-      if (companyData) {
-        if (companyData.name) {
-          processed = processed.replace(/{{COMPANY_NAME}}/g, companyData.name);
-        }
-        if (companyData.phone) {
-          processed = processed.replace(/{{PHONE_NUMBER}}/g, companyData.phone);
-        }
-        if (companyData.email) {
-          processed = processed.replace(/{{EMAIL}}/g, companyData.email);
-        }
-        if (companyData.website) {
-          processed = processed.replace(/{{WEBSITE}}/g, companyData.website);
-        }
-      }
-      
-      // Replace any remaining placeholders with empty strings
-      processed = processed.replace(/{{[^}]+}}/g, '');
-      
-      setProcessedSvg(processed);
-      setLoading(false);
-    };
-    
-    fetchTemplate();
-  }, [template, productData, companyData]);
-  
   if (!template) {
     return <div className="no-template">Please select a template</div>;
   }
+
+  // Construct query params for preview
+  const params = new URLSearchParams();
+  params.append('templateId', template.id);
   
-  if (loading) {
-    return <div className="loading-template">Loading template...</div>;
-  }
+  // Add product data parameters
+  if (productData?.title) params.append('title', productData.title);
+  if (productData?.price) params.append('price', productData.price);
+  if (productData?.sku) params.append('sku', productData.sku);
+  if (productData?.description) params.append('description', productData.description);
   
-  if (error) {
-    return <div className="error-template">Error: {error}</div>;
-  }
+  // Add company data parameters
+  if (companyData?.name) params.append('company', companyData.name);
+  if (companyData?.phone) params.append('phone', companyData.phone);
+  if (companyData?.email) params.append('email', companyData.email);
+  if (companyData?.website) params.append('website', companyData.website);
   
+  // Add cache-busting param
+  params.append('t', Date.now());
+  
+  // Construct preview URL
+  const previewUrl = `/api/preview?${params.toString()}`;
+
   return (
     <div className="template-preview-container">
-      <div 
-        className="template-preview-content"
-        dangerouslySetInnerHTML={{ __html: processedSvg }}
-      />
+      <div className="template-preview-content">
+        <img 
+          src={previewUrl} 
+          alt="Template Preview" 
+          style={{ maxWidth: '100%', height: 'auto' }} 
+        />
+      </div>
     </div>
   );
 };
 
-// THIS LINE WAS MISSING FROM OUR PREVIOUS UPDATE:
 export default TemplatePreview;
