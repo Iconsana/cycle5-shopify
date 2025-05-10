@@ -1,4 +1,4 @@
-// client/src/components/export/ExportOptions.js
+// client/src/components/export/ExportOptions.js  
 import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 
@@ -16,18 +16,44 @@ const ExportOptions = ({ template, productData, companyData }) => {
       setExporting(true);
       setError(null);
       
-      // Use the new export endpoint
+      // First, prepare the image if it exists
+      let processedImage = null;
+      if (productData?.image) {
+        try {
+          // If it's a blob URL or remote URL, fetch and convert to base64
+          const imageResponse = await fetch(productData.image);
+          const blob = await imageResponse.blob();
+          
+          // Convert blob to base64
+          const reader = new FileReader();
+          processedImage = await new Promise((resolve) => {
+            reader.onloadend = () => resolve(reader.result);
+            reader.readAsDataURL(blob);
+          });
+        } catch (err) {
+          console.error('Error processing image:', err);
+          // Continue without the image if there's an error
+        }
+      }
+      
+      // Use the processed image or the original
+      const dataToSend = {
+        templateId: template.id,
+        format,
+        productData: {
+          ...productData,
+          image: processedImage || productData?.image
+        },
+        companyData
+      };
+      
+      // Use the export endpoint
       const response = await fetch('/api/export-template', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          templateId: template.id,
-          format,
-          productData,
-          companyData
-        }),
+        body: JSON.stringify(dataToSend),
       });
       
       if (!response.ok) {
