@@ -159,8 +159,8 @@
     <rect x="-250" y="-250" width="500" height="300" rx="5" fill="#f5f5f5" filter="url(#shadow)"/>
     
     <!-- Product image -->
-    <image x="-230" y="-230" width="460" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
-  </g>
+<!-- In your SVG templates -->
+<image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>  </g>
   
   <!-- Price section with angular styling -->
   <g id="price-section" transform="translate(200, 950)">
