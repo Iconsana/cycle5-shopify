@@ -163,11 +163,11 @@
     </filter>
     
     <!-- Product image container with shadow -->
-    <rect x="-150" y="-200" width="300" height="400" rx="5" fill="#333333" stroke="silver" stroke-width="3" filter="url(#shadow)"/>
-    
+<!-- In your SVG templates -->
+<image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>    
     <!-- Product image -->
-    <image x="-140" y="-190" width="280" height="380" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
-    
+<!-- In your SVG templates -->
+<image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>    
     <!-- SKU label -->
     <g transform="translate(-100, -120) rotate(-45)">
       <rect x="-60" y="-15" width="120" height="30" fill="#ff0000"/>
