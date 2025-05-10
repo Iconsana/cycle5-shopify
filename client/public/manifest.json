@@ -1,7 +1,7 @@
 // client/public/manifest.json
 {
-  "short_name": "B SHOCKED Templates",
-  "name": "B SHOCKED Marketing Template Generator",
+  "short_name": "B SHOCKED",
+  "name": "B SHOCKED Template Generator",
   "icons": [
     {
       "src": "favicon.ico",
