@@ -46,6 +46,14 @@ module.exports = async (req, res) => {
       if (productData.description) {
         svgContent = svgContent.replace(/{{PRODUCT_DESCRIPTION}}/g, productData.description);
       }
+      
+      // Handle image embedding
+      if (productData.image) {
+        svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, productData.image);
+      } else {
+        // Use a transparent placeholder
+        svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+      }
     }
     
     if (companyData) {
@@ -68,8 +76,7 @@ module.exports = async (req, res) => {
     
     // If format is PNG, convert SVG to PNG
     if (format === 'png') {
-      // For Vercel serverless functions, we'll use an external library like sharp
-      // You'll need to install sharp: npm install sharp
+      // For Vercel serverless functions, we can use an external library like sharp
       try {
         const sharp = require('sharp');
         const pngBuffer = await sharp(Buffer.from(svgContent))
@@ -81,7 +88,10 @@ module.exports = async (req, res) => {
         return res.status(200).send(pngBuffer);
       } catch (sharpError) {
         console.error('Error converting to PNG:', sharpError);
-        return res.status(500).json({ error: 'Error converting to PNG' });
+        // Fall back to SVG if PNG conversion fails
+        res.setHeader('Content-Type', 'image/svg+xml');
+        res.setHeader('Content-Disposition', `attachment; filename="${templateId}.svg"`);
+        return res.status(200).send(svgContent);
       }
     }
     
