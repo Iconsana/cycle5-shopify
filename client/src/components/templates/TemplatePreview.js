@@ -6,27 +6,27 @@ const TemplatePreview = ({ template, productData, companyData }) => {
     return <div className="no-template">Please select a template</div>;
   }
 
-  // Construct query params for preview
+  // Construct query params for the render-template endpoint
   const params = new URLSearchParams();
   params.append('templateId', template.id);
   
-  // Add product data parameters
+  // Add product data
   if (productData?.title) params.append('title', productData.title);
   if (productData?.price) params.append('price', productData.price);
   if (productData?.sku) params.append('sku', productData.sku);
   if (productData?.description) params.append('description', productData.description);
   
-  // Add company data parameters
+  // Add company data
   if (companyData?.name) params.append('company', companyData.name);
   if (companyData?.phone) params.append('phone', companyData.phone);
   if (companyData?.email) params.append('email', companyData.email);
   if (companyData?.website) params.append('website', companyData.website);
   
-  // Add cache-busting param
+  // Add cache-busting parameter
   params.append('t', Date.now());
   
-  // Construct preview URL
-  const previewUrl = `/api/preview?${params.toString()}`;
+  // Construct the preview URL
+  const previewUrl = `/api/render-template?${params.toString()}`;
 
   return (
     <div className="template-preview-container">
