@@ -16,7 +16,7 @@ const TemplatePreview = ({ template, productData, companyData }) => {
     
     const fetchTemplate = async () => {
       try {
-        setLoading(true); // Actually use setLoading here
+        setLoading(true);
         setError(null);
         
         // If we already have content, use it directly
@@ -32,7 +32,7 @@ const TemplatePreview = ({ template, productData, companyData }) => {
         console.error('Error fetching template:', err);
         setError(err.message);
       } finally {
-        setLoading(false); // And here as well
+        setLoading(false);
       }
     };
     
@@ -40,7 +40,43 @@ const TemplatePreview = ({ template, productData, companyData }) => {
     const processAndSetSvg = (svgContent) => {
       let processed = svgContent;
       
-      // Process placeholders as before...
+      // Replace product data placeholders
+      if (productData) {
+        if (productData.title) {
+          processed = processed.replace(/{{PRODUCT_TITLE}}/g, productData.title);
+        }
+        if (productData.price) {
+          processed = processed.replace(/{{PRODUCT_PRICE}}/g, productData.price);
+        }
+        if (productData.sku) {
+          processed = processed.replace(/{{PRODUCT_SKU}}/g, productData.sku);
+        }
+        if (productData.description) {
+          processed = processed.replace(/{{PRODUCT_DESCRIPTION}}/g, productData.description);
+        }
+        if (productData.image) {
+          processed = processed.replace(/{{PRODUCT_IMAGE}}/g, productData.image);
+        }
+      }
+      
+      // Replace company data placeholders
+      if (companyData) {
+        if (companyData.name) {
+          processed = processed.replace(/{{COMPANY_NAME}}/g, companyData.name);
+        }
+        if (companyData.phone) {
+          processed = processed.replace(/{{PHONE_NUMBER}}/g, companyData.phone);
+        }
+        if (companyData.email) {
+          processed = processed.replace(/{{EMAIL}}/g, companyData.email);
+        }
+        if (companyData.website) {
+          processed = processed.replace(/{{WEBSITE}}/g, companyData.website);
+        }
+      }
+      
+      // Replace any remaining placeholders with empty strings
+      processed = processed.replace(/{{[^}]+}}/g, '');
       
       setProcessedSvg(processed);
       setLoading(false);
@@ -49,5 +85,27 @@ const TemplatePreview = ({ template, productData, companyData }) => {
     fetchTemplate();
   }, [template, productData, companyData]);
   
-  // Rest of component as before...
-}
+  if (!template) {
+    return <div className="no-template">Please select a template</div>;
+  }
+  
+  if (loading) {
+    return <div className="loading-template">Loading template...</div>;
+  }
+  
+  if (error) {
+    return <div className="error-template">Error: {error}</div>;
+  }
+  
+  return (
+    <div className="template-preview-container">
+      <div 
+        className="template-preview-content"
+        dangerouslySetInnerHTML={{ __html: processedSvg }}
+      />
+    </div>
+  );
+};
+
+// THIS LINE WAS MISSING FROM OUR PREVIOUS UPDATE:
+export default TemplatePreview;
