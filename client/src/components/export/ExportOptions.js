@@ -1,6 +1,6 @@
+// client/src/components/export/ExportOptions.js
 import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
-import { generateImage } from '../../services/templateService';
 
 const ExportOptions = ({ template, productData, companyData }) => {
   const [exporting, setExporting] = useState(false);
@@ -16,12 +16,26 @@ const ExportOptions = ({ template, productData, companyData }) => {
       setExporting(true);
       setError(null);
       
-      const blob = await generateImage(
-        template.id,
-        productData,
-        companyData,
-        format
-      );
+      // Use the new export endpoint
+      const response = await fetch('/api/export-template', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          templateId: template.id,
+          format,
+          productData,
+          companyData
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Export failed: ${response.status} ${response.statusText}`);
+      }
+      
+      // Get the file as blob
+      const blob = await response.blob();
       
       // Create a filename
       const filename = `${template.id}-${productData.title || 'untitled'}.${format}`;
