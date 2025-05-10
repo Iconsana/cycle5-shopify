@@ -1,4 +1,4 @@
-// app/api/og/route.tsx (Next.js 13+ App Router)
+// app/api/og/route.tsx (for Next.js 13+ App Router)
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
