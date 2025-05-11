@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Missing templateId parameter' });
     }
     
-    // Get parameters from query
+    // Get parameters from query - include all the new fields for Solar Bulk Deal
     const {
       title,
       price,
@@ -17,7 +17,16 @@ module.exports = async (req, res) => {
       phone,
       email,
       website,
-      imageUrl
+      imageUrl,
+      // New fields for Solar Bulk Deal template
+      promotionTitle,
+      imageTitle,
+      secondaryDescription,
+      bulletPoint1,
+      bulletPoint2,
+      bulletPoint3,
+      bulletPoint4,
+      bulletPoint5
     } = req.query;
     
     // Read template SVG
@@ -36,7 +45,7 @@ module.exports = async (req, res) => {
     // Read SVG content
     let svgContent = fs.readFileSync(svgPath, 'utf8');
     
-    // Replace placeholders with actual values
+    // Replace standard placeholders with actual values
     if (title) svgContent = svgContent.replace(/{{PRODUCT_TITLE}}/g, title);
     if (price) svgContent = svgContent.replace(/{{PRODUCT_PRICE}}/g, price);
     if (sku) svgContent = svgContent.replace(/{{PRODUCT_SKU}}/g, sku);
@@ -45,6 +54,32 @@ module.exports = async (req, res) => {
     if (phone) svgContent = svgContent.replace(/{{PHONE_NUMBER}}/g, phone);
     if (email) svgContent = svgContent.replace(/{{EMAIL}}/g, email);
     if (website) svgContent = svgContent.replace(/{{WEBSITE}}/g, website);
+    
+    // Handle Solar Bulk Deal specific placeholders
+    if (promotionTitle) {
+      svgContent = svgContent.replace(/{{PROMOTION_TITLE}}/g, promotionTitle);
+    } else {
+      svgContent = svgContent.replace(/{{PROMOTION_TITLE}}/g, 'SOLAR BULK DEAL');
+    }
+    
+    if (imageTitle) {
+      svgContent = svgContent.replace(/{{IMAGE_TITLE}}/g, imageTitle);
+    } else {
+      svgContent = svgContent.replace(/{{IMAGE_TITLE}}/g, '');
+    }
+    
+    if (secondaryDescription) {
+      svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, secondaryDescription);
+    } else {
+      svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, 'Bulk Deal');
+    }
+    
+    // Handle bullet points
+    if (bulletPoint1) svgContent = svgContent.replace(/{{BULLET_POINT_1}}/g, bulletPoint1);
+    if (bulletPoint2) svgContent = svgContent.replace(/{{BULLET_POINT_2}}/g, bulletPoint2);
+    if (bulletPoint3) svgContent = svgContent.replace(/{{BULLET_POINT_3}}/g, bulletPoint3);
+    if (bulletPoint4) svgContent = svgContent.replace(/{{BULLET_POINT_4}}/g, bulletPoint4);
+    if (bulletPoint5) svgContent = svgContent.replace(/{{BULLET_POINT_5}}/g, bulletPoint5);
     
     // Handle image embedding - use a placeholder if no image is provided
     if (imageUrl) {
@@ -74,7 +109,9 @@ module.exports = async (req, res) => {
     }
     
     // Replace any remaining placeholders with empty strings
-    svgContent = svgContent.replace(/{{[^}]+}}/g, '');
+    // This handles any bullet points that weren't provided
+    svgContent = svgContent.replace(/{{BULLET_POINT_\d+}}/g, ''); // Clear any remaining bullet points
+    svgContent = svgContent.replace(/{{[^}]+}}/g, ''); // Clear any other remaining placeholders
     
     // Set SVG content type header
     res.setHeader('Content-Type', 'image/svg+xml');
