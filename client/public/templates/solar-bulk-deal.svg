@@ -47,8 +47,7 @@
       <rect x="90" y="430" width="420" height="300" fill="#FFFFFF" stroke="#FFB900" stroke-width="2" rx="10"/>
       
       <!-- Image placeholder that can be replaced - using a transparent placeholder initially -->
-      <image x="100" y="440" width="400" height="280" xlink:href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" id="product-image" preserveAspectRatio="xMidYMid meet"/>
-    </g>
+<image x="100" y="440" width="400" height="280" href="{{PRODUCT_IMAGE}}" id="product-image" preserveAspectRatio="xMidYMid meet"/>    </g>
     
     <!-- Right column - Specifications -->
     <g id="specs-container">
