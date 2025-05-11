@@ -46,8 +46,9 @@
       <!-- Product Image Rectangle -->
       <rect x="90" y="430" width="420" height="300" fill="#FFFFFF" stroke="#FFB900" stroke-width="2" rx="10"/>
       
-      <!-- Image placeholder that can be replaced - using a transparent placeholder initially -->
-<image x="100" y="440" width="400" height="280" href="{{PRODUCT_IMAGE}}" id="product-image" preserveAspectRatio="xMidYMid meet"/>    </g>
+      <!-- Image placeholder that can be replaced - now with the proper placeholder -->
+      <image x="100" y="440" width="400" height="280" href="{{PRODUCT_IMAGE}}" xlink:href="{{PRODUCT_IMAGE}}" id="product-image" preserveAspectRatio="xMidYMid meet"/>
+    </g>
     
     <!-- Right column - Specifications -->
     <g id="specs-container">
@@ -60,33 +61,29 @@
       <!-- Main Product Title -->
       <text x="870" y="520" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white" text-anchor="middle">{{PRODUCT_TITLE}}</text>
       
-      <!-- Product Description (large yellow text) -->
-      <text x="870" y="590" font-family="Arial, sans-serif" font-size="70" font-weight="bold" fill="#FFB900" text-anchor="middle">{{PRODUCT_DESCRIPTION}}</text>
+      <!-- REMOVED: Product Description and Secondary Description -->
       
-      <!-- Secondary Description -->
-      <text x="870" y="660" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
-      
-      <!-- Bullet Points Section - EDITABLE -->
-      <g transform="translate(630, 690)">
+      <!-- Bullet Points Section - Moved up and larger font size -->
+      <g transform="translate(630, 560)">
         <!-- Bullet Point 1 -->
-        <circle cx="10" cy="-5" r="5" fill="#FFB900"/>
-        <text x="25" y="0" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_1}}</text>
+        <circle cx="10" cy="0" r="7" fill="#FFB900"/>
+        <text x="30" y="8" font-family="Arial, sans-serif" font-size="24" fill="white">{{BULLET_POINT_1}}</text>
         
         <!-- Bullet Point 2 -->
-        <circle cx="10" cy="25" r="5" fill="#FFB900"/>
-        <text x="25" y="30" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_2}}</text>
+        <circle cx="10" cy="45" r="7" fill="#FFB900"/>
+        <text x="30" y="53" font-family="Arial, sans-serif" font-size="24" fill="white">{{BULLET_POINT_2}}</text>
         
         <!-- Bullet Point 3 -->
-        <circle cx="10" cy="55" r="5" fill="#FFB900"/>
-        <text x="25" y="60" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_3}}</text>
+        <circle cx="10" cy="90" r="7" fill="#FFB900"/>
+        <text x="30" y="98" font-family="Arial, sans-serif" font-size="24" fill="white">{{BULLET_POINT_3}}</text>
         
         <!-- Bullet Point 4 -->
-        <circle cx="10" cy="85" r="5" fill="#FFB900"/>
-        <text x="25" y="90" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_4}}</text>
+        <circle cx="10" cy="135" r="7" fill="#FFB900"/>
+        <text x="30" y="143" font-family="Arial, sans-serif" font-size="24" fill="white">{{BULLET_POINT_4}}</text>
         
         <!-- Bullet Point 5 -->
-        <circle cx="10" cy="115" r="5" fill="#FFB900"/>
-        <text x="25" y="120" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_5}}</text>
+        <circle cx="10" cy="180" r="7" fill="#FFB900"/>
+        <text x="30" y="188" font-family="Arial, sans-serif" font-size="24" fill="white">{{BULLET_POINT_5}}</text>
       </g>
     </g>
   </g>
