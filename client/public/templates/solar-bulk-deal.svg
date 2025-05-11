@@ -1,6 +1,4 @@
-// Updated solar-bulk-deal.svg template
-
-<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <!-- Background -->
   <rect width="1200" height="1200" fill="#002651"/>
   
@@ -45,9 +43,11 @@
       <rect x="40" y="380" width="520" height="400" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
       <!-- EDITABLE TEXT ABOVE IMAGE -->
       <text x="300" y="420" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">{{IMAGE_TITLE}}</text>
-      <!-- Product Image -->
+      <!-- Product Image Rectangle -->
       <rect x="90" y="430" width="420" height="300" fill="#FFFFFF" stroke="#FFB900" stroke-width="2" rx="10"/>
-      <image x="100" y="440" width="400" height="280" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
+      
+      <!-- Image placeholder that can be replaced - using a transparent placeholder initially -->
+      <image x="100" y="440" width="400" height="280" xlink:href="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" id="product-image" preserveAspectRatio="xMidYMid meet"/>
     </g>
     
     <!-- Right column - Specifications -->
