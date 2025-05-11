@@ -55,7 +55,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           type="text"
           id="title"
           name="title"
-          value={productData.title}
+          value={productData.title || ''}
           onChange={handleChange}
           placeholder="Enter product title"
         />
@@ -67,7 +67,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           type="text"
           id="price"
           name="price"
-          value={productData.price}
+          value={productData.price || ''}
           onChange={handleChange}
           placeholder="R0.00"
         />
@@ -79,7 +79,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           type="text"
           id="sku"
           name="sku"
-          value={productData.sku}
+          value={productData.sku || ''}
           onChange={handleChange}
           placeholder="Enter product SKU"
         />
@@ -90,11 +90,65 @@ const ProductForm = ({ productData, onProductChange }) => {
         <textarea
           id="description"
           name="description"
-          value={productData.description}
+          value={productData.description || ''}
           onChange={handleChange}
           placeholder="Enter product description"
           rows={4}
         />
+      </div>
+      
+      {/* New fields for Solar Bulk Deal template */}
+      <div className="form-group">
+        <label htmlFor="promotionTitle">Promotion Title</label>
+        <input
+          type="text"
+          id="promotionTitle"
+          name="promotionTitle"
+          value={productData.promotionTitle || ''}
+          onChange={handleChange}
+          placeholder="SOLAR BULK DEAL"
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="imageTitle">Image Title</label>
+        <input
+          type="text"
+          id="imageTitle"
+          name="imageTitle"
+          value={productData.imageTitle || ''}
+          onChange={handleChange}
+          placeholder="5 Dyness BX 51100 Units"
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="secondaryDescription">Secondary Description</label>
+        <input
+          type="text"
+          id="secondaryDescription"
+          name="secondaryDescription"
+          value={productData.secondaryDescription || ''}
+          onChange={handleChange}
+          placeholder="Bulk Deal"
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Bullet Points</label>
+        {[1, 2, 3, 4, 5].map(index => (
+          <input
+            key={`bulletPoint${index}`}
+            type="text"
+            id={`bulletPoint${index}`}
+            name={`bulletPoint${index}`}
+            value={productData[`bulletPoint${index}`] || ''}
+            onChange={handleChange}
+            placeholder={`Bullet point ${index}`}
+            className="mt-2"
+            style={{ marginTop: '8px' }}
+          />
+        ))}
       </div>
       
       <div className="form-group">
