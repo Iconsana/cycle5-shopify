@@ -1,4 +1,4 @@
-// For /api/templates.js
+// api/templates.js
 module.exports = (req, res) => {
   // Set proper headers
   res.setHeader('Content-Type', 'application/json');
@@ -10,12 +10,13 @@ module.exports = (req, res) => {
     return res.status(200).end();
   }
   
-  // Hard-coded templates for now
+  // Update this list to include the new template
   const templates = [
     { id: 'battery-style', name: 'Battery Style' },
     { id: 'circuit-promo', name: 'Circuit Promo' },
     { id: 'gradient-seasonal', name: 'Gradient Seasonal' },
-    { id: 'tech-enhanced', name: 'Tech Enhanced' }
+    { id: 'tech-enhanced', name: 'Tech Enhanced' },
+    { id: 'solar-bulk-deal', name: 'Solar Bulk Deal' } // Add this line
   ];
   
   return res.status(200).json({
