@@ -1,0 +1,150 @@
+// Updated solar-bulk-deal.svg template
+
+<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="1200" fill="#002651"/>
+  
+  <!-- Header Container -->
+  <g id="header-container">
+    <!-- Company Logo Section -->
+    <rect x="40" y="40" width="1120" height="120" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
+    
+    <!-- 5 stars - static -->
+    <g transform="translate(60, 80)">
+      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(30, 0) scale(0.7)"/>
+      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(80, 0) scale(0.7)"/>
+      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(130, 0) scale(0.7)"/>
+      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(180, 0) scale(0.7)"/>
+      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(230, 0) scale(0.7)"/>
+    </g>
+    
+    <!-- Username and rating - static -->
+    <text x="350" y="90" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white">Hellopeter 4.99</text>
+    
+    <!-- Company name -->
+    <text x="680" y="90" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white">{{COMPANY_NAME}}</text>
+    <text x="680" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="normal" fill="white">ELECTRICAL | SOLAR</text>
+  </g>
+  
+  <!-- Title Container - EDITABLE PROMOTIONAL PHASE -->
+  <g id="title-container">
+    <rect x="40" y="180" width="1120" height="100" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
+    <text x="600" y="245" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="white" text-anchor="middle">{{PROMOTION_TITLE}}</text>
+  </g>
+  
+  <!-- SKU Container -->
+  <g id="sku-container">
+    <rect x="40" y="300" width="1120" height="60" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
+    <text x="600" y="340" font-family="Arial, sans-serif" font-size="24" fill="white" text-anchor="middle">SKU: {{PRODUCT_SKU}}</text>
+  </g>
+  
+  <!-- Two-column layout for content -->
+  <g id="content-container">
+    <!-- Left column - Product Image Placeholder -->
+    <g id="image-container">
+      <rect x="40" y="380" width="520" height="400" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
+      <!-- EDITABLE TEXT ABOVE IMAGE -->
+      <text x="300" y="420" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle">{{IMAGE_TITLE}}</text>
+      <!-- Product Image -->
+      <rect x="90" y="430" width="420" height="300" fill="#FFFFFF" stroke="#FFB900" stroke-width="2" rx="10"/>
+      <image x="100" y="440" width="400" height="280" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
+    </g>
+    
+    <!-- Right column - Specifications -->
+    <g id="specs-container">
+      <rect x="580" y="380" width="580" height="400" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
+      
+      <!-- Product Details Section - EDITABLE -->
+      <text x="870" y="450" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white" text-anchor="middle">PRODUCT DETAILS</text>
+      <rect x="630" y="470" width="480" height="2" fill="#FFB900"/>
+      
+      <!-- Main Product Title -->
+      <text x="870" y="520" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white" text-anchor="middle">{{PRODUCT_TITLE}}</text>
+      
+      <!-- Product Description (large yellow text) -->
+      <text x="870" y="590" font-family="Arial, sans-serif" font-size="70" font-weight="bold" fill="#FFB900" text-anchor="middle">{{PRODUCT_DESCRIPTION}}</text>
+      
+      <!-- Secondary Description -->
+      <text x="870" y="660" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
+      
+      <!-- Bullet Points Section - EDITABLE -->
+      <g transform="translate(630, 690)">
+        <!-- Bullet Point 1 -->
+        <circle cx="10" cy="-5" r="5" fill="#FFB900"/>
+        <text x="25" y="0" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_1}}</text>
+        
+        <!-- Bullet Point 2 -->
+        <circle cx="10" cy="25" r="5" fill="#FFB900"/>
+        <text x="25" y="30" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_2}}</text>
+        
+        <!-- Bullet Point 3 -->
+        <circle cx="10" cy="55" r="5" fill="#FFB900"/>
+        <text x="25" y="60" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_3}}</text>
+        
+        <!-- Bullet Point 4 -->
+        <circle cx="10" cy="85" r="5" fill="#FFB900"/>
+        <text x="25" y="90" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_4}}</text>
+        
+        <!-- Bullet Point 5 -->
+        <circle cx="10" cy="115" r="5" fill="#FFB900"/>
+        <text x="25" y="120" font-family="Arial, sans-serif" font-size="16" fill="white">{{BULLET_POINT_5}}</text>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Price Container - EDITABLE -->
+  <g id="price-container">
+    <rect x="40" y="800" width="1120" height="120" fill="#FFB900" stroke="#002651" stroke-width="2" rx="10"/>
+    <text x="600" y="875" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#002651" text-anchor="middle">{{PRODUCT_PRICE}}</text>
+    <text x="600" y="910" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#002651" text-anchor="middle">Incl. VAT</text>
+  </g>
+  
+  <!-- Delivery Container - STATIC -->
+  <g id="delivery-container">
+    <rect x="40" y="940" width="520" height="180" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
+    <text x="300" y="980" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">DELIVERY INFORMATION</text>
+    <rect x="90" y="990" width="420" height="2" fill="#FFB900"/>
+    
+    <g transform="translate(90, 1020)">
+      <circle cx="10" cy="-5" r="8" fill="#FFB900"/>
+      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">Delivery JHB free up to 20 km</text>
+    </g>
+    
+    <g transform="translate(90, 1060)">
+      <circle cx="10" cy="-5" r="8" fill="#FFB900"/>
+      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">Delivery 60-100 km JHB R440 fee</text>
+    </g>
+    
+    <g transform="translate(90, 1100)">
+      <circle cx="10" cy="-5" r="8" fill="#FFB900"/>
+      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">Fee for other regions calculated</text>
+    </g>
+  </g>
+  
+  <!-- Contact Container - STATIC but uses company data -->
+  <g id="contact-container">
+    <rect x="580" y="940" width="580" height="180" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
+    <text x="870" y="980" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">CONTACT INFORMATION</text>
+    <rect x="630" y="990" width="480" height="2" fill="#FFB900"/>
+    
+    <g transform="translate(630, 1020)">
+      <circle cx="15" cy="10" r="10" fill="transparent" stroke="#FFB900" stroke-width="2"/>
+      <text x="40" y="15" font-family="Arial, sans-serif" font-size="20" fill="white">{{PHONE_NUMBER}}</text>
+    </g>
+    
+    <g transform="translate(630, 1060)">
+      <circle cx="15" cy="10" r="10" fill="transparent" stroke="#FFB900" stroke-width="2"/>
+      <text x="40" y="15" font-family="Arial, sans-serif" font-size="20" fill="white">067 923 6196</text>
+    </g>
+    
+    <g transform="translate(850, 1020)">
+      <rect x="0" y="0" width="20" height="15" fill="transparent" stroke="#FFB900" stroke-width="2"/>
+      <text x="30" y="15" font-family="Arial, sans-serif" font-size="18" fill="white">{{EMAIL}}</text>
+    </g>
+    
+    <g transform="translate(850, 1060)">
+      <circle cx="10" cy="10" r="10" fill="transparent" stroke="#FFB900" stroke-width="2"/>
+      <text x="30" y="15" font-family="Arial, sans-serif" font-size="18" fill="white">{{WEBSITE}}</text>
+    </g>
+  </g>
+</svg>
