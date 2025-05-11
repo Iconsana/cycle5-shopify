@@ -34,6 +34,7 @@ module.exports = async (req, res) => {
     
     // Replace placeholders with actual values
     if (productData) {
+      // Basic product data
       if (productData.title) {
         svgContent = svgContent.replace(/{{PRODUCT_TITLE}}/g, productData.title);
       }
@@ -46,6 +47,32 @@ module.exports = async (req, res) => {
       if (productData.description) {
         svgContent = svgContent.replace(/{{PRODUCT_DESCRIPTION}}/g, productData.description);
       }
+      
+      // Solar Bulk Deal specific fields
+      if (productData.promotionTitle) {
+        svgContent = svgContent.replace(/{{PROMOTION_TITLE}}/g, productData.promotionTitle);
+      } else {
+        svgContent = svgContent.replace(/{{PROMOTION_TITLE}}/g, 'SOLAR BULK DEAL');
+      }
+      
+      if (productData.imageTitle) {
+        svgContent = svgContent.replace(/{{IMAGE_TITLE}}/g, productData.imageTitle);
+      } else {
+        svgContent = svgContent.replace(/{{IMAGE_TITLE}}/g, '');
+      }
+      
+      if (productData.secondaryDescription) {
+        svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, productData.secondaryDescription);
+      } else {
+        svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, 'Bulk Deal');
+      }
+      
+      // Bullet points
+      if (productData.bulletPoint1) svgContent = svgContent.replace(/{{BULLET_POINT_1}}/g, productData.bulletPoint1);
+      if (productData.bulletPoint2) svgContent = svgContent.replace(/{{BULLET_POINT_2}}/g, productData.bulletPoint2);
+      if (productData.bulletPoint3) svgContent = svgContent.replace(/{{BULLET_POINT_3}}/g, productData.bulletPoint3);
+      if (productData.bulletPoint4) svgContent = svgContent.replace(/{{BULLET_POINT_4}}/g, productData.bulletPoint4);
+      if (productData.bulletPoint5) svgContent = svgContent.replace(/{{BULLET_POINT_5}}/g, productData.bulletPoint5);
       
       // Handle image embedding
       if (productData.image) {
@@ -72,6 +99,9 @@ module.exports = async (req, res) => {
     }
     
     // Replace any remaining placeholders with empty strings
+    // First, clear any remaining bullet points
+    svgContent = svgContent.replace(/{{BULLET_POINT_\d+}}/g, '');
+    // Then clear any other remaining placeholders
     svgContent = svgContent.replace(/{{[^}]+}}/g, '');
     
     // If format is PNG, convert SVG to PNG
