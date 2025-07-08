@@ -12,12 +12,8 @@ const ProductForm = ({ productData, onProductChange }) => {
     },
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
-      // Handle the uploaded image
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0];
-        
-        // Create preview URL
-        const imageUrl = URL.createObjectURL(file);
         
         // Convert to base64 for SVG embedding
         const reader = new FileReader();
@@ -31,13 +27,17 @@ const ProductForm = ({ productData, onProductChange }) => {
         try {
           const reader2 = new FileReader();
           reader2.onload = async (event) => {
-            const base64 = event.target.result;
-            const colors = await extractColors(base64);
-            setColorPalette(colors.palette);
+            try {
+              const base64 = event.target.result;
+              const colors = await extractColors(base64);
+              setColorPalette(colors.palette || []);
+            } catch (error) {
+              console.error('Error extracting colors:', error);
+            }
           };
           reader2.readAsDataURL(file);
         } catch (error) {
-          console.error('Error extracting colors:', error);
+          console.error('Error processing image:', error);
         }
       }
     }
@@ -48,6 +48,9 @@ const ProductForm = ({ productData, onProductChange }) => {
     const { name, value } = e.target;
     onProductChange({ [name]: value });
   };
+  
+  const inputStyle = { marginTop: '4px' };
+  const sectionStyle = { marginTop: '8px' };
   
   return (
     <div className="product-form">
@@ -65,7 +68,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="Hellopeter 4.67"
         />
         
-        <label htmlFor="brandText" style={{marginTop: '8px'}}>Brand Text</label>
+        <label htmlFor="brandText" style={sectionStyle}>Brand Text</label>
         <input
           type="text"
           id="brandText"
@@ -73,10 +76,10 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.brandText || 'B SHOCKED'}
           onChange={handleChange}
           placeholder="B SHOCKED"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
         
-        <label htmlFor="categoryText" style={{marginTop: '8px'}}>Category Text</label>
+        <label htmlFor="categoryText" style={sectionStyle}>Category Text</label>
         <input
           type="text"
           id="categoryText"
@@ -84,7 +87,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.categoryText || 'ELECTRICAL | SOLAR'}
           onChange={handleChange}
           placeholder="ELECTRICAL | SOLAR"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -102,7 +105,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="SOLAR KIT PACKAGE"
         />
         
-        <label htmlFor="sku" style={{marginTop: '8px'}}>SKU</label>
+        <label htmlFor="sku" style={sectionStyle}>SKU</label>
         <input
           type="text"
           id="sku"
@@ -110,7 +113,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.sku || 'RIIGDEYE-5KW-PACK'}
           onChange={handleChange}
           placeholder="RIIGDEYE-5KW-PACK"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -122,12 +125,16 @@ const ProductForm = ({ productData, onProductChange }) => {
           <p>Drag & drop an image here, or click to select one</p>
           {productData.image && (
             <div className="image-preview">
-              <img src={productData.image} alt="Product preview" style={{maxWidth: '200px', maxHeight: '150px'}} />
+              <img 
+                src={productData.image} 
+                alt="Product preview" 
+                style={{maxWidth: '200px', maxHeight: '150px'}} 
+              />
             </div>
           )}
         </div>
         
-        <label htmlFor="imageTitle" style={{marginTop: '8px'}}>Image Title</label>
+        <label htmlFor="imageTitle" style={sectionStyle}>Image Title</label>
         <input
           type="text"
           id="imageTitle"
@@ -135,10 +142,10 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.imageTitle || '5 Dyness BX 51100 Units'}
           onChange={handleChange}
           placeholder="5 Dyness BX 51100 Units"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
         
-        <label htmlFor="secondaryDescription" style={{marginTop: '8px'}}>Secondary Description</label>
+        <label htmlFor="secondaryDescription" style={sectionStyle}>Secondary Description</label>
         <input
           type="text"
           id="secondaryDescription"
@@ -146,7 +153,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.secondaryDescription || 'Complete Solar Kit'}
           onChange={handleChange}
           placeholder="Complete Solar Kit"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -163,7 +170,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="• 5kW Deye Hybrid Inverter"
         />
         
-        <label htmlFor="powerDetail2" style={{marginTop: '8px'}}>Power Detail 2</label>
+        <label htmlFor="powerDetail2" style={sectionStyle}>Power Detail 2</label>
         <input
           type="text"
           id="powerDetail2"
@@ -171,7 +178,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.powerDetail2 || '• 5.12kWh Dyness Lithium Battery'}
           onChange={handleChange}
           placeholder="• 5.12kWh Dyness Lithium Battery"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -187,7 +194,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="• 8x 565W JA Solar Mono Panels"
         />
         
-        <label htmlFor="panelDetail2" style={{marginTop: '8px'}}>Panel Detail 2</label>
+        <label htmlFor="panelDetail2" style={sectionStyle}>Panel Detail 2</label>
         <input
           type="text"
           id="panelDetail2"
@@ -195,7 +202,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.panelDetail2 || '• 4.52kW Total Panel Capacity'}
           onChange={handleChange}
           placeholder="• 4.52kW Total Panel Capacity"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -211,7 +218,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="• PV Rails, Roof Hooks, Clamps"
         />
         
-        <label htmlFor="mountDetail2" style={{marginTop: '8px'}}>Mount Detail 2</label>
+        <label htmlFor="mountDetail2" style={sectionStyle}>Mount Detail 2</label>
         <input
           type="text"
           id="mountDetail2"
@@ -219,7 +226,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.mountDetail2 || '• Complete Mounting System'}
           onChange={handleChange}
           placeholder="• Complete Mounting System"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -235,7 +242,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="• DC/AC Combiners, Surge Protection"
         />
         
-        <label htmlFor="elecDetail2" style={{marginTop: '8px'}}>Electrical Detail 2</label>
+        <label htmlFor="elecDetail2" style={sectionStyle}>Electrical Detail 2</label>
         <input
           type="text"
           id="elecDetail2"
@@ -243,7 +250,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.elecDetail2 || '• Fuses, Switches, Safety Equipment'}
           onChange={handleChange}
           placeholder="• Fuses, Switches, Safety Equipment"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -260,7 +267,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="• Solar Cables, Battery Cables, MC4"
         />
         
-        <label htmlFor="cableDetail2" style={{marginTop: '8px'}}>Cable Detail 2</label>
+        <label htmlFor="cableDetail2" style={sectionStyle}>Cable Detail 2</label>
         <input
           type="text"
           id="cableDetail2"
@@ -268,7 +275,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.cableDetail2 || '• Conduits, Trunking, Earth Spike'}
           onChange={handleChange}
           placeholder="• Conduits, Trunking, Earth Spike"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -285,7 +292,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="• 25yr Panels, 10yr Inverter & Battery"
         />
         
-        <label htmlFor="warrantyDetail2" style={{marginTop: '8px'}}>Warranty Detail 2</label>
+        <label htmlFor="warrantyDetail2" style={sectionStyle}>Warranty Detail 2</label>
         <input
           type="text"
           id="warrantyDetail2"
@@ -293,7 +300,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.warrantyDetail2 || '• Grid-Tie Hybrid, Professional Install'}
           onChange={handleChange}
           placeholder="• Grid-Tie Hybrid, Professional Install"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -310,7 +317,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="• ~1,800kWh/month Generation"
         />
         
-        <label htmlFor="performanceDetail2" style={{marginTop: '8px'}}>Performance Detail 2</label>
+        <label htmlFor="performanceDetail2" style={sectionStyle}>Performance Detail 2</label>
         <input
           type="text"
           id="performanceDetail2"
@@ -318,7 +325,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.performanceDetail2 || '• 85% Energy Independence'}
           onChange={handleChange}
           placeholder="• 85% Energy Independence"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -335,48 +342,62 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="COMPLETE SOLAR KIT"
         />
         
-        {[1, 2, 3, 4, 5, 6].map(index => (
-          <div key={`descLine${index}`} style={{marginTop: '8px'}}>
-            <label htmlFor={`descriptionLine${index}`}>Description Line {index}</label>
-            <input
-              type="text"
-              id={`descriptionLine${index}`}
-              name={`descriptionLine${index}`}
-              value={productData[`descriptionLine${index}`] || ''}
-              onChange={handleChange}
-              placeholder={index === 1 ? 'Everything you need for a' : 
-                         index === 2 ? 'professional solar installation.' :
-                         index === 3 ? 'Hybrid system with battery' :
-                         index === 4 ? 'backup for load-shedding' :
-                         index === 5 ? 'protection and energy' :
-                         'independence.'}
-              style={{marginTop: '4px'}}
-            />
-          </div>
-        ))}
+        {[1, 2, 3, 4, 5, 6].map(index => {
+          const fieldName = `descriptionLine${index}`;
+          const placeholders = [
+            'Everything you need for a',
+            'professional solar installation.',
+            'Hybrid system with battery',
+            'backup for load-shedding',
+            'protection and energy',
+            'independence.'
+          ];
+          
+          return (
+            <div key={fieldName} style={sectionStyle}>
+              <label htmlFor={fieldName}>Description Line {index}</label>
+              <input
+                type="text"
+                id={fieldName}
+                name={fieldName}
+                value={productData[fieldName] || ''}
+                onChange={handleChange}
+                placeholder={placeholders[index - 1]}
+                style={inputStyle}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {/* Benefits Section */}
       <div className="form-group">
         <h3>System Benefits</h3>
-        {[1, 2, 3, 4, 5].map(index => (
-          <div key={`benefit${index}`} style={{marginTop: index === 1 ? '0' : '8px'}}>
-            <label htmlFor={`benefit${index}`}>Benefit {index}</label>
-            <input
-              type="text"
-              id={`benefit${index}`}
-              name={`benefit${index}`}
-              value={productData[`benefit${index}`] || ''}
-              onChange={handleChange}
-              placeholder={index === 1 ? '✓ Load Shedding Protection' :
-                         index === 2 ? '✓ Reduce Electricity Bills' :
-                         index === 3 ? '✓ Eco-Friendly Power' :
-                         index === 4 ? '✓ Professional Support' :
-                         '✓ Complete Installation Kit'}
-              style={{marginTop: '4px'}}
-            />
-          </div>
-        ))}
+        {[1, 2, 3, 4, 5].map(index => {
+          const fieldName = `benefit${index}`;
+          const placeholders = [
+            '✓ Load Shedding Protection',
+            '✓ Reduce Electricity Bills',
+            '✓ Eco-Friendly Power',
+            '✓ Professional Support',
+            '✓ Complete Installation Kit'
+          ];
+          
+          return (
+            <div key={fieldName} style={index === 1 ? {} : sectionStyle}>
+              <label htmlFor={fieldName}>Benefit {index}</label>
+              <input
+                type="text"
+                id={fieldName}
+                name={fieldName}
+                value={productData[fieldName] || ''}
+                onChange={handleChange}
+                placeholder={placeholders[index - 1]}
+                style={inputStyle}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {/* Price Section */}
@@ -392,7 +413,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="Incl. VAT"
         />
         
-        <label htmlFor="priceAmount" style={{marginTop: '8px'}}>Price Amount</label>
+        <label htmlFor="priceAmount" style={sectionStyle}>Price Amount</label>
         <input
           type="text"
           id="priceAmount"
@@ -400,10 +421,10 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.priceAmount || 'R51,779.35'}
           onChange={handleChange}
           placeholder="R51,779.35"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
         
-        <label htmlFor="priceNote" style={{marginTop: '8px'}}>Price Note</label>
+        <label htmlFor="priceNote" style={sectionStyle}>Price Note</label>
         <input
           type="text"
           id="priceNote"
@@ -411,7 +432,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.priceNote || 'Professional Installation Available'}
           onChange={handleChange}
           placeholder="Professional Installation Available"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -428,7 +449,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="Delivery JHB free up to 20 km"
         />
         
-        <label htmlFor="delivery2" style={{marginTop: '8px'}}>Delivery Option 2</label>
+        <label htmlFor="delivery2" style={sectionStyle}>Delivery Option 2</label>
         <input
           type="text"
           id="delivery2"
@@ -436,10 +457,10 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.delivery2 || 'Delivery 60-100 km JHB R440 fee'}
           onChange={handleChange}
           placeholder="Delivery 60-100 km JHB R440 fee"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
         
-        <label htmlFor="delivery3" style={{marginTop: '8px'}}>Delivery Option 3</label>
+        <label htmlFor="delivery3" style={sectionStyle}>Delivery Option 3</label>
         <input
           type="text"
           id="delivery3"
@@ -447,7 +468,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.delivery3 || 'Fee for other regions calculated'}
           onChange={handleChange}
           placeholder="Fee for other regions calculated"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
 
@@ -464,7 +485,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           placeholder="011 568 7166"
         />
         
-        <label htmlFor="contactPhone2" style={{marginTop: '8px'}}>Phone 2</label>
+        <label htmlFor="contactPhone2" style={sectionStyle}>Phone 2</label>
         <input
           type="text"
           id="contactPhone2"
@@ -472,10 +493,10 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.contactPhone2 || '067 923 8166'}
           onChange={handleChange}
           placeholder="067 923 8166"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
         
-        <label htmlFor="contactEmail" style={{marginTop: '8px'}}>Email</label>
+        <label htmlFor="contactEmail" style={sectionStyle}>Email</label>
         <input
           type="text"
           id="contactEmail"
@@ -483,10 +504,10 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.contactEmail || 'sales@bshockedelectrical.co.za'}
           onChange={handleChange}
           placeholder="sales@bshockedelectrical.co.za"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
         
-        <label htmlFor="contactWebsite" style={{marginTop: '8px'}}>Website</label>
+        <label htmlFor="contactWebsite" style={sectionStyle}>Website</label>
         <input
           type="text"
           id="contactWebsite"
@@ -494,7 +515,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           value={productData.contactWebsite || 'https://bshockedelectrical.co.za'}
           onChange={handleChange}
           placeholder="https://bshockedelectrical.co.za"
-          style={{marginTop: '4px'}}
+          style={inputStyle}
         />
       </div>
       
