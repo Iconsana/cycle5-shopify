@@ -15,104 +15,105 @@
   </g>
   
   <!-- Header Text -->
-  <text x="180" y="55" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Hellopeter 4.99</text>
-  <text x="650" y="45" fill="white" font-family="Arial, sans-serif" font-size="14">B SHOCKED</text>
-  <text x="650" y="65" fill="white" font-family="Arial, sans-serif" font-size="12">ELECTRICAL | SOLAR</text>
+  <text x="180" y="55" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">{{RATING_TEXT}}</text>
+  <text x="650" y="45" fill="white" font-family="Arial, sans-serif" font-size="14">{{BRAND_TEXT}}</text>
+  <text x="650" y="65" fill="white" font-family="Arial, sans-serif" font-size="12">{{CATEGORY_TEXT}}</text>
   
   <!-- Main Product Title -->
   <rect x="20" y="160" width="760" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="5"/>
-  <text x="400" y="200" fill="white" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle">SOLAR KIT PACKAGE</text>
+  <text x="400" y="200" fill="white" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle">{{MAIN_TITLE}}</text>
   
   <!-- SKU Section -->
   <rect x="20" y="240" width="760" height="40" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="5"/>
   <text x="30" y="265" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">SKU:</text>
-  <text x="70" y="265" fill="#fbbf24" font-family="Arial, sans-serif" font-size="16" font-weight="bold">RIIGDEYE-5KW-PACK</text>
+  <text x="70" y="265" fill="#fbbf24" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{PRODUCT_SKU}}</text>
   
   <!-- Main Content Area -->
   <rect x="20" y="300" width="760" height="520" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
   
   <!-- Left Column - Image Placeholder -->
   <rect x="40" y="320" width="220" height="160" fill="white" rx="5"/>
-  <text x="150" y="390" fill="#666" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">5 Dyness BX 51100 Units</text>
-  <text x="150" y="410" fill="#666" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Complete Solar Kit</text>
+  <image x="45" y="325" width="210" height="150" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
+  <text x="150" y="490" fill="#666" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">{{IMAGE_TITLE}}</text>
+  <text x="150" y="510" fill="#666" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
   
   <!-- Right Column - Product Details Header -->
   <text x="290" y="345" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold">PRODUCT DETAILS</text>
   
   <!-- Power System Section -->
   <text x="290" y="375" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">POWER SYSTEM:</text>
-  <text x="295" y="395" fill="white" font-family="Arial, sans-serif" font-size="12">• 5kW Deye Hybrid Inverter</text>
-  <text x="295" y="410" fill="white" font-family="Arial, sans-serif" font-size="12">• 5.12kWh Dyness Lithium Battery</text>
+  <text x="295" y="395" fill="white" font-family="Arial, sans-serif" font-size="12">{{POWER_DETAIL_1}}</text>
+  <text x="295" y="410" fill="white" font-family="Arial, sans-serif" font-size="12">{{POWER_DETAIL_2}}</text>
   
   <!-- Solar Panels Section -->
   <text x="290" y="435" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">SOLAR PANELS:</text>
-  <text x="295" y="455" fill="white" font-family="Arial, sans-serif" font-size="12">• 8x 565W JA Solar Mono Panels</text>
-  <text x="295" y="470" fill="white" font-family="Arial, sans-serif" font-size="12">• 4.52kW Total Panel Capacity</text>
+  <text x="295" y="455" fill="white" font-family="Arial, sans-serif" font-size="12">{{PANEL_DETAIL_1}}</text>
+  <text x="295" y="470" fill="white" font-family="Arial, sans-serif" font-size="12">{{PANEL_DETAIL_2}}</text>
   
   <!-- Mounting Hardware Section -->
   <text x="290" y="495" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">MOUNTING HARDWARE:</text>
-  <text x="295" y="515" fill="white" font-family="Arial, sans-serif" font-size="12">• PV Rails, Roof Hooks, Clamps</text>
-  <text x="295" y="530" fill="white" font-family="Arial, sans-serif" font-size="12">• Complete Mounting System</text>
+  <text x="295" y="515" fill="white" font-family="Arial, sans-serif" font-size="12">{{MOUNT_DETAIL_1}}</text>
+  <text x="295" y="530" fill="white" font-family="Arial, sans-serif" font-size="12">{{MOUNT_DETAIL_2}}</text>
   
   <!-- Electrical Components Section -->
   <text x="290" y="555" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ELECTRICAL COMPONENTS:</text>
-  <text x="295" y="575" fill="white" font-family="Arial, sans-serif" font-size="12">• DC/AC Combiners, Surge Protection</text>
-  <text x="295" y="590" fill="white" font-family="Arial, sans-serif" font-size="12">• Fuses, Switches, Safety Equipment</text>
+  <text x="295" y="575" fill="white" font-family="Arial, sans-serif" font-size="12">{{ELEC_DETAIL_1}}</text>
+  <text x="295" y="590" fill="white" font-family="Arial, sans-serif" font-size="12">{{ELEC_DETAIL_2}}</text>
   
   <!-- Cables & Installation Section -->
   <text x="290" y="615" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CABLES &amp; INSTALLATION:</text>
-  <text x="295" y="635" fill="white" font-family="Arial, sans-serif" font-size="12">• Solar Cables, Battery Cables, MC4</text>
-  <text x="295" y="650" fill="white" font-family="Arial, sans-serif" font-size="12">• Conduits, Trunking, Earth Spike</text>
+  <text x="295" y="635" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_1}}</text>
+  <text x="295" y="650" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_2}}</text>
   
   <!-- Warranty & Specs Section -->
   <text x="290" y="675" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">WARRANTY &amp; SPECS:</text>
-  <text x="295" y="695" fill="white" font-family="Arial, sans-serif" font-size="12">• 25yr Panels, 10yr Inverter &amp; Battery</text>
-  <text x="295" y="710" fill="white" font-family="Arial, sans-serif" font-size="12">• Grid-Tie Hybrid, Professional Install</text>
+  <text x="295" y="695" fill="white" font-family="Arial, sans-serif" font-size="12">{{WARRANTY_DETAIL_1}}</text>
+  <text x="295" y="710" fill="white" font-family="Arial, sans-serif" font-size="12">{{WARRANTY_DETAIL_2}}</text>
   
   <!-- Performance Section -->
   <text x="290" y="735" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">EXPECTED PERFORMANCE:</text>
-  <text x="295" y="755" fill="white" font-family="Arial, sans-serif" font-size="12">• ~1,800kWh/month Generation</text>
-  <text x="295" y="770" fill="white" font-family="Arial, sans-serif" font-size="12">• 85% Energy Independence</text>
+  <text x="295" y="755" fill="white" font-family="Arial, sans-serif" font-size="12">{{PERFORMANCE_DETAIL_1}}</text>
+  <text x="295" y="770" fill="white" font-family="Arial, sans-serif" font-size="12">{{PERFORMANCE_DETAIL_2}}</text>
   
   <!-- Description Box (Left Column Extended) -->
-  <text x="40" y="505" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">COMPLETE SOLAR KIT</text>
-  <text x="40" y="525" fill="white" font-family="Arial, sans-serif" font-size="11">Everything you need for a</text>
-  <text x="40" y="540" fill="white" font-family="Arial, sans-serif" font-size="11">professional solar installation.</text>
-  <text x="40" y="555" fill="white" font-family="Arial, sans-serif" font-size="11">Hybrid system with battery</text>
-  <text x="40" y="570" fill="white" font-family="Arial, sans-serif" font-size="11">backup for load-shedding</text>
-  <text x="40" y="585" fill="white" font-family="Arial, sans-serif" font-size="11">protection and energy</text>
-  <text x="40" y="600" fill="white" font-family="Arial, sans-serif" font-size="11">independence.</text>
+  <text x="40" y="540" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{DESCRIPTION_TITLE}}</text>
+  <text x="40" y="560" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_1}}</text>
+  <text x="40" y="575" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_2}}</text>
+  <text x="40" y="590" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_3}}</text>
+  <text x="40" y="605" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_4}}</text>
+  <text x="40" y="620" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_5}}</text>
+  <text x="40" y="635" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_6}}</text>
   
   <!-- System Benefits -->
-  <text x="40" y="630" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">✓ Load Shedding Protection</text>
-  <text x="40" y="650" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">✓ Reduce Electricity Bills</text>
-  <text x="40" y="670" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">✓ Eco-Friendly Power</text>
-  <text x="40" y="690" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">✓ Professional Support</text>
-  <text x="40" y="710" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">✓ Complete Installation Kit</text>
+  <text x="40" y="665" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_1}}</text>
+  <text x="40" y="685" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_2}}</text>
+  <text x="40" y="705" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_3}}</text>
+  <text x="40" y="725" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_4}}</text>
+  <text x="40" y="745" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_5}}</text>
   
   <!-- Price Section -->
   <rect x="20" y="840" width="380" height="80" fill="#f59e0b" rx="10"/>
-  <text x="210" y="865" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Incl. VAT</text>
-  <text x="210" y="885" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">R51,779.35</text>
-  <text x="210" y="905" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Professional Installation Available</text>
+  <text x="210" y="865" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">{{PRICE_HEADER}}</text>
+  <text x="210" y="885" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">{{PRICE_AMOUNT}}</text>
+  <text x="210" y="905" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{PRICE_NOTE}}</text>
   
   <!-- Delivery Information -->
   <rect x="420" y="840" width="360" height="80" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
   <text x="600" y="860" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">DELIVERY INFORMATION</text>
   <circle cx="440" cy="880" r="3" fill="#f59e0b"/>
-  <text x="450" y="885" fill="white" font-family="Arial, sans-serif" font-size="11">Delivery JHB free up to 20 km</text>
+  <text x="450" y="885" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_1}}</text>
   <circle cx="440" cy="895" r="3" fill="#f59e0b"/>
-  <text x="450" y="900" fill="white" font-family="Arial, sans-serif" font-size="11">Delivery 60-100 km JHB R440 fee</text>
+  <text x="450" y="900" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_2}}</text>
   <circle cx="440" cy="910" r="3" fill="#f59e0b"/>
-  <text x="450" y="915" fill="white" font-family="Arial, sans-serif" font-size="11">Fee for other regions calculated</text>
+  <text x="450" y="915" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_3}}</text>
   
   <!-- Contact Information -->
   <rect x="420" y="930" width="360" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
   <text x="600" y="950" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">CONTACT INFORMATION</text>
   <circle cx="440" cy="965" r="3" fill="#f59e0b"/>
-  <text x="450" y="970" fill="white" font-family="Arial, sans-serif" font-size="11">011 568 7166</text>
-  <text x="570" y="970" fill="white" font-family="Arial, sans-serif" font-size="11">sales@bshockedelectrical.co.za</text>
+  <text x="450" y="970" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_PHONE_1}}</text>
+  <text x="570" y="970" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_EMAIL}}</text>
   <circle cx="440" cy="980" r="3" fill="#f59e0b"/>
-  <text x="450" y="985" fill="white" font-family="Arial, sans-serif" font-size="11">067 923 8166</text>
-  <text x="570" y="985" fill="white" font-family="Arial, sans-serif" font-size="11">https://bshockedelectrical.co.za</text>
+  <text x="450" y="985" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_PHONE_2}}</text>
+  <text x="570" y="985" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_WEBSITE}}</text>
 </svg>
