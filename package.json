@@ -1,28 +1,46 @@
 {
-  "name": "b-shocked-template-generator",
-  "version": "1.0.0",
-  "description": "Marketing template generator for Shopify products",
-  "main": "index.js",
-  "scripts": {
-    "install:all": "npm install && npm run install:client && npm run install:server",
-    "install:client": "cd client && npm install",
-    "install:server": "cd server && npm install",
-    "dev:client": "cd client && npm start",
-    "dev:server": "cd server && npm run dev",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "build": "cd client && npm run build",
-    "start":"cd server && node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "b-shocked-template-generator-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.7",
+    "file-saver": "^2.0.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-router-dom": "^6.22.1",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
-  "keywords": [
-    "shopify",
-    "marketing",
-    "templates",
-    "svg"
-  ],
-  "author": "B SHOCKED",
-  "license": "MIT",
-  "devDependencies": {
-    "concurrently": "^8.2.2"
-  }
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "warn"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:5000"
 }
