@@ -7,67 +7,24 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Missing templateId parameter' });
     }
     
-    // Get parameters from query - include all the existing fields plus new solar-kit-social fields
+    // Get all parameters from query
     const {
-      title,
-      price,
-      sku,
-      description,
-      company,
-      phone,
-      email,
-      website,
-      imageUrl,
-      // Existing Solar Bulk Deal fields
-      promotionTitle,
-      imageTitle,
-      secondaryDescription,
-      bulletPoint1,
-      bulletPoint2,
-      bulletPoint3,
-      bulletPoint4,
-      bulletPoint5,
-      // New Solar Kit Social fields
-      ratingText,
-      brandText,
-      categoryText,
-      mainTitle,
-      descriptionTitle,
-      descriptionLine1,
-      descriptionLine2,
-      descriptionLine3,
-      descriptionLine4,
-      descriptionLine5,
-      descriptionLine6,
-      powerDetail1,
-      powerDetail2,
-      panelDetail1,
-      panelDetail2,
-      mountDetail1,
-      mountDetail2,
-      elecDetail1,
-      elecDetail2,
-      cableDetail1,
-      cableDetail2,
-      warrantyDetail1,
-      warrantyDetail2,
-      performanceDetail1,
-      performanceDetail2,
-      benefit1,
-      benefit2,
-      benefit3,
-      benefit4,
-      benefit5,
-      priceHeader,
-      priceAmount,
-      priceNote,
-      delivery1,
-      delivery2,
-      delivery3,
-      contactPhone1,
-      contactPhone2,
-      contactEmail,
-      contactWebsite
+      title, price, sku, description, company, phone, email, website, imageUrl,
+      // Solar Bulk Deal fields
+      promotionTitle, imageTitle, secondaryDescription,
+      bulletPoint1, bulletPoint2, bulletPoint3, bulletPoint4, bulletPoint5,
+      // Solar Kit Social fields
+      ratingText, brandText, categoryText, mainTitle,
+      powerDetail1, powerDetail2, panelDetail1, panelDetail2,
+      mountDetail1, mountDetail2, elecDetail1, elecDetail2,
+      cableDetail1, cableDetail2, warrantyDetail1, warrantyDetail2,
+      performanceDetail1, performanceDetail2,
+      descriptionTitle, descriptionLine1, descriptionLine2, descriptionLine3,
+      descriptionLine4, descriptionLine5, descriptionLine6,
+      benefit1, benefit2, benefit3, benefit4, benefit5,
+      priceHeader, priceAmount, priceNote,
+      delivery1, delivery2, delivery3,
+      contactPhone1, contactPhone2, contactEmail, contactWebsite
     } = req.query;
     
     // Read template SVG
@@ -86,7 +43,80 @@ module.exports = async (req, res) => {
     // Read SVG content
     let svgContent = fs.readFileSync(svgPath, 'utf8');
     
-    // Replace standard placeholders with actual values (existing logic)
+    // Handle Solar Kit Social template specifically
+    if (templateId === 'solar-kit-social') {
+      // Header fields with defaults
+      svgContent = svgContent.replace(/{{RATING_TEXT}}/g, ratingText || 'Hellopeter 4.67');
+      svgContent = svgContent.replace(/{{BRAND_TEXT}}/g, brandText || 'B SHOCKED');
+      svgContent = svgContent.replace(/{{CATEGORY_TEXT}}/g, categoryText || 'ELECTRICAL | SOLAR');
+      svgContent = svgContent.replace(/{{MAIN_TITLE}}/g, mainTitle || 'SOLAR KIT PACKAGE');
+      svgContent = svgContent.replace(/{{PRODUCT_SKU}}/g, sku || 'RIIGDEYE-5KW-PACK');
+      
+      // Image section
+      if (imageUrl) {
+        svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, imageUrl);
+      } else {
+        svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
+      }
+      svgContent = svgContent.replace(/{{IMAGE_TITLE}}/g, imageTitle || '5 Dyness BX 51100 Units');
+      svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, secondaryDescription || 'Complete Solar Kit');
+      
+      // Product details sections
+      svgContent = svgContent.replace(/{{POWER_DETAIL_1}}/g, powerDetail1 || '• 5kW Deye Hybrid Inverter');
+      svgContent = svgContent.replace(/{{POWER_DETAIL_2}}/g, powerDetail2 || '• 5.12kWh Dyness Lithium Battery');
+      svgContent = svgContent.replace(/{{PANEL_DETAIL_1}}/g, panelDetail1 || '• 8x 565W JA Solar Mono Panels');
+      svgContent = svgContent.replace(/{{PANEL_DETAIL_2}}/g, panelDetail2 || '• 4.52kW Total Panel Capacity');
+      svgContent = svgContent.replace(/{{MOUNT_DETAIL_1}}/g, mountDetail1 || '• PV Rails, Roof Hooks, Clamps');
+      svgContent = svgContent.replace(/{{MOUNT_DETAIL_2}}/g, mountDetail2 || '• Complete Mounting System');
+      svgContent = svgContent.replace(/{{ELEC_DETAIL_1}}/g, elecDetail1 || '• DC/AC Combiners, Surge Protection');
+      svgContent = svgContent.replace(/{{ELEC_DETAIL_2}}/g, elecDetail2 || '• Fuses, Switches, Safety Equipment');
+      
+      // NEW: Cables & Installation
+      svgContent = svgContent.replace(/{{CABLE_DETAIL_1}}/g, cableDetail1 || '• Solar Cables, Battery Cables, MC4');
+      svgContent = svgContent.replace(/{{CABLE_DETAIL_2}}/g, cableDetail2 || '• Conduits, Trunking, Earth Spike');
+      
+      // NEW: Warranty & Specs
+      svgContent = svgContent.replace(/{{WARRANTY_DETAIL_1}}/g, warrantyDetail1 || '• 25yr Panels, 10yr Inverter & Battery');
+      svgContent = svgContent.replace(/{{WARRANTY_DETAIL_2}}/g, warrantyDetail2 || '• Grid-Tie Hybrid, Professional Install');
+      
+      // NEW: Expected Performance
+      svgContent = svgContent.replace(/{{PERFORMANCE_DETAIL_1}}/g, performanceDetail1 || '• ~1,800kWh/month Generation');
+      svgContent = svgContent.replace(/{{PERFORMANCE_DETAIL_2}}/g, performanceDetail2 || '• 85% Energy Independence');
+      
+      // Description section
+      svgContent = svgContent.replace(/{{DESCRIPTION_TITLE}}/g, descriptionTitle || 'COMPLETE SOLAR KIT');
+      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_1}}/g, descriptionLine1 || 'Everything you need for a');
+      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_2}}/g, descriptionLine2 || 'professional solar installation.');
+      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_3}}/g, descriptionLine3 || 'Hybrid system with battery');
+      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_4}}/g, descriptionLine4 || 'backup for load-shedding');
+      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_5}}/g, descriptionLine5 || 'protection and energy');
+      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_6}}/g, descriptionLine6 || 'independence.');
+      
+      // Benefits
+      svgContent = svgContent.replace(/{{BENEFIT_1}}/g, benefit1 || '✓ Load Shedding Protection');
+      svgContent = svgContent.replace(/{{BENEFIT_2}}/g, benefit2 || '✓ Reduce Electricity Bills');
+      svgContent = svgContent.replace(/{{BENEFIT_3}}/g, benefit3 || '✓ Eco-Friendly Power');
+      svgContent = svgContent.replace(/{{BENEFIT_4}}/g, benefit4 || '✓ Professional Support');
+      svgContent = svgContent.replace(/{{BENEFIT_5}}/g, benefit5 || '✓ Complete Installation Kit');
+      
+      // Price section
+      svgContent = svgContent.replace(/{{PRICE_HEADER}}/g, priceHeader || 'Incl. VAT');
+      svgContent = svgContent.replace(/{{PRICE_AMOUNT}}/g, priceAmount || 'R51,779.35');
+      svgContent = svgContent.replace(/{{PRICE_NOTE}}/g, priceNote || 'Professional Installation Available');
+      
+      // NEW: Delivery section
+      svgContent = svgContent.replace(/{{DELIVERY_1}}/g, delivery1 || 'Delivery JHB free up to 20 km');
+      svgContent = svgContent.replace(/{{DELIVERY_2}}/g, delivery2 || 'Delivery 60-100 km JHB R440 fee');
+      svgContent = svgContent.replace(/{{DELIVERY_3}}/g, delivery3 || 'Fee for other regions calculated');
+      
+      // Contact section
+      svgContent = svgContent.replace(/{{CONTACT_PHONE_1}}/g, contactPhone1 || '011 568 7166');
+      svgContent = svgContent.replace(/{{CONTACT_PHONE_2}}/g, contactPhone2 || '067 923 8166');
+      svgContent = svgContent.replace(/{{CONTACT_EMAIL}}/g, contactEmail || 'sales@bshockedelectrical.co.za');
+      svgContent = svgContent.replace(/{{CONTACT_WEBSITE}}/g, contactWebsite || 'https://bshockedelectrical.co.za');
+    }
+    
+    // Handle other templates (existing logic)
     if (title) svgContent = svgContent.replace(/{{PRODUCT_TITLE}}/g, title);
     if (price) svgContent = svgContent.replace(/{{PRODUCT_PRICE}}/g, price);
     if (sku) svgContent = svgContent.replace(/{{PRODUCT_SKU}}/g, sku);
@@ -96,7 +126,7 @@ module.exports = async (req, res) => {
     if (email) svgContent = svgContent.replace(/{{EMAIL}}/g, email);
     if (website) svgContent = svgContent.replace(/{{WEBSITE}}/g, website);
     
-    // Handle Solar Bulk Deal specific placeholders (existing logic)
+    // Handle Solar Bulk Deal specific placeholders (for other templates)
     if (promotionTitle) {
       svgContent = svgContent.replace(/{{PROMOTION_TITLE}}/g, promotionTitle);
     } else {
@@ -115,77 +145,18 @@ module.exports = async (req, res) => {
       svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, 'Bulk Deal');
     }
     
-    // Handle existing bullet points
+    // Handle bullet points for other templates
     if (bulletPoint1) svgContent = svgContent.replace(/{{BULLET_POINT_1}}/g, bulletPoint1);
     if (bulletPoint2) svgContent = svgContent.replace(/{{BULLET_POINT_2}}/g, bulletPoint2);
     if (bulletPoint3) svgContent = svgContent.replace(/{{BULLET_POINT_3}}/g, bulletPoint3);
     if (bulletPoint4) svgContent = svgContent.replace(/{{BULLET_POINT_4}}/g, bulletPoint4);
     if (bulletPoint5) svgContent = svgContent.replace(/{{BULLET_POINT_5}}/g, bulletPoint5);
     
-    // NEW: Handle Solar Kit Social specific placeholders
-    if (templateId === 'solar-kit-social') {
-      // Header fields
-      if (ratingText) svgContent = svgContent.replace(/Hellopeter 4\.99/g, ratingText);
-      if (brandText) svgContent = svgContent.replace(/B SHOCKED/g, brandText);
-      if (categoryText) svgContent = svgContent.replace(/ELECTRICAL \| SOLAR/g, categoryText);
-      if (mainTitle) svgContent = svgContent.replace(/SOLAR KIT PACKAGE/g, mainTitle);
-      
-      // Product details
-      if (powerDetail1) svgContent = svgContent.replace(/• 5kW Deye Hybrid Inverter/g, powerDetail1);
-      if (powerDetail2) svgContent = svgContent.replace(/• 5\.12kWh Dyness Lithium Battery/g, powerDetail2);
-      if (panelDetail1) svgContent = svgContent.replace(/• 8x 565W JA Solar Mono Panels/g, panelDetail1);
-      if (panelDetail2) svgContent = svgContent.replace(/• 4\.52kW Total Panel Capacity/g, panelDetail2);
-      if (mountDetail1) svgContent = svgContent.replace(/• PV Rails, Roof Hooks, Clamps/g, mountDetail1);
-      if (mountDetail2) svgContent = svgContent.replace(/• Complete Mounting System/g, mountDetail2);
-      if (elecDetail1) svgContent = svgContent.replace(/• DC\/AC Combiners, Surge Protection/g, elecDetail1);
-      if (elecDetail2) svgContent = svgContent.replace(/• Fuses, Switches, Safety Equipment/g, elecDetail2);
-      if (cableDetail1) svgContent = svgContent.replace(/• Solar Cables, Battery Cables, MC4/g, cableDetail1);
-      if (cableDetail2) svgContent = svgContent.replace(/• Conduits, Trunking, Earth Spike/g, cableDetail2);
-      if (warrantyDetail1) svgContent = svgContent.replace(/• 25yr Panels, 10yr Inverter & Battery/g, warrantyDetail1);
-      if (warrantyDetail2) svgContent = svgContent.replace(/• Grid-Tie Hybrid, Professional Install/g, warrantyDetail2);
-      if (performanceDetail1) svgContent = svgContent.replace(/• ~1,800kWh\/month Generation/g, performanceDetail1);
-      if (performanceDetail2) svgContent = svgContent.replace(/• 85% Energy Independence/g, performanceDetail2);
-      
-      // Description section
-      if (descriptionTitle) svgContent = svgContent.replace(/COMPLETE SOLAR KIT/g, descriptionTitle);
-      if (descriptionLine1) svgContent = svgContent.replace(/Everything you need for a/g, descriptionLine1);
-      if (descriptionLine2) svgContent = svgContent.replace(/professional solar installation\./g, descriptionLine2);
-      if (descriptionLine3) svgContent = svgContent.replace(/Hybrid system with battery/g, descriptionLine3);
-      if (descriptionLine4) svgContent = svgContent.replace(/backup for load-shedding/g, descriptionLine4);
-      if (descriptionLine5) svgContent = svgContent.replace(/protection and energy/g, descriptionLine5);
-      if (descriptionLine6) svgContent = svgContent.replace(/independence\./g, descriptionLine6);
-      
-      // Benefits
-      if (benefit1) svgContent = svgContent.replace(/✓ Load Shedding Protection/g, benefit1);
-      if (benefit2) svgContent = svgContent.replace(/✓ Reduce Electricity Bills/g, benefit2);
-      if (benefit3) svgContent = svgContent.replace(/✓ Eco-Friendly Power/g, benefit3);
-      if (benefit4) svgContent = svgContent.replace(/✓ Professional Support/g, benefit4);
-      if (benefit5) svgContent = svgContent.replace(/✓ Complete Installation Kit/g, benefit5);
-      
-      // Price section
-      if (priceHeader) svgContent = svgContent.replace(/Incl\. VAT/g, priceHeader);
-      if (priceAmount) svgContent = svgContent.replace(/R51,779\.35/g, priceAmount);
-      if (priceNote) svgContent = svgContent.replace(/Professional Installation Available/g, priceNote);
-      
-      // Delivery section
-      if (delivery1) svgContent = svgContent.replace(/Delivery JHB free up to 20 km/g, delivery1);
-      if (delivery2) svgContent = svgContent.replace(/Delivery 60-100 km JHB R440 fee/g, delivery2);
-      if (delivery3) svgContent = svgContent.replace(/Fee for other regions calculated/g, delivery3);
-      
-      // Contact section
-      if (contactPhone1) svgContent = svgContent.replace(/011 568 7166/g, contactPhone1);
-      if (contactPhone2) svgContent = svgContent.replace(/067 923 8166/g, contactPhone2);
-      if (contactEmail) svgContent = svgContent.replace(/sales@bshockedelectrical\.co\.za/g, contactEmail);
-      if (contactWebsite) svgContent = svgContent.replace(/https:\/\/bshockedelectrical\.co\.za/g, contactWebsite);
-    }
-    
-    // Handle image embedding - use a placeholder if no image is provided
-    if (imageUrl) {
-      // If it's already a data URI, use it directly
+    // Handle image embedding for all templates
+    if (imageUrl && templateId !== 'solar-kit-social') {
       if (imageUrl.startsWith('data:')) {
         svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, imageUrl);
       } else {
-        // For image URLs, try to fetch and convert to data URI
         try {
           const fetch = require('node-fetch');
           const response = await fetch(imageUrl);
@@ -197,22 +168,20 @@ module.exports = async (req, res) => {
           svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, dataUri);
         } catch (error) {
           console.error('Error fetching image:', error);
-          // Use a transparent placeholder
           svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
         }
       }
-    } else {
-      // Use a transparent placeholder if no image
+    } else if (templateId !== 'solar-kit-social') {
       svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
     }
     
     // Replace any remaining placeholders with empty strings
-    // First, clear any remaining bullet points
-    svgContent = svgContent.replace(/{{BULLET_POINT_\d+}}/g, ''); // Clear any remaining bullet points
-    svgContent = svgContent.replace(/{{[^}]+}}/g, ''); // Clear any other remaining placeholders
+    svgContent = svgContent.replace(/{{BULLET_POINT_\d+}}/g, '');
+    svgContent = svgContent.replace(/{{[^}]+}}/g, '');
     
     // Set SVG content type header
     res.setHeader('Content-Type', 'image/svg+xml');
+    res.setHeader('Cache-Control', 'no-cache'); // Disable caching for preview
     res.status(200).send(svgContent);
     
   } catch (error) {
