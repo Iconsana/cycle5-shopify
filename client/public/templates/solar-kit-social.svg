@@ -60,13 +60,13 @@
   <text x="295" y="575" fill="white" font-family="Arial, sans-serif" font-size="12">{{ELEC_DETAIL_1}}</text>
   <text x="295" y="590" fill="white" font-family="Arial, sans-serif" font-size="12">{{ELEC_DETAIL_2}}</text>
   
-  <!-- Cables & Installation Section -->
-  <text x="290" y="615" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CABLES &amp; INSTALLATION:</text>
+  <!-- Cables and Installation Section -->
+  <text x="290" y="615" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CABLES AND INSTALLATION:</text>
   <text x="295" y="635" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_1}}</text>
   <text x="295" y="650" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_2}}</text>
   
-  <!-- Warranty & Specs Section -->
-  <text x="290" y="675" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">WARRANTY &amp; SPECS:</text>
+  <!-- Warranty and Specs Section -->
+  <text x="290" y="675" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">WARRANTY AND SPECS:</text>
   <text x="295" y="695" fill="white" font-family="Arial, sans-serif" font-size="12">{{WARRANTY_DETAIL_1}}</text>
   <text x="295" y="710" fill="white" font-family="Arial, sans-serif" font-size="12">{{WARRANTY_DETAIL_2}}</text>
   
