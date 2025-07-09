@@ -50,7 +50,8 @@ const ProductForm = ({ productData, onProductChange }) => {
   };
   
   const inputStyle = { marginTop: '4px' };
-  const sectionStyle = { marginTop: '8px' };
+  const sectionStyle = { marginTop: '20px', paddingTop: '20px', borderTop: '2px solid #e1e1e1' };
+  const fieldStyle = { marginTop: '8px' };
   
   return (
     <div className="product-form">
@@ -63,28 +64,28 @@ const ProductForm = ({ productData, onProductChange }) => {
           type="text"
           id="ratingText"
           name="ratingText"
-          value={productData.ratingText || 'Hellopeter 4.67'}
+          value={productData.ratingText || ''}
           onChange={handleChange}
           placeholder="Hellopeter 4.67"
         />
         
-        <label htmlFor="brandText" style={sectionStyle}>Brand Text</label>
+        <label htmlFor="brandText" style={fieldStyle}>Brand Text</label>
         <input
           type="text"
           id="brandText"
           name="brandText"
-          value={productData.brandText || 'B SHOCKED'}
+          value={productData.brandText || ''}
           onChange={handleChange}
           placeholder="B SHOCKED"
           style={inputStyle}
         />
         
-        <label htmlFor="categoryText" style={sectionStyle}>Category Text</label>
+        <label htmlFor="categoryText" style={fieldStyle}>Category Text</label>
         <input
           type="text"
           id="categoryText"
           name="categoryText"
-          value={productData.categoryText || 'ELECTRICAL | SOLAR'}
+          value={productData.categoryText || ''}
           onChange={handleChange}
           placeholder="ELECTRICAL | SOLAR"
           style={inputStyle}
@@ -92,7 +93,7 @@ const ProductForm = ({ productData, onProductChange }) => {
       </div>
 
       {/* Main Title and SKU */}
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Product Title & SKU</h3>
         
         <label htmlFor="mainTitle">Main Title</label>
@@ -100,17 +101,17 @@ const ProductForm = ({ productData, onProductChange }) => {
           type="text"
           id="mainTitle"
           name="mainTitle"
-          value={productData.mainTitle || 'SOLAR KIT PACKAGE'}
+          value={productData.mainTitle || ''}
           onChange={handleChange}
           placeholder="SOLAR KIT PACKAGE"
         />
         
-        <label htmlFor="sku" style={sectionStyle}>SKU</label>
+        <label htmlFor="sku" style={fieldStyle}>SKU</label>
         <input
           type="text"
           id="sku"
           name="sku"
-          value={productData.sku || 'RIIGDEYE-5KW-PACK'}
+          value={productData.sku || ''}
           onChange={handleChange}
           placeholder="RIIGDEYE-5KW-PACK"
           style={inputStyle}
@@ -118,7 +119,7 @@ const ProductForm = ({ productData, onProductChange }) => {
       </div>
 
       {/* Product Image Upload */}
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Product Image</h3>
         <div {...getRootProps({ className: 'dropzone' })}>
           <input {...getInputProps()} />
@@ -134,23 +135,23 @@ const ProductForm = ({ productData, onProductChange }) => {
           )}
         </div>
         
-        <label htmlFor="imageTitle" style={sectionStyle}>Image Title</label>
+        <label htmlFor="imageTitle" style={fieldStyle}>Image Title</label>
         <input
           type="text"
           id="imageTitle"
           name="imageTitle"
-          value={productData.imageTitle || '5 Dyness BX 51100 Units'}
+          value={productData.imageTitle || ''}
           onChange={handleChange}
           placeholder="5 Dyness BX 51100 Units"
           style={inputStyle}
         />
         
-        <label htmlFor="secondaryDescription" style={sectionStyle}>Secondary Description</label>
+        <label htmlFor="secondaryDescription" style={fieldStyle}>Secondary Description</label>
         <input
           type="text"
           id="secondaryDescription"
           name="secondaryDescription"
-          value={productData.secondaryDescription || 'Complete Solar Kit'}
+          value={productData.secondaryDescription || ''}
           onChange={handleChange}
           placeholder="Complete Solar Kit"
           style={inputStyle}
@@ -158,171 +159,171 @@ const ProductForm = ({ productData, onProductChange }) => {
       </div>
 
       {/* Product Details Sections */}
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Power System Details</h3>
         <label htmlFor="powerDetail1">Power Detail 1</label>
         <input
           type="text"
           id="powerDetail1"
           name="powerDetail1"
-          value={productData.powerDetail1 || '• 5kW Deye Hybrid Inverter'}
+          value={productData.powerDetail1 || ''}
           onChange={handleChange}
           placeholder="• 5kW Deye Hybrid Inverter"
         />
         
-        <label htmlFor="powerDetail2" style={sectionStyle}>Power Detail 2</label>
+        <label htmlFor="powerDetail2" style={fieldStyle}>Power Detail 2</label>
         <input
           type="text"
           id="powerDetail2"
           name="powerDetail2"
-          value={productData.powerDetail2 || '• 5.12kWh Dyness Lithium Battery'}
+          value={productData.powerDetail2 || ''}
           onChange={handleChange}
           placeholder="• 5.12kWh Dyness Lithium Battery"
           style={inputStyle}
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Solar Panel Details</h3>
         <label htmlFor="panelDetail1">Panel Detail 1</label>
         <input
           type="text"
           id="panelDetail1"
           name="panelDetail1"
-          value={productData.panelDetail1 || '• 8x 565W JA Solar Mono Panels'}
+          value={productData.panelDetail1 || ''}
           onChange={handleChange}
           placeholder="• 8x 565W JA Solar Mono Panels"
         />
         
-        <label htmlFor="panelDetail2" style={sectionStyle}>Panel Detail 2</label>
+        <label htmlFor="panelDetail2" style={fieldStyle}>Panel Detail 2</label>
         <input
           type="text"
           id="panelDetail2"
           name="panelDetail2"
-          value={productData.panelDetail2 || '• 4.52kW Total Panel Capacity'}
+          value={productData.panelDetail2 || ''}
           onChange={handleChange}
           placeholder="• 4.52kW Total Panel Capacity"
           style={inputStyle}
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Mounting Hardware</h3>
         <label htmlFor="mountDetail1">Mount Detail 1</label>
         <input
           type="text"
           id="mountDetail1"
           name="mountDetail1"
-          value={productData.mountDetail1 || '• PV Rails, Roof Hooks, Clamps'}
+          value={productData.mountDetail1 || ''}
           onChange={handleChange}
           placeholder="• PV Rails, Roof Hooks, Clamps"
         />
         
-        <label htmlFor="mountDetail2" style={sectionStyle}>Mount Detail 2</label>
+        <label htmlFor="mountDetail2" style={fieldStyle}>Mount Detail 2</label>
         <input
           type="text"
           id="mountDetail2"
           name="mountDetail2"
-          value={productData.mountDetail2 || '• Complete Mounting System'}
+          value={productData.mountDetail2 || ''}
           onChange={handleChange}
           placeholder="• Complete Mounting System"
           style={inputStyle}
         />
       </div>
 
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Electrical Components</h3>
         <label htmlFor="elecDetail1">Electrical Detail 1</label>
         <input
           type="text"
           id="elecDetail1"
           name="elecDetail1"
-          value={productData.elecDetail1 || '• DC/AC Combiners, Surge Protection'}
+          value={productData.elecDetail1 || ''}
           onChange={handleChange}
           placeholder="• DC/AC Combiners, Surge Protection"
         />
         
-        <label htmlFor="elecDetail2" style={sectionStyle}>Electrical Detail 2</label>
+        <label htmlFor="elecDetail2" style={fieldStyle}>Electrical Detail 2</label>
         <input
           type="text"
           id="elecDetail2"
           name="elecDetail2"
-          value={productData.elecDetail2 || '• Fuses, Switches, Safety Equipment'}
+          value={productData.elecDetail2 || ''}
           onChange={handleChange}
           placeholder="• Fuses, Switches, Safety Equipment"
           style={inputStyle}
         />
       </div>
 
-      {/* NEW: Cables & Installation Section */}
-      <div className="form-group">
-        <h3>Cables & Installation</h3>
+      {/* CABLES & INSTALLATION SECTION - HIGHLIGHTED */}
+      <div className="form-group" style={{...sectionStyle, backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px'}}>
+        <h3 style={{color: '#0056b3'}}>🔌 Cables & Installation</h3>
         <label htmlFor="cableDetail1">Cable Detail 1</label>
         <input
           type="text"
           id="cableDetail1"
           name="cableDetail1"
-          value={productData.cableDetail1 || '• Solar Cables, Battery Cables, MC4'}
+          value={productData.cableDetail1 || ''}
           onChange={handleChange}
           placeholder="• Solar Cables, Battery Cables, MC4"
         />
         
-        <label htmlFor="cableDetail2" style={sectionStyle}>Cable Detail 2</label>
+        <label htmlFor="cableDetail2" style={fieldStyle}>Cable Detail 2</label>
         <input
           type="text"
           id="cableDetail2"
           name="cableDetail2"
-          value={productData.cableDetail2 || '• Conduits, Trunking, Earth Spike'}
+          value={productData.cableDetail2 || ''}
           onChange={handleChange}
           placeholder="• Conduits, Trunking, Earth Spike"
           style={inputStyle}
         />
       </div>
 
-      {/* NEW: Warranty & Specs Section */}
-      <div className="form-group">
-        <h3>Warranty & Specs</h3>
+      {/* WARRANTY & SPECS SECTION - HIGHLIGHTED */}
+      <div className="form-group" style={{...sectionStyle, backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px'}}>
+        <h3 style={{color: '#0056b3'}}>📋 Warranty & Specs</h3>
         <label htmlFor="warrantyDetail1">Warranty Detail 1</label>
         <input
           type="text"
           id="warrantyDetail1"
           name="warrantyDetail1"
-          value={productData.warrantyDetail1 || '• 25yr Panels, 10yr Inverter & Battery'}
+          value={productData.warrantyDetail1 || ''}
           onChange={handleChange}
           placeholder="• 25yr Panels, 10yr Inverter & Battery"
         />
         
-        <label htmlFor="warrantyDetail2" style={sectionStyle}>Warranty Detail 2</label>
+        <label htmlFor="warrantyDetail2" style={fieldStyle}>Warranty Detail 2</label>
         <input
           type="text"
           id="warrantyDetail2"
           name="warrantyDetail2"
-          value={productData.warrantyDetail2 || '• Grid-Tie Hybrid, Professional Install'}
+          value={productData.warrantyDetail2 || ''}
           onChange={handleChange}
           placeholder="• Grid-Tie Hybrid, Professional Install"
           style={inputStyle}
         />
       </div>
 
-      {/* NEW: Expected Performance Section */}
-      <div className="form-group">
-        <h3>Expected Performance</h3>
+      {/* EXPECTED PERFORMANCE SECTION - HIGHLIGHTED */}
+      <div className="form-group" style={{...sectionStyle, backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px'}}>
+        <h3 style={{color: '#0056b3'}}>⚡ Expected Performance</h3>
         <label htmlFor="performanceDetail1">Performance Detail 1</label>
         <input
           type="text"
           id="performanceDetail1"
           name="performanceDetail1"
-          value={productData.performanceDetail1 || '• ~1,800kWh/month Generation'}
+          value={productData.performanceDetail1 || ''}
           onChange={handleChange}
           placeholder="• ~1,800kWh/month Generation"
         />
         
-        <label htmlFor="performanceDetail2" style={sectionStyle}>Performance Detail 2</label>
+        <label htmlFor="performanceDetail2" style={fieldStyle}>Performance Detail 2</label>
         <input
           type="text"
           id="performanceDetail2"
           name="performanceDetail2"
-          value={productData.performanceDetail2 || '• 85% Energy Independence'}
+          value={productData.performanceDetail2 || ''}
           onChange={handleChange}
           placeholder="• 85% Energy Independence"
           style={inputStyle}
@@ -330,14 +331,14 @@ const ProductForm = ({ productData, onProductChange }) => {
       </div>
 
       {/* Description Section */}
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Product Description</h3>
         <label htmlFor="descriptionTitle">Description Title</label>
         <input
           type="text"
           id="descriptionTitle"
           name="descriptionTitle"
-          value={productData.descriptionTitle || 'COMPLETE SOLAR KIT'}
+          value={productData.descriptionTitle || ''}
           onChange={handleChange}
           placeholder="COMPLETE SOLAR KIT"
         />
@@ -354,7 +355,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           ];
           
           return (
-            <div key={fieldName} style={sectionStyle}>
+            <div key={fieldName} style={fieldStyle}>
               <label htmlFor={fieldName}>Description Line {index}</label>
               <input
                 type="text"
@@ -371,7 +372,7 @@ const ProductForm = ({ productData, onProductChange }) => {
       </div>
 
       {/* Benefits Section */}
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>System Benefits</h3>
         {[1, 2, 3, 4, 5].map(index => {
           const fieldName = `benefit${index}`;
@@ -384,7 +385,7 @@ const ProductForm = ({ productData, onProductChange }) => {
           ];
           
           return (
-            <div key={fieldName} style={index === 1 ? {} : sectionStyle}>
+            <div key={fieldName} style={index === 1 ? {} : fieldStyle}>
               <label htmlFor={fieldName}>Benefit {index}</label>
               <input
                 type="text"
@@ -401,71 +402,71 @@ const ProductForm = ({ productData, onProductChange }) => {
       </div>
 
       {/* Price Section */}
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Price Information</h3>
         <label htmlFor="priceHeader">Price Header</label>
         <input
           type="text"
           id="priceHeader"
           name="priceHeader"
-          value={productData.priceHeader || 'Incl. VAT'}
+          value={productData.priceHeader || ''}
           onChange={handleChange}
           placeholder="Incl. VAT"
         />
         
-        <label htmlFor="priceAmount" style={sectionStyle}>Price Amount</label>
+        <label htmlFor="priceAmount" style={fieldStyle}>Price Amount</label>
         <input
           type="text"
           id="priceAmount"
           name="priceAmount"
-          value={productData.priceAmount || 'R51,779.35'}
+          value={productData.priceAmount || ''}
           onChange={handleChange}
           placeholder="R51,779.35"
           style={inputStyle}
         />
         
-        <label htmlFor="priceNote" style={sectionStyle}>Price Note</label>
+        <label htmlFor="priceNote" style={fieldStyle}>Price Note</label>
         <input
           type="text"
           id="priceNote"
           name="priceNote"
-          value={productData.priceNote || 'Professional Installation Available'}
+          value={productData.priceNote || ''}
           onChange={handleChange}
           placeholder="Professional Installation Available"
           style={inputStyle}
         />
       </div>
 
-      {/* NEW: Delivery Information Section */}
-      <div className="form-group">
-        <h3>Delivery Information</h3>
+      {/* DELIVERY INFORMATION SECTION - HIGHLIGHTED */}
+      <div className="form-group" style={{...sectionStyle, backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px'}}>
+        <h3 style={{color: '#0056b3'}}>🚚 Delivery Information</h3>
         <label htmlFor="delivery1">Delivery Option 1</label>
         <input
           type="text"
           id="delivery1"
           name="delivery1"
-          value={productData.delivery1 || 'Delivery JHB free up to 20 km'}
+          value={productData.delivery1 || ''}
           onChange={handleChange}
           placeholder="Delivery JHB free up to 20 km"
         />
         
-        <label htmlFor="delivery2" style={sectionStyle}>Delivery Option 2</label>
+        <label htmlFor="delivery2" style={fieldStyle}>Delivery Option 2</label>
         <input
           type="text"
           id="delivery2"
           name="delivery2"
-          value={productData.delivery2 || 'Delivery 60-100 km JHB R440 fee'}
+          value={productData.delivery2 || ''}
           onChange={handleChange}
           placeholder="Delivery 60-100 km JHB R440 fee"
           style={inputStyle}
         />
         
-        <label htmlFor="delivery3" style={sectionStyle}>Delivery Option 3</label>
+        <label htmlFor="delivery3" style={fieldStyle}>Delivery Option 3</label>
         <input
           type="text"
           id="delivery3"
           name="delivery3"
-          value={productData.delivery3 || 'Fee for other regions calculated'}
+          value={productData.delivery3 || ''}
           onChange={handleChange}
           placeholder="Fee for other regions calculated"
           style={inputStyle}
@@ -473,46 +474,46 @@ const ProductForm = ({ productData, onProductChange }) => {
       </div>
 
       {/* Contact Information */}
-      <div className="form-group">
+      <div className="form-group" style={sectionStyle}>
         <h3>Contact Information</h3>
         <label htmlFor="contactPhone1">Phone 1</label>
         <input
           type="text"
           id="contactPhone1"
           name="contactPhone1"
-          value={productData.contactPhone1 || '011 568 7166'}
+          value={productData.contactPhone1 || ''}
           onChange={handleChange}
           placeholder="011 568 7166"
         />
         
-        <label htmlFor="contactPhone2" style={sectionStyle}>Phone 2</label>
+        <label htmlFor="contactPhone2" style={fieldStyle}>Phone 2</label>
         <input
           type="text"
           id="contactPhone2"
           name="contactPhone2"
-          value={productData.contactPhone2 || '067 923 8166'}
+          value={productData.contactPhone2 || ''}
           onChange={handleChange}
           placeholder="067 923 8166"
           style={inputStyle}
         />
         
-        <label htmlFor="contactEmail" style={sectionStyle}>Email</label>
+        <label htmlFor="contactEmail" style={fieldStyle}>Email</label>
         <input
           type="text"
           id="contactEmail"
           name="contactEmail"
-          value={productData.contactEmail || 'sales@bshockedelectrical.co.za'}
+          value={productData.contactEmail || ''}
           onChange={handleChange}
           placeholder="sales@bshockedelectrical.co.za"
           style={inputStyle}
         />
         
-        <label htmlFor="contactWebsite" style={sectionStyle}>Website</label>
+        <label htmlFor="contactWebsite" style={fieldStyle}>Website</label>
         <input
           type="text"
           id="contactWebsite"
           name="contactWebsite"
-          value={productData.contactWebsite || 'https://bshockedelectrical.co.za'}
+          value={productData.contactWebsite || ''}
           onChange={handleChange}
           placeholder="https://bshockedelectrical.co.za"
           style={inputStyle}
