@@ -16,38 +16,67 @@ const ExportOptions = ({ template, productData, companyData }) => {
       setExporting(true);
       setError(null);
       
+      console.log('Exporting with data:', {
+        templateId: template.id,
+        productDataKeys: productData ? Object.keys(productData) : [],
+        companyDataKeys: companyData ? Object.keys(companyData) : []
+      });
+      
       // First, prepare the image if it exists
       let processedImage = null;
       if (productData?.image) {
         try {
           // If it's a blob URL or remote URL, fetch and convert to base64
-          const imageResponse = await fetch(productData.image);
-          const blob = await imageResponse.blob();
-          
-          // Convert blob to base64
-          const reader = new FileReader();
-          processedImage = await new Promise((resolve) => {
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(blob);
-          });
+          if (productData.image.startsWith('blob:') || productData.image.startsWith('http')) {
+            const imageResponse = await fetch(productData.image);
+            const blob = await imageResponse.blob();
+            
+            // Convert blob to base64
+            const reader = new FileReader();
+            processedImage = await new Promise((resolve) => {
+              reader.onloadend = () => resolve(reader.result);
+              reader.readAsDataURL(blob);
+            });
+          } else {
+            // It's already a data URL
+            processedImage = productData.image;
+          }
         } catch (err) {
           console.error('Error processing image:', err);
           // Continue without the image if there's an error
         }
       }
       
-      // Use the processed image or the original
+      // Filter out empty/null values from productData to respect hidden fields
+      const filteredProductData = {};
+      if (productData) {
+        Object.keys(productData).forEach(key => {
+          const value = productData[key];
+          if (value && value.toString().trim() !== '') {
+            filteredProductData[key] = value;
+          }
+        });
+      }
+      
+      // Override with processed image if available
+      if (processedImage) {
+        filteredProductData.image = processedImage;
+      }
+      
+      console.log('Filtered product data (hidden fields removed):', {
+        originalKeys: productData ? Object.keys(productData) : [],
+        filteredKeys: Object.keys(filteredProductData),
+        removedKeys: productData ? Object.keys(productData).filter(k => !filteredProductData[k]) : []
+      });
+      
+      // Use the export endpoint
       const dataToSend = {
         templateId: template.id,
         format,
-        productData: {
-          ...productData,
-          image: processedImage || productData?.image
-        },
+        productData: filteredProductData,
         companyData
       };
       
-      // Use the export endpoint
       const response = await fetch('/api/export-template', {
         method: 'POST',
         headers: {
@@ -64,13 +93,16 @@ const ExportOptions = ({ template, productData, companyData }) => {
       const blob = await response.blob();
       
       // Create a filename
-      const filename = `${template.id}-${productData.title || 'untitled'}.${format}`;
+      const productTitle = filteredProductData.title || filteredProductData.mainTitle || 'untitled';
+      const filename = `${template.id}-${productTitle.replace(/[^a-zA-Z0-9]/g, '_')}.${format === 'png' ? 'png' : 'svg'}`;
       
       // Save the file
       saveAs(blob, filename);
+      
+      console.log('Export successful:', filename);
     } catch (err) {
       console.error('Export error:', err);
-      setError('Failed to export. Please try again.');
+      setError(`Failed to export: ${err.message}`);
     } finally {
       setExporting(false);
     }
@@ -85,6 +117,7 @@ const ExportOptions = ({ template, productData, companyData }) => {
           className="btn btn-primary"
           onClick={() => handleExport('png')}
           disabled={exporting}
+          style={{ marginRight: '10px' }}
         >
           {exporting ? 'Exporting...' : 'Export as PNG'}
         </button>
@@ -98,7 +131,33 @@ const ExportOptions = ({ template, productData, companyData }) => {
         </button>
       </div>
       
-      {error && <div className="error">{error}</div>}
+      {error && (
+        <div className="error" style={{ 
+          color: '#dc3545', 
+          marginTop: '10px', 
+          padding: '8px', 
+          backgroundColor: '#f8d7da', 
+          border: '1px solid #f5c6cb', 
+          borderRadius: '4px' 
+        }}>
+          {error}
+        </div>
+      )}
+      
+      {/* Export info */}
+      <div style={{ 
+        marginTop: '15px', 
+        padding: '10px', 
+        backgroundColor: '#f8f9fa', 
+        borderRadius: '4px', 
+        fontSize: '12px',
+        color: '#666'
+      }}>
+        <strong>Export Info:</strong><br/>
+        • Hidden fields will be completely removed from export<br/>
+        • SVG format preserves vector graphics and text<br/>
+        • PNG format creates raster image for social media
+      </div>
     </div>
   );
 };
