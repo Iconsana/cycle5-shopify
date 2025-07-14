@@ -16,9 +16,10 @@
   
   <!-- Header Text -->
   <text x="180" y="55" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">{{RATING_TEXT}}</text>
-  <text x="650" y="45" fill="white" font-family="Arial, sans-serif" font-size="14">{{BRAND_TEXT}}</text>
-  <!-- UPDATED: Made Category Text Bold and Slightly Larger -->
-  <text x="650" y="65" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{CATEGORY_TEXT}}</text>
+  
+  <!-- Brand and Category Text - FIXED: Made both bold and positioned properly within border -->
+  <text x="640" y="50" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BRAND_TEXT}}</text>
+  <text x="640" y="75" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{CATEGORY_TEXT}}</text>
   
   <!-- Main Product Title -->
   <rect x="20" y="160" width="760" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="5"/>
@@ -46,35 +47,27 @@
   <text x="295" y="395" fill="white" font-family="Arial, sans-serif" font-size="12">{{POWER_DETAIL_1}}</text>
   <text x="295" y="410" fill="white" font-family="Arial, sans-serif" font-size="12">{{POWER_DETAIL_2}}</text>
   
-  <!-- Solar Panels Section -->
+  <!-- Solar Panels Section - ONLY Panel Detail 1 -->
   <text x="290" y="435" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">SOLAR PANELS:</text>
   <text x="295" y="455" fill="white" font-family="Arial, sans-serif" font-size="12">{{PANEL_DETAIL_1}}</text>
-  <text x="295" y="470" fill="white" font-family="Arial, sans-serif" font-size="12">{{PANEL_DETAIL_2}}</text>
   
   <!-- Mounting Hardware Section -->
-  <text x="290" y="495" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">MOUNTING HARDWARE:</text>
-  <text x="295" y="515" fill="white" font-family="Arial, sans-serif" font-size="12">{{MOUNT_DETAIL_1}}</text>
-  <text x="295" y="530" fill="white" font-family="Arial, sans-serif" font-size="12">{{MOUNT_DETAIL_2}}</text>
+  <text x="290" y="480" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">MOUNTING HARDWARE:</text>
+  <text x="295" y="500" fill="white" font-family="Arial, sans-serif" font-size="12">{{MOUNT_DETAIL_1}}</text>
+  <text x="295" y="515" fill="white" font-family="Arial, sans-serif" font-size="12">{{MOUNT_DETAIL_2}}</text>
   
   <!-- Electrical Components Section -->
-  <text x="290" y="555" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ELECTRICAL COMPONENTS:</text>
-  <text x="295" y="575" fill="white" font-family="Arial, sans-serif" font-size="12">{{ELEC_DETAIL_1}}</text>
-  <text x="295" y="590" fill="white" font-family="Arial, sans-serif" font-size="12">{{ELEC_DETAIL_2}}</text>
+  <text x="290" y="540" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ELECTRICAL COMPONENTS:</text>
+  <text x="295" y="560" fill="white" font-family="Arial, sans-serif" font-size="12">{{ELEC_DETAIL_1}}</text>
+  <text x="295" y="575" fill="white" font-family="Arial, sans-serif" font-size="12">{{ELEC_DETAIL_2}}</text>
   
   <!-- Cables and Installation Section -->
-  <text x="290" y="615" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CABLES AND INSTALLATION:</text>
-  <text x="295" y="635" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_1}}</text>
-  <text x="295" y="650" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_2}}</text>
+  <text x="290" y="600" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">CABLES AND INSTALLATION:</text>
+  <text x="295" y="620" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_1}}</text>
+  <text x="295" y="635" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_2}}</text>
   
-  <!-- Warranty and Specs Section -->
-  <text x="290" y="675" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">WARRANTY AND SPECS:</text>
-  <text x="295" y="695" fill="white" font-family="Arial, sans-serif" font-size="12">{{WARRANTY_DETAIL_1}}</text>
-  <text x="295" y="710" fill="white" font-family="Arial, sans-serif" font-size="12">{{WARRANTY_DETAIL_2}}</text>
-  
-  <!-- Performance Section -->
-  <text x="290" y="735" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">EXPECTED PERFORMANCE:</text>
-  <text x="295" y="755" fill="white" font-family="Arial, sans-serif" font-size="12">{{PERFORMANCE_DETAIL_1}}</text>
-  <text x="295" y="770" fill="white" font-family="Arial, sans-serif" font-size="12">{{PERFORMANCE_DETAIL_2}}</text>
+  <!-- REMOVED: Warranty and Specs Section -->
+  <!-- REMOVED: Performance Section -->
   
   <!-- Description Box (Left Column Extended) -->
   <text x="40" y="540" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{DESCRIPTION_TITLE}}</text>
