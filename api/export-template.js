@@ -1,4 +1,4 @@
-// api/export-template.js - Fixed Version with XML Escaping
+// api/export-template.js - Cleaned version with removed fields
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed. Use POST.' });
@@ -12,6 +12,7 @@ module.exports = async (req, res) => {
     }
     
     console.log('Export request:', { templateId, productData: !!productData, companyData: !!companyData });
+    console.log('Product data keys:', productData ? Object.keys(productData) : []);
     
     // XML Escaping function to handle special characters
     const escapeXML = (str) => {
@@ -40,14 +41,16 @@ module.exports = async (req, res) => {
     
     // Replace placeholders with actual values for solar-kit-social template
     if (templateId === 'solar-kit-social' && productData) {
-      // Header fields - ALL VALUES ARE ESCAPED
-      svgContent = svgContent.replace(/{{RATING_TEXT}}/g, escapeXML(productData.ratingText || 'Hellopeter 4.67'));
-      svgContent = svgContent.replace(/{{BRAND_TEXT}}/g, escapeXML(productData.brandText || 'B SHOCKED'));
-      svgContent = svgContent.replace(/{{CATEGORY_TEXT}}/g, escapeXML(productData.categoryText || 'ELECTRICAL | SOLAR'));
+      console.log('Processing solar-kit-social export with data:', Object.keys(productData));
+      
+      // Header fields - ONLY replace if data exists, NO DEFAULT VALUES
+      if (productData.ratingText) svgContent = svgContent.replace(/{{RATING_TEXT}}/g, escapeXML(productData.ratingText));
+      if (productData.brandText) svgContent = svgContent.replace(/{{BRAND_TEXT}}/g, escapeXML(productData.brandText));
+      if (productData.categoryText) svgContent = svgContent.replace(/{{CATEGORY_TEXT}}/g, escapeXML(productData.categoryText));
       
       // Main title and SKU
-      svgContent = svgContent.replace(/{{MAIN_TITLE}}/g, escapeXML(productData.mainTitle || 'SOLAR KIT PACKAGE'));
-      svgContent = svgContent.replace(/{{PRODUCT_SKU}}/g, escapeXML(productData.sku || 'RIIGDEYE-5KW-PACK'));
+      if (productData.mainTitle) svgContent = svgContent.replace(/{{MAIN_TITLE}}/g, escapeXML(productData.mainTitle));
+      if (productData.sku) svgContent = svgContent.replace(/{{PRODUCT_SKU}}/g, escapeXML(productData.sku));
       
       // Image section
       if (productData.image) {
@@ -55,68 +58,63 @@ module.exports = async (req, res) => {
       } else {
         svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
       }
-      svgContent = svgContent.replace(/{{IMAGE_TITLE}}/g, escapeXML(productData.imageTitle || '5 Dyness BX 51100 Units'));
-      svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, escapeXML(productData.secondaryDescription || 'Complete Solar Kit'));
+      if (productData.imageTitle) svgContent = svgContent.replace(/{{IMAGE_TITLE}}/g, escapeXML(productData.imageTitle));
+      if (productData.secondaryDescription) svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, escapeXML(productData.secondaryDescription));
       
-      // Product details sections - ALL VALUES ARE ESCAPED
-      svgContent = svgContent.replace(/{{POWER_DETAIL_1}}/g, escapeXML(productData.powerDetail1 || '• 5kW Deye Hybrid Inverter'));
-      svgContent = svgContent.replace(/{{POWER_DETAIL_2}}/g, escapeXML(productData.powerDetail2 || '• 5.12kWh Dyness Lithium Battery'));
+      // Product details sections - ONLY replace if data exists
+      if (productData.powerDetail1) svgContent = svgContent.replace(/{{POWER_DETAIL_1}}/g, escapeXML(productData.powerDetail1));
+      if (productData.powerDetail2) svgContent = svgContent.replace(/{{POWER_DETAIL_2}}/g, escapeXML(productData.powerDetail2));
       
-      svgContent = svgContent.replace(/{{PANEL_DETAIL_1}}/g, escapeXML(productData.panelDetail1 || '• 8x 565W JA Solar Mono Panels'));
-      svgContent = svgContent.replace(/{{PANEL_DETAIL_2}}/g, escapeXML(productData.panelDetail2 || '• 4.52kW Total Panel Capacity'));
+      if (productData.panelDetail1) svgContent = svgContent.replace(/{{PANEL_DETAIL_1}}/g, escapeXML(productData.panelDetail1));
+      // REMOVED: panelDetail2 - no longer exists in template
       
-      svgContent = svgContent.replace(/{{MOUNT_DETAIL_1}}/g, escapeXML(productData.mountDetail1 || '• PV Rails, Roof Hooks, Clamps'));
-      svgContent = svgContent.replace(/{{MOUNT_DETAIL_2}}/g, escapeXML(productData.mountDetail2 || '• Complete Mounting System'));
+      if (productData.mountDetail1) svgContent = svgContent.replace(/{{MOUNT_DETAIL_1}}/g, escapeXML(productData.mountDetail1));
+      if (productData.mountDetail2) svgContent = svgContent.replace(/{{MOUNT_DETAIL_2}}/g, escapeXML(productData.mountDetail2));
       
-      svgContent = svgContent.replace(/{{ELEC_DETAIL_1}}/g, escapeXML(productData.elecDetail1 || '• DC/AC Combiners, Surge Protection'));
-      svgContent = svgContent.replace(/{{ELEC_DETAIL_2}}/g, escapeXML(productData.elecDetail2 || '• Fuses, Switches, Safety Equipment'));
+      if (productData.elecDetail1) svgContent = svgContent.replace(/{{ELEC_DETAIL_1}}/g, escapeXML(productData.elecDetail1));
+      if (productData.elecDetail2) svgContent = svgContent.replace(/{{ELEC_DETAIL_2}}/g, escapeXML(productData.elecDetail2));
       
-      // Cables & Installation - ESCAPED
-      svgContent = svgContent.replace(/{{CABLE_DETAIL_1}}/g, escapeXML(productData.cableDetail1 || '• Solar Cables, Battery Cables, MC4'));
-      svgContent = svgContent.replace(/{{CABLE_DETAIL_2}}/g, escapeXML(productData.cableDetail2 || '• Conduits, Trunking, Earth Spike'));
+      // Cables & Installation - ONLY if exists
+      if (productData.cableDetail1) svgContent = svgContent.replace(/{{CABLE_DETAIL_1}}/g, escapeXML(productData.cableDetail1));
+      if (productData.cableDetail2) svgContent = svgContent.replace(/{{CABLE_DETAIL_2}}/g, escapeXML(productData.cableDetail2));
       
-      // Warranty & Specs - ESCAPED
-      svgContent = svgContent.replace(/{{WARRANTY_DETAIL_1}}/g, escapeXML(productData.warrantyDetail1 || '• 25yr Panels, 10yr Inverter & Battery'));
-      svgContent = svgContent.replace(/{{WARRANTY_DETAIL_2}}/g, escapeXML(productData.warrantyDetail2 || '• Grid-Tie Hybrid, Professional Install'));
+      // REMOVED: Warranty & Specs - these placeholders no longer exist in template
+      // REMOVED: Expected Performance - these placeholders no longer exist in template
       
-      // Expected Performance - ESCAPED
-      svgContent = svgContent.replace(/{{PERFORMANCE_DETAIL_1}}/g, escapeXML(productData.performanceDetail1 || '• ~1,800kWh/month Generation'));
-      svgContent = svgContent.replace(/{{PERFORMANCE_DETAIL_2}}/g, escapeXML(productData.performanceDetail2 || '• 85% Energy Independence'));
+      // Description section - ONLY if exists
+      if (productData.descriptionTitle) svgContent = svgContent.replace(/{{DESCRIPTION_TITLE}}/g, escapeXML(productData.descriptionTitle));
+      if (productData.descriptionLine1) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_1}}/g, escapeXML(productData.descriptionLine1));
+      if (productData.descriptionLine2) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_2}}/g, escapeXML(productData.descriptionLine2));
+      if (productData.descriptionLine3) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_3}}/g, escapeXML(productData.descriptionLine3));
+      if (productData.descriptionLine4) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_4}}/g, escapeXML(productData.descriptionLine4));
+      if (productData.descriptionLine5) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_5}}/g, escapeXML(productData.descriptionLine5));
+      if (productData.descriptionLine6) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_6}}/g, escapeXML(productData.descriptionLine6));
       
-      // Description section - ESCAPED
-      svgContent = svgContent.replace(/{{DESCRIPTION_TITLE}}/g, escapeXML(productData.descriptionTitle || 'COMPLETE SOLAR KIT'));
-      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_1}}/g, escapeXML(productData.descriptionLine1 || 'Everything you need for a'));
-      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_2}}/g, escapeXML(productData.descriptionLine2 || 'professional solar installation.'));
-      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_3}}/g, escapeXML(productData.descriptionLine3 || 'Hybrid system with battery'));
-      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_4}}/g, escapeXML(productData.descriptionLine4 || 'backup for load-shedding'));
-      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_5}}/g, escapeXML(productData.descriptionLine5 || 'protection and energy'));
-      svgContent = svgContent.replace(/{{DESCRIPTION_LINE_6}}/g, escapeXML(productData.descriptionLine6 || 'independence.'));
+      // Benefits - ONLY if exists
+      if (productData.benefit1) svgContent = svgContent.replace(/{{BENEFIT_1}}/g, escapeXML(productData.benefit1));
+      if (productData.benefit2) svgContent = svgContent.replace(/{{BENEFIT_2}}/g, escapeXML(productData.benefit2));
+      if (productData.benefit3) svgContent = svgContent.replace(/{{BENEFIT_3}}/g, escapeXML(productData.benefit3));
+      if (productData.benefit4) svgContent = svgContent.replace(/{{BENEFIT_4}}/g, escapeXML(productData.benefit4));
+      if (productData.benefit5) svgContent = svgContent.replace(/{{BENEFIT_5}}/g, escapeXML(productData.benefit5));
       
-      // Benefits - ESCAPED
-      svgContent = svgContent.replace(/{{BENEFIT_1}}/g, escapeXML(productData.benefit1 || '✓ Load Shedding Protection'));
-      svgContent = svgContent.replace(/{{BENEFIT_2}}/g, escapeXML(productData.benefit2 || '✓ Reduce Electricity Bills'));
-      svgContent = svgContent.replace(/{{BENEFIT_3}}/g, escapeXML(productData.benefit3 || '✓ Eco-Friendly Power'));
-      svgContent = svgContent.replace(/{{BENEFIT_4}}/g, escapeXML(productData.benefit4 || '✓ Professional Support'));
-      svgContent = svgContent.replace(/{{BENEFIT_5}}/g, escapeXML(productData.benefit5 || '✓ Complete Installation Kit'));
+      // Price section - ONLY if exists
+      if (productData.priceHeader) svgContent = svgContent.replace(/{{PRICE_HEADER}}/g, escapeXML(productData.priceHeader));
+      if (productData.priceAmount) svgContent = svgContent.replace(/{{PRICE_AMOUNT}}/g, escapeXML(productData.priceAmount));
+      if (productData.priceNote) svgContent = svgContent.replace(/{{PRICE_NOTE}}/g, escapeXML(productData.priceNote));
       
-      // Price section - ESCAPED
-      svgContent = svgContent.replace(/{{PRICE_HEADER}}/g, escapeXML(productData.priceHeader || 'Incl. VAT'));
-      svgContent = svgContent.replace(/{{PRICE_AMOUNT}}/g, escapeXML(productData.priceAmount || 'R51,779.35'));
-      svgContent = svgContent.replace(/{{PRICE_NOTE}}/g, escapeXML(productData.priceNote || 'Professional Installation Available'));
+      // Delivery section - ONLY if exists
+      if (productData.delivery1) svgContent = svgContent.replace(/{{DELIVERY_1}}/g, escapeXML(productData.delivery1));
+      if (productData.delivery2) svgContent = svgContent.replace(/{{DELIVERY_2}}/g, escapeXML(productData.delivery2));
+      if (productData.delivery3) svgContent = svgContent.replace(/{{DELIVERY_3}}/g, escapeXML(productData.delivery3));
       
-      // Delivery section - ESCAPED
-      svgContent = svgContent.replace(/{{DELIVERY_1}}/g, escapeXML(productData.delivery1 || 'Delivery JHB free up to 20 km'));
-      svgContent = svgContent.replace(/{{DELIVERY_2}}/g, escapeXML(productData.delivery2 || 'Delivery 60-100 km JHB R440 fee'));
-      svgContent = svgContent.replace(/{{DELIVERY_3}}/g, escapeXML(productData.delivery3 || 'Fee for other regions calculated'));
-      
-      // Contact section - ESCAPED
-      svgContent = svgContent.replace(/{{CONTACT_PHONE_1}}/g, escapeXML(productData.contactPhone1 || '011 568 7166'));
-      svgContent = svgContent.replace(/{{CONTACT_PHONE_2}}/g, escapeXML(productData.contactPhone2 || '067 923 8166'));
-      svgContent = svgContent.replace(/{{CONTACT_EMAIL}}/g, escapeXML(productData.contactEmail || 'sales@bshockedelectrical.co.za'));
-      svgContent = svgContent.replace(/{{CONTACT_WEBSITE}}/g, escapeXML(productData.contactWebsite || 'https://bshockedelectrical.co.za'));
+      // Contact section - ONLY if exists
+      if (productData.contactPhone1) svgContent = svgContent.replace(/{{CONTACT_PHONE_1}}/g, escapeXML(productData.contactPhone1));
+      if (productData.contactPhone2) svgContent = svgContent.replace(/{{CONTACT_PHONE_2}}/g, escapeXML(productData.contactPhone2));
+      if (productData.contactEmail) svgContent = svgContent.replace(/{{CONTACT_EMAIL}}/g, escapeXML(productData.contactEmail));
+      if (productData.contactWebsite) svgContent = svgContent.replace(/{{CONTACT_WEBSITE}}/g, escapeXML(productData.contactWebsite));
     }
     
-    // Handle other templates (existing logic) - ALL VALUES ARE ESCAPED
+    // Handle other templates (existing logic) - ONLY replace if data exists
     if (productData) {
       // Basic product data for all templates
       if (productData.title) {
@@ -139,7 +137,7 @@ module.exports = async (req, res) => {
         svgContent = svgContent.replace(/{{PRODUCT_IMAGE}}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
       }
       
-      // Solar Bulk Deal specific fields (existing) - ESCAPED
+      // Solar Bulk Deal specific fields (existing) - ONLY if exists
       if (productData.promotionTitle) {
         svgContent = svgContent.replace(/{{PROMOTION_TITLE}}/g, escapeXML(productData.promotionTitle));
       }
@@ -150,7 +148,7 @@ module.exports = async (req, res) => {
         svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, escapeXML(productData.secondaryDescription));
       }
       
-      // Bullet points for other templates - ESCAPED
+      // Bullet points for other templates - ONLY if exists
       if (productData.bulletPoint1) svgContent = svgContent.replace(/{{BULLET_POINT_1}}/g, escapeXML(productData.bulletPoint1));
       if (productData.bulletPoint2) svgContent = svgContent.replace(/{{BULLET_POINT_2}}/g, escapeXML(productData.bulletPoint2));
       if (productData.bulletPoint3) svgContent = svgContent.replace(/{{BULLET_POINT_3}}/g, escapeXML(productData.bulletPoint3));
@@ -158,7 +156,7 @@ module.exports = async (req, res) => {
       if (productData.bulletPoint5) svgContent = svgContent.replace(/{{BULLET_POINT_5}}/g, escapeXML(productData.bulletPoint5));
     }
     
-    // Handle company data - ESCAPED
+    // Handle company data - ONLY if exists
     if (companyData) {
       if (companyData.name) {
         svgContent = svgContent.replace(/{{COMPANY_NAME}}/g, escapeXML(companyData.name));
@@ -174,10 +172,14 @@ module.exports = async (req, res) => {
       }
     }
     
-    // Replace any remaining placeholders with empty strings
+    // Replace any remaining placeholders with empty strings (this removes any unused placeholders)
+    const beforeCleanup = svgContent.length;
     svgContent = svgContent.replace(/{{[^}]+}}/g, '');
+    const afterCleanup = svgContent.length;
     
-    console.log('Processed SVG length:', svgContent.length);
+    console.log('SVG length before cleanup:', beforeCleanup);
+    console.log('SVG length after cleanup:', afterCleanup);
+    console.log('Placeholders removed for unused fields:', beforeCleanup - afterCleanup);
     
     // For now, always return SVG (PNG conversion causes issues on Vercel)
     // You can convert SVG to PNG client-side if needed
