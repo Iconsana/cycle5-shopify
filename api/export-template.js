@@ -1,4 +1,4 @@
-// api/export-template.js - Cleaned version with removed fields
+// api/export-template.js - Updated with dynamic field support
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed. Use POST.' });
@@ -14,15 +14,20 @@ module.exports = async (req, res) => {
     console.log('Export request:', { templateId, productData: !!productData, companyData: !!companyData });
     console.log('Product data keys:', productData ? Object.keys(productData) : []);
     
-    // XML Escaping function to handle special characters
+    // Enhanced XML Escaping function to handle all characters
     const escapeXML = (str) => {
       if (!str) return '';
       return str
+        .toString()
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+        .replace(/'/g, '&#039;')
+        .replace(/\n/g, ' ')
+        .replace(/\r/g, ' ')
+        .replace(/\t/g, ' ')
+        .substring(0, 150); // Limit length to prevent SVG overflow
     };
     
     // Read template SVG
@@ -41,7 +46,7 @@ module.exports = async (req, res) => {
     
     // Replace placeholders with actual values for solar-kit-social template
     if (templateId === 'solar-kit-social' && productData) {
-      console.log('Processing solar-kit-social export with data:', Object.keys(productData));
+      console.log('Processing solar-kit-social export with dynamic fields:', Object.keys(productData));
       
       // Header fields - ONLY replace if data exists, NO DEFAULT VALUES
       if (productData.ratingText) svgContent = svgContent.replace(/{{RATING_TEXT}}/g, escapeXML(productData.ratingText));
@@ -61,41 +66,76 @@ module.exports = async (req, res) => {
       if (productData.imageTitle) svgContent = svgContent.replace(/{{IMAGE_TITLE}}/g, escapeXML(productData.imageTitle));
       if (productData.secondaryDescription) svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, escapeXML(productData.secondaryDescription));
       
-      // Product details sections - ONLY replace if data exists
-      if (productData.powerDetail1) svgContent = svgContent.replace(/{{POWER_DETAIL_1}}/g, escapeXML(productData.powerDetail1));
-      if (productData.powerDetail2) svgContent = svgContent.replace(/{{POWER_DETAIL_2}}/g, escapeXML(productData.powerDetail2));
+      // Dynamic Power System fields (1-3)
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `powerDetail${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{POWER_DETAIL_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+          console.log(`Exported POWER_DETAIL_${i}`);
+        }
+      }
       
-      if (productData.panelDetail1) svgContent = svgContent.replace(/{{PANEL_DETAIL_1}}/g, escapeXML(productData.panelDetail1));
-      // REMOVED: panelDetail2 - no longer exists in template
+      // Dynamic Solar Panel fields (1-2)
+      for (let i = 1; i <= 2; i++) {
+        const fieldName = `panelDetail${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{PANEL_DETAIL_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+          console.log(`Exported PANEL_DETAIL_${i}`);
+        }
+      }
       
-      if (productData.mountDetail1) svgContent = svgContent.replace(/{{MOUNT_DETAIL_1}}/g, escapeXML(productData.mountDetail1));
-      if (productData.mountDetail2) svgContent = svgContent.replace(/{{MOUNT_DETAIL_2}}/g, escapeXML(productData.mountDetail2));
+      // Dynamic Mounting Hardware fields (1-3)
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `mountDetail${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{MOUNT_DETAIL_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+          console.log(`Exported MOUNT_DETAIL_${i}`);
+        }
+      }
       
-      if (productData.elecDetail1) svgContent = svgContent.replace(/{{ELEC_DETAIL_1}}/g, escapeXML(productData.elecDetail1));
-      if (productData.elecDetail2) svgContent = svgContent.replace(/{{ELEC_DETAIL_2}}/g, escapeXML(productData.elecDetail2));
+      // Dynamic Electrical Components fields (1-3)
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `elecDetail${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{ELEC_DETAIL_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+          console.log(`Exported ELEC_DETAIL_${i}`);
+        }
+      }
       
-      // Cables & Installation - ONLY if exists
-      if (productData.cableDetail1) svgContent = svgContent.replace(/{{CABLE_DETAIL_1}}/g, escapeXML(productData.cableDetail1));
-      if (productData.cableDetail2) svgContent = svgContent.replace(/{{CABLE_DETAIL_2}}/g, escapeXML(productData.cableDetail2));
+      // Dynamic Cables & Installation fields (1-3)
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `cableDetail${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{CABLE_DETAIL_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+          console.log(`Exported CABLE_DETAIL_${i}`);
+        }
+      }
       
-      // REMOVED: Warranty & Specs - these placeholders no longer exist in template
-      // REMOVED: Expected Performance - these placeholders no longer exist in template
+      // NEW: Dynamic Additional Parts fields (1-10)
+      for (let i = 1; i <= 10; i++) {
+        const fieldName = `additionalPart${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{ADDITIONAL_PART_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+          console.log(`Exported ADDITIONAL_PART_${i}`);
+        }
+      }
       
       // Description section - ONLY if exists
       if (productData.descriptionTitle) svgContent = svgContent.replace(/{{DESCRIPTION_TITLE}}/g, escapeXML(productData.descriptionTitle));
-      if (productData.descriptionLine1) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_1}}/g, escapeXML(productData.descriptionLine1));
-      if (productData.descriptionLine2) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_2}}/g, escapeXML(productData.descriptionLine2));
-      if (productData.descriptionLine3) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_3}}/g, escapeXML(productData.descriptionLine3));
-      if (productData.descriptionLine4) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_4}}/g, escapeXML(productData.descriptionLine4));
-      if (productData.descriptionLine5) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_5}}/g, escapeXML(productData.descriptionLine5));
-      if (productData.descriptionLine6) svgContent = svgContent.replace(/{{DESCRIPTION_LINE_6}}/g, escapeXML(productData.descriptionLine6));
+      for (let i = 1; i <= 6; i++) {
+        const fieldName = `descriptionLine${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{DESCRIPTION_LINE_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+        }
+      }
       
       // Benefits - ONLY if exists
-      if (productData.benefit1) svgContent = svgContent.replace(/{{BENEFIT_1}}/g, escapeXML(productData.benefit1));
-      if (productData.benefit2) svgContent = svgContent.replace(/{{BENEFIT_2}}/g, escapeXML(productData.benefit2));
-      if (productData.benefit3) svgContent = svgContent.replace(/{{BENEFIT_3}}/g, escapeXML(productData.benefit3));
-      if (productData.benefit4) svgContent = svgContent.replace(/{{BENEFIT_4}}/g, escapeXML(productData.benefit4));
-      if (productData.benefit5) svgContent = svgContent.replace(/{{BENEFIT_5}}/g, escapeXML(productData.benefit5));
+      for (let i = 1; i <= 5; i++) {
+        const fieldName = `benefit${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{BENEFIT_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+        }
+      }
       
       // Price section - ONLY if exists
       if (productData.priceHeader) svgContent = svgContent.replace(/{{PRICE_HEADER}}/g, escapeXML(productData.priceHeader));
@@ -103,9 +143,12 @@ module.exports = async (req, res) => {
       if (productData.priceNote) svgContent = svgContent.replace(/{{PRICE_NOTE}}/g, escapeXML(productData.priceNote));
       
       // Delivery section - ONLY if exists
-      if (productData.delivery1) svgContent = svgContent.replace(/{{DELIVERY_1}}/g, escapeXML(productData.delivery1));
-      if (productData.delivery2) svgContent = svgContent.replace(/{{DELIVERY_2}}/g, escapeXML(productData.delivery2));
-      if (productData.delivery3) svgContent = svgContent.replace(/{{DELIVERY_3}}/g, escapeXML(productData.delivery3));
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `delivery${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{DELIVERY_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+        }
+      }
       
       // Contact section - ONLY if exists
       if (productData.contactPhone1) svgContent = svgContent.replace(/{{CONTACT_PHONE_1}}/g, escapeXML(productData.contactPhone1));
@@ -148,12 +191,13 @@ module.exports = async (req, res) => {
         svgContent = svgContent.replace(/{{SECONDARY_DESCRIPTION}}/g, escapeXML(productData.secondaryDescription));
       }
       
-      // Bullet points for other templates - ONLY if exists
-      if (productData.bulletPoint1) svgContent = svgContent.replace(/{{BULLET_POINT_1}}/g, escapeXML(productData.bulletPoint1));
-      if (productData.bulletPoint2) svgContent = svgContent.replace(/{{BULLET_POINT_2}}/g, escapeXML(productData.bulletPoint2));
-      if (productData.bulletPoint3) svgContent = svgContent.replace(/{{BULLET_POINT_3}}/g, escapeXML(productData.bulletPoint3));
-      if (productData.bulletPoint4) svgContent = svgContent.replace(/{{BULLET_POINT_4}}/g, escapeXML(productData.bulletPoint4));
-      if (productData.bulletPoint5) svgContent = svgContent.replace(/{{BULLET_POINT_5}}/g, escapeXML(productData.bulletPoint5));
+      // Bullet points for other templates - Dynamic handling
+      for (let i = 1; i <= 5; i++) {
+        const fieldName = `bulletPoint${i}`;
+        if (productData[fieldName]) {
+          svgContent = svgContent.replace(new RegExp(`{{BULLET_POINT_${i}}}`, 'g'), escapeXML(productData[fieldName]));
+        }
+      }
     }
     
     // Handle company data - ONLY if exists
@@ -181,10 +225,21 @@ module.exports = async (req, res) => {
     console.log('SVG length after cleanup:', afterCleanup);
     console.log('Placeholders removed for unused fields:', beforeCleanup - afterCleanup);
     
+    // Count dynamic fields that were processed
+    const dynamicFieldsProcessed = {
+      powerDetails: Object.keys(productData || {}).filter(k => k.startsWith('powerDetail') && productData[k]).length,
+      panelDetails: Object.keys(productData || {}).filter(k => k.startsWith('panelDetail') && productData[k]).length,
+      mountDetails: Object.keys(productData || {}).filter(k => k.startsWith('mountDetail') && productData[k]).length,
+      elecDetails: Object.keys(productData || {}).filter(k => k.startsWith('elecDetail') && productData[k]).length,
+      cableDetails: Object.keys(productData || {}).filter(k => k.startsWith('cableDetail') && productData[k]).length,
+      additionalParts: Object.keys(productData || {}).filter(k => k.startsWith('additionalPart') && productData[k]).length
+    };
+    console.log('Dynamic fields processed in export:', dynamicFieldsProcessed);
+    
     // For now, always return SVG (PNG conversion causes issues on Vercel)
     // You can convert SVG to PNG client-side if needed
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.setHeader('Content-Disposition', `attachment; filename="${templateId}.svg"`);
+    res.setHeader('Content-Disposition', `attachment; filename="${templateId}-dynamic.svg"`);
     res.status(200).send(svgContent);
     
   } catch (error) {
