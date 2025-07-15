@@ -22,92 +22,142 @@ const TemplatePreview = ({ template, productData, companyData }) => {
       }
     };
 
+    // Sanitize text to prevent SVG crashes
+    const sanitizeText = (text) => {
+      if (!text) return '';
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;')
+        .substring(0, 100); // Limit length to prevent overflow
+    };
+
     // Add basic product data parameters (only if they exist)
-    addParam('title', productData?.title);
-    addParam('price', productData?.price);
-    addParam('sku', productData?.sku);
-    addParam('description', productData?.description);
+    addParam('title', sanitizeText(productData?.title));
+    addParam('price', sanitizeText(productData?.price));
+    addParam('sku', sanitizeText(productData?.sku));
+    addParam('description', sanitizeText(productData?.description));
     addParam('imageUrl', productData?.image);
 
     // Solar Kit Social specific parameters (only add if they exist)
     if (template.id === 'solar-kit-social') {
-      console.log('Building solar-kit-social preview URL with filtered data');
+      console.log('Building solar-kit-social preview URL with dynamic field support');
       
       // Header fields
-      addParam('ratingText', productData?.ratingText);
-      addParam('brandText', productData?.brandText);
-      addParam('categoryText', productData?.categoryText);
-      addParam('mainTitle', productData?.mainTitle);
+      addParam('ratingText', sanitizeText(productData?.ratingText));
+      addParam('brandText', sanitizeText(productData?.brandText));
+      addParam('categoryText', sanitizeText(productData?.categoryText));
+      addParam('mainTitle', sanitizeText(productData?.mainTitle));
       
-      // Image section
-      addParam('imageTitle', productData?.imageTitle);
-      addParam('secondaryDescription', productData?.secondaryDescription);
+      // Image section - FIX FOR CRASH
+      addParam('imageTitle', sanitizeText(productData?.imageTitle));
+      addParam('secondaryDescription', sanitizeText(productData?.secondaryDescription));
       
-      // Product details sections (only add if they exist)
-      addParam('powerDetail1', productData?.powerDetail1);
-      addParam('powerDetail2', productData?.powerDetail2);
-      addParam('panelDetail1', productData?.panelDetail1);
-      // REMOVED: panelDetail2 - no longer exists
-      addParam('mountDetail1', productData?.mountDetail1);
-      addParam('mountDetail2', productData?.mountDetail2);
-      addParam('elecDetail1', productData?.elecDetail1);
-      addParam('elecDetail2', productData?.elecDetail2);
+      // Dynamic Power System fields (1-3 fields)
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `powerDetail${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
       
-      // Cables & Installation
-      addParam('cableDetail1', productData?.cableDetail1);
-      addParam('cableDetail2', productData?.cableDetail2);
+      // Dynamic Solar Panel fields (1-2 fields)
+      for (let i = 1; i <= 2; i++) {
+        const fieldName = `panelDetail${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
       
-      // REMOVED: Warranty & Specs fields - no longer exist
-      // REMOVED: Expected Performance fields - no longer exist
+      // Dynamic Mounting Hardware fields (1-3 fields)
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `mountDetail${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
+      
+      // Dynamic Electrical Components fields (1-3 fields)
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `elecDetail${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
+      
+      // Dynamic Cables & Installation fields (1-3 fields)
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `cableDetail${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
+      
+      // NEW: Dynamic Additional Parts fields (1-10 fields)
+      for (let i = 1; i <= 10; i++) {
+        const fieldName = `additionalPart${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
       
       // Description section
-      addParam('descriptionTitle', productData?.descriptionTitle);
-      addParam('descriptionLine1', productData?.descriptionLine1);
-      addParam('descriptionLine2', productData?.descriptionLine2);
-      addParam('descriptionLine3', productData?.descriptionLine3);
-      addParam('descriptionLine4', productData?.descriptionLine4);
-      addParam('descriptionLine5', productData?.descriptionLine5);
-      addParam('descriptionLine6', productData?.descriptionLine6);
+      addParam('descriptionTitle', sanitizeText(productData?.descriptionTitle));
+      for (let i = 1; i <= 6; i++) {
+        const fieldName = `descriptionLine${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
       
       // Benefits
-      addParam('benefit1', productData?.benefit1);
-      addParam('benefit2', productData?.benefit2);
-      addParam('benefit3', productData?.benefit3);
-      addParam('benefit4', productData?.benefit4);
-      addParam('benefit5', productData?.benefit5);
+      for (let i = 1; i <= 5; i++) {
+        const fieldName = `benefit${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
       
       // Price section
-      addParam('priceHeader', productData?.priceHeader);
-      addParam('priceAmount', productData?.priceAmount);
-      addParam('priceNote', productData?.priceNote);
+      addParam('priceHeader', sanitizeText(productData?.priceHeader));
+      addParam('priceAmount', sanitizeText(productData?.priceAmount));
+      addParam('priceNote', sanitizeText(productData?.priceNote));
       
       // Delivery section
-      addParam('delivery1', productData?.delivery1);
-      addParam('delivery2', productData?.delivery2);
-      addParam('delivery3', productData?.delivery3);
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `delivery${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
       
       // Contact section
-      addParam('contactPhone1', productData?.contactPhone1);
-      addParam('contactPhone2', productData?.contactPhone2);
-      addParam('contactEmail', productData?.contactEmail);
-      addParam('contactWebsite', productData?.contactWebsite);
+      addParam('contactPhone1', sanitizeText(productData?.contactPhone1));
+      addParam('contactPhone2', sanitizeText(productData?.contactPhone2));
+      addParam('contactEmail', sanitizeText(productData?.contactEmail));
+      addParam('contactWebsite', sanitizeText(productData?.contactWebsite));
     }
 
     // Existing Solar Bulk Deal parameters (only add if they exist)
-    addParam('promotionTitle', productData?.promotionTitle);
-    addParam('imageTitle', productData?.imageTitle);
-    addParam('secondaryDescription', productData?.secondaryDescription);
-    addParam('bulletPoint1', productData?.bulletPoint1);
-    addParam('bulletPoint2', productData?.bulletPoint2);
-    addParam('bulletPoint3', productData?.bulletPoint3);
-    addParam('bulletPoint4', productData?.bulletPoint4);
-    addParam('bulletPoint5', productData?.bulletPoint5);
+    addParam('promotionTitle', sanitizeText(productData?.promotionTitle));
+    addParam('imageTitle', sanitizeText(productData?.imageTitle));
+    addParam('secondaryDescription', sanitizeText(productData?.secondaryDescription));
+    
+    // Bullet points for other templates
+    for (let i = 1; i <= 5; i++) {
+      const fieldName = `bulletPoint${i}`;
+      if (productData?.[fieldName]) {
+        addParam(fieldName, sanitizeText(productData[fieldName]));
+      }
+    }
 
     // Add company data parameters (only if they exist)
-    addParam('company', companyData?.name);
-    addParam('phone', companyData?.phone);
-    addParam('email', companyData?.email);
-    addParam('website', companyData?.website);
+    addParam('company', sanitizeText(companyData?.name));
+    addParam('phone', sanitizeText(companyData?.phone));
+    addParam('email', sanitizeText(companyData?.email));
+    addParam('website', sanitizeText(companyData?.website));
     
     // Add cache-busting parameter
     params.append('t', Date.now());
@@ -119,6 +169,18 @@ const TemplatePreview = ({ template, productData, companyData }) => {
     
     console.log('Preview URL:', url);
     console.log('Parameters being sent:', Object.fromEntries(params.entries()));
+    
+    // Log dynamic field counts for debugging
+    const dynamicFields = {
+      powerDetails: Object.keys(productData || {}).filter(k => k.startsWith('powerDetail')).length,
+      panelDetails: Object.keys(productData || {}).filter(k => k.startsWith('panelDetail')).length,
+      mountDetails: Object.keys(productData || {}).filter(k => k.startsWith('mountDetail')).length,
+      elecDetails: Object.keys(productData || {}).filter(k => k.startsWith('elecDetail')).length,
+      cableDetails: Object.keys(productData || {}).filter(k => k.startsWith('cableDetail')).length,
+      additionalParts: Object.keys(productData || {}).filter(k => k.startsWith('additionalPart')).length
+    };
+    console.log('Dynamic field counts:', dynamicFields);
+    
   }, [template, productData, companyData]);
 
   if (!template) {
@@ -131,6 +193,7 @@ const TemplatePreview = ({ template, productData, companyData }) => {
 
   const handleImageError = (e) => {
     console.error('Preview failed to load:', previewUrl);
+    console.error('Error details:', e);
     setImageError(true);
   };
 
@@ -150,9 +213,9 @@ const TemplatePreview = ({ template, productData, companyData }) => {
             borderRadius: '4px',
             backgroundColor: '#f8f9fa'
           }}>
-            <p style={{ color: '#dc3545', marginBottom: '10px' }}>Preview Error</p>
+            <p style={{ color: '#dc3545', marginBottom: '10px' }}>⚠️ Preview Error</p>
             <p style={{ fontSize: '12px', color: '#6c757d', marginBottom: '10px' }}>
-              Failed to load template preview
+              Failed to load template preview. This might be due to special characters in text fields.
             </p>
             <button 
               onClick={() => {
@@ -163,30 +226,62 @@ const TemplatePreview = ({ template, productData, companyData }) => {
                 setPreviewUrl(url.pathname + url.search);
               }}
               style={{
-                padding: '5px 10px',
+                padding: '8px 12px',
                 border: '1px solid #007bff',
                 backgroundColor: '#007bff',
                 color: 'white',
-                borderRadius: '3px',
-                cursor: 'pointer'
+                borderRadius: '4px',
+                cursor: 'pointer',
+                marginRight: '10px'
               }}
             >
-              Retry
+              🔄 Retry Preview
             </button>
-            <details style={{ marginTop: '10px', fontSize: '11px' }}>
-              <summary>Debug Info</summary>
-              <p>Template: {template.id}</p>
-              <p>URL: {previewUrl}</p>
+            <details style={{ marginTop: '15px', fontSize: '11px', textAlign: 'left' }}>
+              <summary style={{ cursor: 'pointer', color: '#007bff' }}>🔍 Debug Info</summary>
+              <div style={{ marginTop: '10px', padding: '10px', backgroundColor: '#f1f1f1', borderRadius: '4px' }}>
+                <p><strong>Template:</strong> {template.id}</p>
+                <p><strong>URL Length:</strong> {previewUrl.length} characters</p>
+                <p><strong>Fields with data:</strong> {Object.keys(productData || {}).filter(k => productData[k]).length}</p>
+                <p><strong>Dynamic fields:</strong></p>
+                <ul style={{ fontSize: '10px', marginLeft: '15px' }}>
+                  <li>Power Details: {Object.keys(productData || {}).filter(k => k.startsWith('powerDetail')).length}</li>
+                  <li>Additional Parts: {Object.keys(productData || {}).filter(k => k.startsWith('additionalPart')).length}</li>
+                </ul>
+                <details style={{ marginTop: '8px' }}>
+                  <summary style={{ fontSize: '10px', color: '#666' }}>Full URL</summary>
+                  <div style={{ fontSize: '9px', wordBreak: 'break-all', maxHeight: '100px', overflow: 'auto', backgroundColor: 'white', padding: '5px', marginTop: '5px' }}>
+                    {previewUrl}
+                  </div>
+                </details>
+              </div>
             </details>
           </div>
         ) : (
-          <img 
-            src={previewUrl} 
-            alt="Template Preview" 
-            style={{ maxWidth: '100%', height: 'auto' }} 
-            onError={handleImageError}
-            onLoad={handleImageLoad}
-          />
+          <>
+            <img 
+              src={previewUrl} 
+              alt="Template Preview" 
+              style={{ maxWidth: '100%', height: 'auto' }} 
+              onError={handleImageError}
+              onLoad={handleImageLoad}
+            />
+            {/* Field count indicator */}
+            <div style={{
+              fontSize: '10px',
+              color: '#666',
+              textAlign: 'center',
+              marginTop: '10px',
+              padding: '5px',
+              backgroundColor: '#f8f9fa',
+              borderRadius: '4px'
+            }}>
+              📊 Active fields: {Object.keys(productData || {}).filter(k => productData[k] && productData[k].trim()).length}
+              {template.id === 'solar-kit-social' && (
+                <span> | Additional parts: {Object.keys(productData || {}).filter(k => k.startsWith('additionalPart') && productData[k]).length}</span>
+              )}
+            </div>
+          </>
         )}
       </div>
     </div>
