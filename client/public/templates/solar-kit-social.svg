@@ -35,7 +35,10 @@
   
   <!-- Left Column - Image Placeholder -->
   <rect x="40" y="320" width="220" height="160" fill="white" rx="5"/>
-  <image x="45" y="325" width="210" height="150" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
+  <!-- Fixed Image Element with fallback -->
+  <rect x="45" y="325" width="210" height="150" fill="#f0f0f0" rx="3"/>
+  <text x="150" y="400" fill="#666" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">[Product Image]</text>
+  
   <text x="150" y="490" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">{{IMAGE_TITLE}}</text>
   <text x="150" y="510" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
   
@@ -101,7 +104,7 @@
   <text x="40" y="745" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_5}}</text>
   
   <!-- Warranty & Support Info (Left Column) -->
-  <text x="40" y="775" fill="#f59e0b" font-family="Arial, sans-serif" font-size="12" font-weight="bold">WARRANTY & SUPPORT:</text>
+  <text x="40" y="775" fill="#f59e0b" font-family="Arial, sans-serif" font-size="12" font-weight="bold">WARRANTY &amp; SUPPORT:</text>
   <text x="40" y="795" fill="white" font-family="Arial, sans-serif" font-size="10">• Professional installation support</text>
   <text x="40" y="810" fill="white" font-family="Arial, sans-serif" font-size="10">• Comprehensive warranty coverage</text>
   <text x="40" y="825" fill="white" font-family="Arial, sans-serif" font-size="10">• Technical support included</text>
