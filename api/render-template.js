@@ -125,9 +125,29 @@ module.exports = async (req, res) => {
       </svg>`);
     }
     
-    // Read SVG content
-    let svgContent = fs.readFileSync(svgPath, 'utf8');
-    console.log('Original SVG length:', svgContent.length);
+    // Handle debug template
+    if (templateId === 'debug-simple') {
+      console.log('Processing debug-simple template');
+      
+      // For debug template, create inline SVG for testing
+      if (!fs.existsSync(svgPath)) {
+        console.log('Creating inline debug template');
+        svgContent = `<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+          <rect width="800" height="600" fill="#1e3a8a"/>
+          <rect x="50" y="50" width="700" height="100" fill="#f59e0b" rx="10"/>
+          <text x="400" y="110" fill="white" font-family="Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle">INLINE DEBUG TEMPLATE</text>
+          <text x="80" y="200" fill="white" font-family="Arial, sans-serif" font-size="20">SKU: ${escapeXML(sku || 'TEST-SKU')}</text>
+          <text x="80" y="250" fill="#fbbf24" font-family="Arial, sans-serif" font-size="18">${escapeXML(ratingText || 'Debug Rating')}</text>
+          <text x="80" y="280" fill="white" font-family="Arial, sans-serif" font-size="16">${escapeXML(brandText || 'Debug Brand')}</text>
+          <text x="80" y="310" fill="white" font-family="Arial, sans-serif" font-size="16">${escapeXML(categoryText || 'Debug Category')}</text>
+          <rect x="50" y="400" width="300" height="80" fill="#f59e0b" rx="10"/>
+          <text x="200" y="450" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">${escapeXML(priceAmount || 'R999.99')}</text>
+          <text x="400" y="450" fill="white" font-family="Arial, sans-serif" font-size="14">Template: Inline ✓</text>
+          <text x="400" y="470" fill="white" font-family="Arial, sans-serif" font-size="14">API: Working ✓</text>
+          <text x="400" y="490" fill="white" font-family="Arial, sans-serif" font-size="14">Time: ${new Date().toISOString()}</text>
+        </svg>`;
+      }
+    }
     
     // Handle Solar Kit Social template specifically
     if (templateId === 'solar-kit-social') {
