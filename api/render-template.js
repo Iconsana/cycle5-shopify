@@ -140,13 +140,16 @@ module.exports = async (req, res) => {
       if (mainTitle) svgContent = svgContent.replace(/\{\{MAIN_TITLE\}\}/g, escapeXML(mainTitle));
       if (sku) svgContent = svgContent.replace(/\{\{PRODUCT_SKU\}\}/g, escapeXML(sku));
       
-      // Image section - FIXED to prevent crashes
+      // Image section - ENHANCED to dynamically insert image element
       if (imageUrl && imageUrl.startsWith('data:')) {
-        svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, imageUrl);
-        console.log('Using provided image (data URL)');
+        console.log('Inserting product image');
+        // Replace the placeholder rect with an actual image element
+        const imageRect = '<rect x="45" y="325" width="210" height="150" fill="#f0f0f0" rx="3"/>\n  <text x="150" y="400" fill="#666" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">[Product Image]</text>';
+        const imageElement = `<image x="45" y="325" width="210" height="150" href="${imageUrl}" preserveAspectRatio="xMidYMid meet"/>`;
+        svgContent = svgContent.replace(imageRect, imageElement);
       } else {
-        svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7');
         console.log('Using placeholder image');
+        // Keep the placeholder rect as is
       }
       
       // FIXED: Image title and secondary description with proper escaping
