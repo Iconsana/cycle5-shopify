@@ -18,12 +18,33 @@ const ProductForm = ({ productData, onProductChange }) => {
     mountingHardware: true,
     electricalComponents: true,
     cablesInstallation: true,
+    additionalParts: true, // New section
     productDescription: true,
     systemBenefits: true,
     priceInformation: true,
     deliveryInformation: true,
     contactInformation: true
   });
+
+  // State to track dynamic field counts per category
+  const [categoryFieldCounts, setCategoryFieldCounts] = useState({
+    powerSystem: 2,
+    solarPanels: 1,
+    mountingHardware: 2,
+    electricalComponents: 2,
+    cablesInstallation: 2,
+    additionalParts: 0 // Start with 0, user can add up to 10
+  });
+
+  // Maximum fields per category
+  const maxFields = {
+    powerSystem: 3,
+    solarPanels: 2,
+    mountingHardware: 3,
+    electricalComponents: 3,
+    cablesInstallation: 3,
+    additionalParts: 10
+  };
   
   // Handle file drop for product image
   const { getRootProps, getInputProps } = useDropzone({
@@ -95,7 +116,36 @@ const ProductForm = ({ productData, onProductChange }) => {
       [sectionKey]: !prev[sectionKey]
     }));
   };
-  
+
+  // Add field to category
+  const addFieldToCategory = (category) => {
+    setCategoryFieldCounts(prev => ({
+      ...prev,
+      [category]: Math.min(prev[category] + 1, maxFields[category])
+    }));
+  };
+
+  // Remove field from category
+  const removeFieldFromCategory = (category) => {
+    setCategoryFieldCounts(prev => {
+      const newCount = Math.max(prev[category] - 1, category === 'additionalParts' ? 0 : 1);
+      
+      // Clear the data for the removed field
+      const fieldToRemove = `${category}Detail${prev[category]}`;
+      if (category === 'additionalParts') {
+        const fieldToRemove = `additionalPart${prev[category]}`;
+        onProductChange({ [fieldToRemove]: '' });
+      } else {
+        onProductChange({ [fieldToRemove]: '' });
+      }
+      
+      return {
+        ...prev,
+        [category]: newCount
+      };
+    });
+  };
+
   // Check if field is hidden
   const isFieldHidden = (fieldName) => hiddenFields[fieldName];
   
@@ -123,7 +173,7 @@ const ProductForm = ({ productData, onProductChange }) => {
   }, [hiddenFields]);
   
   const inputStyle = { marginTop: '4px' };
-  const sectionStyle = { marginTop: '20px', paddingTop: '20px', borderTop: '2px solid #e1e1e1' };
+  const sectionStyle = { marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #e1e1e1' };
   const fieldStyle = { marginTop: '8px' };
   
   // Section toggle button style
@@ -148,6 +198,29 @@ const ProductForm = ({ productData, onProductChange }) => {
     cursor: 'pointer',
     fontSize: '10px',
     marginLeft: '8px'
+  };
+
+  // Add/Remove button styles
+  const addButtonStyle = {
+    background: '#28a745',
+    border: 'none',
+    color: 'white',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '12px',
+    marginLeft: '10px'
+  };
+
+  const removeButtonStyle = {
+    background: '#dc3545',
+    border: 'none',
+    color: 'white',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '12px',
+    marginLeft: '5px'
   };
   
   // Section header style
@@ -195,6 +268,109 @@ const ProductForm = ({ productData, onProductChange }) => {
         >
           {hidden ? 'Show' : 'Hide'}
         </button>
+      </div>
+    );
+  };
+
+  // Render dynamic category fields
+  const renderCategoryFields = (category, baseLabel, placeholders) => {
+    const fieldCount = categoryFieldCounts[category];
+    const fields = [];
+    
+    for (let i = 1; i <= fieldCount; i++) {
+      const fieldName = `${category}Detail${i}`;
+      const label = `${baseLabel} ${i}`;
+      const placeholder = placeholders[i - 1] || `Enter ${baseLabel.toLowerCase()} ${i}`;
+      
+      fields.push(
+        <div key={fieldName} style={i === 1 ? {} : fieldStyle}>
+          {renderField(fieldName, label, placeholder)}
+        </div>
+      );
+    }
+    
+    return (
+      <div>
+        {fields}
+        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
+          {fieldCount < maxFields[category] && (
+            <button
+              type="button"
+              onClick={() => addFieldToCategory(category)}
+              style={addButtonStyle}
+              title={`Add another ${baseLabel.toLowerCase()}`}
+            >
+              + Add {baseLabel}
+            </button>
+          )}
+          {fieldCount > (category === 'additionalParts' ? 0 : 1) && (
+            <button
+              type="button"
+              onClick={() => removeFieldFromCategory(category)}
+              style={removeButtonStyle}
+              title={`Remove last ${baseLabel.toLowerCase()}`}
+            >
+              - Remove
+            </button>
+          )}
+          <span style={{ marginLeft: '10px', fontSize: '12px', color: '#666' }}>
+            {fieldCount}/{maxFields[category]} fields
+          </span>
+        </div>
+      </div>
+    );
+  };
+
+  // Render additional parts section
+  const renderAdditionalParts = () => {
+    const fieldCount = categoryFieldCounts.additionalParts;
+    const fields = [];
+    
+    for (let i = 1; i <= fieldCount; i++) {
+      const fieldName = `additionalPart${i}`;
+      const label = `Additional Part ${i}`;
+      const placeholder = `• Additional component or material`;
+      
+      fields.push(
+        <div key={fieldName} style={i === 1 ? {} : fieldStyle}>
+          {renderField(fieldName, label, placeholder)}
+        </div>
+      );
+    }
+    
+    return (
+      <div>
+        {fieldCount === 0 && (
+          <p style={{ color: '#666', fontStyle: 'italic', marginBottom: '10px' }}>
+            Add extra components, consumables, or materials not covered in the main categories above.
+          </p>
+        )}
+        {fields}
+        <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center' }}>
+          {fieldCount < maxFields.additionalParts && (
+            <button
+              type="button"
+              onClick={() => addFieldToCategory('additionalParts')}
+              style={addButtonStyle}
+              title="Add additional part"
+            >
+              + Add Additional Part
+            </button>
+          )}
+          {fieldCount > 0 && (
+            <button
+              type="button"
+              onClick={() => removeFieldFromCategory('additionalParts')}
+              style={removeButtonStyle}
+              title="Remove last additional part"
+            >
+              - Remove
+            </button>
+          )}
+          <span style={{ marginLeft: '10px', fontSize: '12px', color: '#666' }}>
+            {fieldCount}/{maxFields.additionalParts} additional parts
+          </span>
+        </div>
       </div>
     );
   };
@@ -263,64 +439,74 @@ const ProductForm = ({ productData, onProductChange }) => {
             )}
           </div>
           
-          {renderField('imageTitle', 'Image Title', '5 Dyness BX 51100 Units', fieldStyle)}
-          {renderField('secondaryDescription', 'Secondary Description', 'Complete Solar Kit', fieldStyle)}
+          {renderField('imageTitle', 'Image Title', 'Solar Kit Components', fieldStyle)}
+          {renderField('secondaryDescription', 'Secondary Description', 'Complete Installation Package', fieldStyle)}
         </>
       ))}
 
-      {/* Power System Details */}
+      {/* Expandable Power System Details */}
       {renderSection('powerSystem', 'Power System Details', (
-        <>
-          {renderField('powerDetail1', 'Power Detail 1', '• 5kW Deye Hybrid Inverter')}
-          {renderField('powerDetail2', 'Power Detail 2', '• 5.12kWh Dyness Lithium Battery', fieldStyle)}
-        </>
+        renderCategoryFields('powerSystem', 'Power Detail', [
+          '• 5kW Deye Hybrid Inverter',
+          '• 5.12kWh Dyness Lithium Battery',
+          '• Additional power component'
+        ])
       ))}
 
-      {/* Solar Panel Details - ONLY Panel Detail 1 */}
+      {/* Expandable Solar Panel Details */}
       {renderSection('solarPanels', 'Solar Panel Details', (
-        <>
-          {renderField('panelDetail1', 'Panel Detail 1', '• 8x 565W JA Solar Mono Panels')}
-          <small style={{color: '#28a745', fontSize: '12px', display: 'block', marginTop: '8px'}}>
-            ✅ Panel Detail 2 (Total Capacity) has been removed per management request
-          </small>
-        </>
+        renderCategoryFields('solarPanels', 'Panel Detail', [
+          '• 8x 565W JA Solar Mono Panels',
+          '• 4.52kW Total Panel Capacity'
+        ])
       ))}
 
-      {/* Mounting Hardware */}
+      {/* Expandable Mounting Hardware */}
       {renderSection('mountingHardware', 'Mounting Hardware', (
-        <>
-          {renderField('mountDetail1', 'Mount Detail 1', '• PV Rails, Roof Hooks, Clamps')}
-          {renderField('mountDetail2', 'Mount Detail 2', '• Complete Mounting System', fieldStyle)}
-        </>
+        renderCategoryFields('mountingHardware', 'Mount Detail', [
+          '• PV Rails, Roof Hooks, Clamps',
+          '• Complete Mounting System',
+          '• Additional mounting hardware'
+        ])
       ))}
 
-      {/* Electrical Components */}
+      {/* Expandable Electrical Components */}
       {renderSection('electricalComponents', 'Electrical Components', (
-        <>
-          {renderField('elecDetail1', 'Electrical Detail 1', '• DC/AC Combiners, Surge Protection')}
-          {renderField('elecDetail2', 'Electrical Detail 2', '• Fuses, Switches, Safety Equipment', fieldStyle)}
-        </>
+        renderCategoryFields('electricalComponents', 'Electrical Detail', [
+          '• DC/AC Combiners, Surge Protection',
+          '• Fuses, Switches, Safety Equipment',
+          '• Additional electrical components'
+        ])
       ))}
 
-      {/* CABLES & INSTALLATION SECTION */}
+      {/* Expandable Cables & Installation */}
       {renderSection('cablesInstallation', '🔌 Cables & Installation', (
-        <>
-          {renderField('cableDetail1', 'Cable Detail 1', '• Solar Cables, Battery Cables, MC4')}
-          {renderField('cableDetail2', 'Cable Detail 2', '• Conduits, Trunking, Earth Spike', fieldStyle)}
-        </>
+        renderCategoryFields('cablesInstallation', 'Cable Detail', [
+          '• Solar Cables, Battery Cables, MC4',
+          '• Conduits, Trunking, Earth Spike',
+          '• Additional cables & installation materials'
+        ])
       ), true)}
 
-      {/* REMOVED SECTIONS NOTICE */}
-      <div style={{...sectionStyle, backgroundColor: '#d4edda', padding: '15px', borderRadius: '8px', border: '1px solid #c3e6cb'}}>
-        <h4 style={{color: '#155724', marginBottom: '10px'}}>✅ Removed Sections (Per Management Request)</h4>
-        <ul style={{color: '#155724', margin: 0, paddingLeft: '20px'}}>
-          <li>Warranty & Specs section - completely removed</li>
-          <li>Expected Performance section - completely removed</li>
-          <li>Panel Detail 2 field - completely removed</li>
-        </ul>
-        <small style={{color: '#155724', fontSize: '12px', display: 'block', marginTop: '8px'}}>
-          These sections will not appear in the template or exports.
-        </small>
+      {/* NEW: Additional Assembly Parts Section */}
+      {renderSection('additionalParts', '📦 Additional Assembly Parts', (
+        renderAdditionalParts()
+      ), true)}
+
+      {/* Field Count Summary */}
+      <div style={{...sectionStyle, backgroundColor: '#e8f5e8', padding: '15px', borderRadius: '8px', border: '1px solid #c3e6cb'}}>
+        <h4 style={{color: '#155724', marginBottom: '10px'}}>📊 Field Usage Summary</h4>
+        <div style={{fontSize: '12px', color: '#155724'}}>
+          <div>Power System: {categoryFieldCounts.powerSystem}/{maxFields.powerSystem} fields</div>
+          <div>Solar Panels: {categoryFieldCounts.solarPanels}/{maxFields.solarPanels} fields</div>
+          <div>Mounting Hardware: {categoryFieldCounts.mountingHardware}/{maxFields.mountingHardware} fields</div>
+          <div>Electrical Components: {categoryFieldCounts.electricalComponents}/{maxFields.electricalComponents} fields</div>
+          <div>Cables & Installation: {categoryFieldCounts.cablesInstallation}/{maxFields.cablesInstallation} fields</div>
+          <div><strong>Additional Parts: {categoryFieldCounts.additionalParts}/{maxFields.additionalParts} fields</strong></div>
+          <div style={{marginTop: '8px', fontWeight: 'bold'}}>
+            Total Active Fields: {Object.values(categoryFieldCounts).reduce((a, b) => a + b, 0)}
+          </div>
+        </div>
       </div>
 
       {/* Description Section */}
@@ -379,7 +565,7 @@ const ProductForm = ({ productData, onProductChange }) => {
         </>
       ))}
 
-      {/* DELIVERY INFORMATION SECTION */}
+      {/* Delivery Information */}
       {renderSection('deliveryInformation', '🚚 Delivery Information', (
         <>
           {renderField('delivery1', 'Delivery Option 1', 'Delivery JHB free up to 20 km')}
