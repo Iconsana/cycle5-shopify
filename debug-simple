@@ -1,0 +1,25 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple background -->
+  <rect width="800" height="600" fill="#1e3a8a"/>
+  
+  <!-- Title -->
+  <rect x="50" y="50" width="700" height="100" fill="#f59e0b" rx="10"/>
+  <text x="400" y="110" fill="white" font-family="Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle">{{MAIN_TITLE}}</text>
+  
+  <!-- SKU -->
+  <text x="80" y="200" fill="white" font-family="Arial, sans-serif" font-size="20">SKU: {{PRODUCT_SKU}}</text>
+  
+  <!-- Simple text fields -->
+  <text x="80" y="250" fill="#fbbf24" font-family="Arial, sans-serif" font-size="18">{{RATING_TEXT}}</text>
+  <text x="80" y="280" fill="white" font-family="Arial, sans-serif" font-size="16">{{BRAND_TEXT}}</text>
+  <text x="80" y="310" fill="white" font-family="Arial, sans-serif" font-size="16">{{CATEGORY_TEXT}}</text>
+  
+  <!-- Price -->
+  <rect x="50" y="400" width="300" height="80" fill="#f59e0b" rx="10"/>
+  <text x="200" y="450" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle">{{PRICE_AMOUNT}}</text>
+  
+  <!-- Status -->
+  <text x="400" y="450" fill="white" font-family="Arial, sans-serif" font-size="14">Template: Working ✓</text>
+  <text x="400" y="470" fill="white" font-family="Arial, sans-serif" font-size="14">API: Connected ✓</text>
+  <text x="400" y="490" fill="white" font-family="Arial, sans-serif" font-size="14">Render: Success ✓</text>
+</svg>
