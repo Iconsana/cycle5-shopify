@@ -80,7 +80,7 @@ async function handleRender(req, res) {
   // Get parameters
   const {
     ratingText, brandText, categoryText, mainTitle, sku,
-    imageTitle, secondaryDescription,
+    imageTitle, secondaryDescription, image, imageUrl,
     priceHeader, priceAmount, priceNote,
     delivery1, delivery2, delivery3,
     contactPhone1, contactPhone2, contactEmail, contactWebsite,
@@ -171,6 +171,18 @@ async function handleRender(req, res) {
     // Image section
     if (imageTitle) svgContent = svgContent.replace(/\{\{IMAGE_TITLE\}\}/g, escapeXML(imageTitle));
     if (secondaryDescription) svgContent = svgContent.replace(/\{\{SECONDARY_DESCRIPTION\}\}/g, escapeXML(secondaryDescription));
+    
+    // Process product image
+    const productImage = image || imageUrl;
+    if (productImage) {
+      // If we have an image, use it and hide the fallback
+      svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, productImage);
+      svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '0');
+    } else {
+      // If no image, show fallback and hide the image element
+      svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
+      svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '1');
+    }
     
     // Dynamic fields
     Object.keys(dynamicFields.powerDetails).forEach(num => {

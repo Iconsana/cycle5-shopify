@@ -33,11 +33,15 @@
   <!-- Main Content Area - EXTENDED HEIGHT -->
   <rect x="20" y="300" width="760" height="720" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
   
-  <!-- Left Column - Image Placeholder -->
+  <!-- Left Column - Image Container -->
   <rect x="40" y="320" width="220" height="160" fill="white" rx="5"/>
-  <!-- Fixed Image Element with fallback -->
-  <rect x="45" y="325" width="210" height="150" fill="#f0f0f0" rx="3"/>
-  <text x="150" y="400" fill="#666" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">[Product Image]</text>
+  
+  <!-- Product Image Element -->
+  <image x="45" y="325" width="210" height="150" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet" />
+  
+  <!-- Fallback for when no image is provided -->
+  <rect x="45" y="325" width="210" height="150" fill="#f0f0f0" rx="3" opacity="{{IMAGE_FALLBACK_OPACITY}}"/>
+  <text x="150" y="400" fill="#666" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" opacity="{{IMAGE_FALLBACK_OPACITY}}">[Product Image]</text>
   
   <text x="150" y="490" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">{{IMAGE_TITLE}}</text>
   <text x="150" y="510" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
