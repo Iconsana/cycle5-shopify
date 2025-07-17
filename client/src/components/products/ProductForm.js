@@ -130,12 +130,22 @@ const ProductForm = ({ productData, onProductChange }) => {
     setCategoryFieldCounts(prev => {
       const newCount = Math.max(prev[category] - 1, category === 'additionalParts' ? 0 : 1);
       
+      // Map category names to API field prefixes
+      const categoryFieldMap = {
+        'powerSystem': 'powerDetail',
+        'solarPanels': 'panelDetail',
+        'mountingHardware': 'mountDetail',
+        'electricalComponents': 'elecDetail',
+        'cablesInstallation': 'cableDetail'
+      };
+      
       // Clear the data for the removed field
-      const fieldToRemove = `${category}Detail${prev[category]}`;
       if (category === 'additionalParts') {
         const fieldToRemove = `additionalPart${prev[category]}`;
         onProductChange({ [fieldToRemove]: '' });
       } else {
+        const fieldPrefix = categoryFieldMap[category] || `${category}Detail`;
+        const fieldToRemove = `${fieldPrefix}${prev[category]}`;
         onProductChange({ [fieldToRemove]: '' });
       }
       
@@ -150,7 +160,7 @@ const ProductForm = ({ productData, onProductChange }) => {
   const isFieldHidden = (fieldName) => hiddenFields[fieldName];
   
   // Get filtered product data (excluding hidden fields)
-  const getVisibleProductData = () => {
+  const getVisibleProductData = React.useCallback(() => {
     const filteredData = { ...productData };
     Object.keys(hiddenFields).forEach(fieldName => {
       if (hiddenFields[fieldName]) {
@@ -158,19 +168,17 @@ const ProductForm = ({ productData, onProductChange }) => {
       }
     });
     return filteredData;
-  };
+  }, [productData, hiddenFields]);
   
   // Pass the filtered data to parent
   React.useEffect(() => {
     const visibleData = getVisibleProductData();
-    if (JSON.stringify(visibleData) !== JSON.stringify(productData)) {
-      // Only update if there's a real difference to avoid infinite loops
-      const hiddenFieldNames = Object.keys(hiddenFields).filter(f => hiddenFields[f]);
-      if (hiddenFieldNames.length > 0) {
-        onProductChange(visibleData);
-      }
+    // Only update if there's a real difference to avoid infinite loops
+    const hiddenFieldNames = Object.keys(hiddenFields).filter(f => hiddenFields[f]);
+    if (hiddenFieldNames.length > 0) {
+      onProductChange(visibleData);
     }
-  }, [hiddenFields]);
+  }, [hiddenFields, getVisibleProductData, onProductChange]);
   
   const inputStyle = { marginTop: '4px' };
   const sectionStyle = { marginBottom: '20px', paddingBottom: '20px', borderBottom: '1px solid #e1e1e1' };
@@ -277,8 +285,18 @@ const ProductForm = ({ productData, onProductChange }) => {
     const fieldCount = categoryFieldCounts[category];
     const fields = [];
     
+    // Map category names to API field prefixes
+    const categoryFieldMap = {
+      'powerSystem': 'powerDetail',
+      'solarPanels': 'panelDetail',
+      'mountingHardware': 'mountDetail',
+      'electricalComponents': 'elecDetail',
+      'cablesInstallation': 'cableDetail'
+    };
+    
     for (let i = 1; i <= fieldCount; i++) {
-      const fieldName = `${category}Detail${i}`;
+      const fieldPrefix = categoryFieldMap[category] || `${category}Detail`;
+      const fieldName = `${fieldPrefix}${i}`;
       const label = `${baseLabel} ${i}`;
       const placeholder = placeholders[i - 1] || `Enter ${baseLabel.toLowerCase()} ${i}`;
       

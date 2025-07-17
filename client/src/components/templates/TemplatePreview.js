@@ -142,8 +142,7 @@ const TemplatePreview = ({ template, productData, companyData }) => {
 
     // Existing Solar Bulk Deal parameters (only add if they exist)
     addParam('promotionTitle', sanitizeText(productData?.promotionTitle));
-    addParam('imageTitle', sanitizeText(productData?.imageTitle));
-    addParam('secondaryDescription', sanitizeText(productData?.secondaryDescription));
+    // Note: imageTitle and secondaryDescription are already handled in solar-kit-social section above
     
     // Bullet points for other templates
     for (let i = 1; i <= 5; i++) {
