@@ -18,8 +18,8 @@
   <text x="180" y="55" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">{{RATING_TEXT}}</text>
   
   <!-- Brand and Category Text -->
-  <text x="640" y="50" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BRAND_TEXT}}</text>
-  <text x="640" y="75" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{CATEGORY_TEXT}}</text>
+  <text x="600" y="50" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BRAND_TEXT}}</text>
+  <text x="600" y="75" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{CATEGORY_TEXT}}</text>
   
   <!-- Main Product Title -->
   <rect x="20" y="160" width="760" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="5"/>
