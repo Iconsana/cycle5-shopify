@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import TemplateSelector from '../components/templates/TemplateSelector';
+import TemplateManager from '../components/templates/TemplateManager';
 import ProductForm from '../components/products/ProductForm';
 import TemplatePreview from '../components/templates/TemplatePreview';
 import ExportOptions from '../components/export/ExportOptions';
@@ -103,6 +104,28 @@ const TemplateGenerator = () => {
     setProductData(prev => ({ ...prev, ...newData }));
   };
 
+  // Handle loading a saved template
+  const handleLoadTemplate = (savedTemplate) => {
+    try {
+      // Find the template type in our available templates
+      const templateType = templates.find(t => t.id === savedTemplate.templateId);
+      if (!templateType) {
+        console.error('Template type not found:', savedTemplate.templateId);
+        return;
+      }
+
+      // Set the template type
+      setSelectedTemplate(templateType);
+      
+      // Load the product data
+      setProductData(savedTemplate.productData || {});
+      
+      console.log('Loaded template:', savedTemplate.name);
+    } catch (error) {
+      console.error('Error loading template:', error);
+    }
+  };
+
   // Clear non-essential data when switching templates
   const handleTemplateSwitch = (template) => {
     console.log('Switching to template:', template.id);
@@ -182,6 +205,16 @@ const TemplateGenerator = () => {
       <div className="generator-grid">
         {/* Left Column - Form Content */}
         <div className="generator-form">
+          {/* Template Management Section */}
+          <section style={{ marginBottom: '2rem' }}>
+            <TemplateManager 
+              onLoadTemplate={handleLoadTemplate}
+              currentTemplate={selectedTemplate}
+              currentProductData={productData}
+              currentCompanyData={companyData}
+            />
+          </section>
+
           {/* Template Selection Section */}
           <section style={{ marginBottom: '2rem' }}>
             <h2>1. Choose a Template</h2>
