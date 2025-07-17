@@ -69,7 +69,7 @@ const ExportOptions = ({ template, productData, companyData }) => {
         removedKeys: productData ? Object.keys(productData).filter(k => !filteredProductData[k]) : []
       });
       
-      // Use the export endpoint
+      // Use the consolidated export endpoint
       const dataToSend = {
         templateId: template.id,
         format,
@@ -77,7 +77,7 @@ const ExportOptions = ({ template, productData, companyData }) => {
         companyData
       };
       
-      const response = await fetch('/api/export-template', {
+      const response = await fetch('/api/main?action=export', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ const ExportOptions = ({ template, productData, companyData }) => {
       
       // Create a filename
       const productTitle = filteredProductData.title || filteredProductData.mainTitle || 'untitled';
-      const filename = `${template.id}-${productTitle.replace(/[^a-zA-Z0-9]/g, '_')}.${format === 'png' ? 'png' : 'svg'}`;
+      const filename = `${template.id}-${productTitle.replace(/[^a-zA-Z0-9]/g, '_')}.svg`;
       
       // Save the file
       saveAs(blob, filename);
@@ -115,15 +115,6 @@ const ExportOptions = ({ template, productData, companyData }) => {
       <div className="export-buttons">
         <button 
           className="btn btn-primary"
-          onClick={() => handleExport('png')}
-          disabled={exporting}
-          style={{ marginRight: '10px' }}
-        >
-          {exporting ? 'Exporting...' : 'Export as PNG'}
-        </button>
-        
-        <button 
-          className="btn btn-secondary"
           onClick={() => handleExport('svg')}
           disabled={exporting}
         >
@@ -156,7 +147,7 @@ const ExportOptions = ({ template, productData, companyData }) => {
         <strong>Export Info:</strong><br/>
         • Hidden fields will be completely removed from export<br/>
         • SVG format preserves vector graphics and text<br/>
-        • PNG format creates raster image for social media
+        • Perfect for printing and high-quality displays
       </div>
     </div>
   );
