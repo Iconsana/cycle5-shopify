@@ -30,7 +30,7 @@
   <text x="30" y="265" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">SKU:</text>
   <text x="70" y="265" fill="#fbbf24" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{PRODUCT_SKU}}</text>
   
-  <!-- Main Content Area - EXTENDED HEIGHT -->
+  <!-- Main Content Area -->
   <rect x="20" y="300" width="760" height="720" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
   
   <!-- Left Column - Image Container -->
@@ -78,7 +78,7 @@
   <text x="295" y="695" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_2}}</text>
   <text x="295" y="710" fill="white" font-family="Arial, sans-serif" font-size="12">{{CABLE_DETAIL_3}}</text>
   
-  <!-- NEW: Additional Assembly Parts Section -->
+  <!-- Additional Assembly Parts Section -->
   <text x="290" y="735" fill="#f59e0b" font-family="Arial, sans-serif" font-size="14" font-weight="bold">ADDITIONAL PARTS:</text>
   <text x="295" y="755" fill="white" font-family="Arial, sans-serif" font-size="11">{{ADDITIONAL_PART_1}}</text>
   <text x="295" y="770" fill="white" font-family="Arial, sans-serif" font-size="11">{{ADDITIONAL_PART_2}}</text>
@@ -107,47 +107,37 @@
   <text x="40" y="725" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_4}}</text>
   <text x="40" y="745" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_5}}</text>
   
-  <!-- Warranty & Support Info (Left Column) -->
-  <text x="40" y="775" fill="#f59e0b" font-family="Arial, sans-serif" font-size="12" font-weight="bold">WARRANTY &amp; SUPPORT:</text>
-  <text x="40" y="795" fill="white" font-family="Arial, sans-serif" font-size="10">• Professional installation support</text>
-  <text x="40" y="810" fill="white" font-family="Arial, sans-serif" font-size="10">• Comprehensive warranty coverage</text>
-  <text x="40" y="825" fill="white" font-family="Arial, sans-serif" font-size="10">• Technical support included</text>
+  <!-- REMOVED: Warranty & Support Info and Performance Expectations sections -->
   
-  <!-- Performance Expectations (Left Column) -->
-  <text x="40" y="855" fill="#f59e0b" font-family="Arial, sans-serif" font-size="12" font-weight="bold">EXPECTED PERFORMANCE:</text>
-  <text x="40" y="875" fill="white" font-family="Arial, sans-serif" font-size="10">• High efficiency energy generation</text>
-  <text x="40" y="890" fill="white" font-family="Arial, sans-serif" font-size="10">• Reliable backup power system</text>
-  <text x="40" y="905" fill="white" font-family="Arial, sans-serif" font-size="10">• Optimized for South African conditions</text>
+  <!-- Price Section - MOVED UP -->
+  <rect x="20" y="920" width="380" height="80" fill="#f59e0b" rx="10"/>
+  <text x="210" y="945" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">{{PRICE_HEADER}}</text>
+  <text x="210" y="965" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">{{PRICE_AMOUNT}}</text>
+  <text x="210" y="985" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{PRICE_NOTE}}</text>
   
-  <!-- Price Section - MOVED DOWN -->
-  <rect x="20" y="1040" width="380" height="80" fill="#f59e0b" rx="10"/>
-  <text x="210" y="1065" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">{{PRICE_HEADER}}</text>
-  <text x="210" y="1085" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">{{PRICE_AMOUNT}}</text>
-  <text x="210" y="1105" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{PRICE_NOTE}}</text>
+  <!-- Delivery Information - MOVED UP -->
+  <rect x="420" y="920" width="360" height="80" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
+  <text x="600" y="940" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">DELIVERY INFORMATION</text>
+  <circle cx="440" cy="960" r="3" fill="#f59e0b"/>
+  <text x="450" y="965" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_1}}</text>
+  <circle cx="440" cy="975" r="3" fill="#f59e0b"/>
+  <text x="450" y="980" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_2}}</text>
+  <circle cx="440" cy="990" r="3" fill="#f59e0b"/>
+  <text x="450" y="995" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_3}}</text>
   
-  <!-- Delivery Information - MOVED DOWN -->
-  <rect x="420" y="1040" width="360" height="80" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
-  <text x="600" y="1060" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">DELIVERY INFORMATION</text>
-  <circle cx="440" cy="1080" r="3" fill="#f59e0b"/>
-  <text x="450" y="1085" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_1}}</text>
-  <circle cx="440" cy="1095" r="3" fill="#f59e0b"/>
-  <text x="450" y="1100" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_2}}</text>
-  <circle cx="440" cy="1110" r="3" fill="#f59e0b"/>
-  <text x="450" y="1115" fill="white" font-family="Arial, sans-serif" font-size="11">{{DELIVERY_3}}</text>
-  
-  <!-- Contact Information - MOVED DOWN -->
-  <rect x="420" y="1130" width="360" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
-  <text x="600" y="1150" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">CONTACT INFORMATION</text>
-  <circle cx="440" cy="1165" r="3" fill="#f59e0b"/>
-  <text x="450" y="1170" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_PHONE_1}}</text>
-  <text x="570" y="1170" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_EMAIL}}</text>
-  <circle cx="440" cy="1180" r="3" fill="#f59e0b"/>
-  <text x="450" y="1185" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_PHONE_2}}</text>
-  <text x="570" y="1185" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_WEBSITE}}</text>
+  <!-- Contact Information - MOVED UP -->
+  <rect x="420" y="1010" width="360" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
+  <text x="600" y="1030" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">CONTACT INFORMATION</text>
+  <circle cx="440" cy="1045" r="3" fill="#f59e0b"/>
+  <text x="450" y="1050" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_PHONE_1}}</text>
+  <text x="570" y="1050" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_EMAIL}}</text>
+  <circle cx="440" cy="1060" r="3" fill="#f59e0b"/>
+  <text x="450" y="1065" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_PHONE_2}}</text>
+  <text x="570" y="1065" fill="white" font-family="Arial, sans-serif" font-size="11">{{CONTACT_WEBSITE}}</text>
   
   <!-- Footer Note -->
-  <rect x="20" y="1130" width="380" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
-  <text x="210" y="1150" fill="#f59e0b" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">IMPORTANT NOTES</text>
-  <text x="210" y="1170" fill="white" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">*E&amp;EO may occur. All prices VAT inclusive.</text>
-  <text x="210" y="1185" fill="white" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">Professional installation recommended.</text>
+  <rect x="20" y="1010" width="380" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
+  <text x="210" y="1030" fill="#f59e0b" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">IMPORTANT NOTES</text>
+  <text x="210" y="1050" fill="white" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">*E&amp;EO may occur. All prices VAT inclusive.</text>
+  <text x="210" y="1065" fill="white" font-family="Arial, sans-serif" font-size="10" text-anchor="middle">Professional installation recommended.</text>
 </svg>
