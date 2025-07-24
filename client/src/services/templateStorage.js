@@ -128,6 +128,59 @@ export class TemplateStorage {
     });
   }
 
+  // Import SVG template file and create template from it
+  static importSVGTemplateFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      
+      reader.onload = (event) => {
+        try {
+          const svgContent = event.target.result;
+          
+          // Validate it's actually SVG content
+          if (!svgContent.includes('<svg') || !svgContent.includes('</svg>')) {
+            reject(new Error('Invalid SVG file format'));
+            return;
+          }
+          
+          // Extract template name from filename (remove .svg extension)
+          const templateName = file.name.replace(/\.svg$/i, '');
+          
+          // Generate a unique template ID based on filename
+          const templateId = templateName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+          
+          // Create template object
+          const template = {
+            id: this.generateId(),
+            name: `${templateName} (Imported)`,
+            templateId: templateId,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            productData: {},
+            companyData: {},
+            version: '1.0',
+            importedAt: new Date().toISOString(),
+            svgContent: svgContent, // Store the actual SVG content
+            isCustomTemplate: true // Flag to indicate this is a custom imported template
+          };
+          
+          // Save to localStorage
+          this.saveToLocalStorage(template);
+          
+          // Also save the SVG file to the templates directory (conceptually - in real app this would need server support)
+          // For now, we'll store the SVG content in the template object
+          
+          resolve(template);
+        } catch (error) {
+          reject(new Error('Failed to process SVG file: ' + error.message));
+        }
+      };
+      
+      reader.onerror = () => reject(new Error('Failed to read SVG file'));
+      reader.readAsText(file);
+    });
+  }
+
   // Validate template structure
   static validateTemplateStructure(template) {
     const requiredFields = ['name', 'templateId', 'productData'];

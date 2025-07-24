@@ -70,13 +70,13 @@ const TemplateManager = ({ onLoadTemplate, currentTemplate, currentProductData, 
     try {
       const file = files[0];
       
-      if (file.name.endsWith('.json')) {
-        // Import single template
-        const template = await TemplateStorage.importTemplateFile(file);
+      if (file.name.endsWith('.svg')) {
+        // Import SVG template
+        const template = await TemplateStorage.importSVGTemplateFile(file);
         refreshTemplates();
         setShowImportDialog(false);
       } else {
-        throw new Error('Please select a JSON file');
+        throw new Error('Please select an SVG file');
       }
     } catch (err) {
       setError(err.message);
@@ -91,7 +91,7 @@ const TemplateManager = ({ onLoadTemplate, currentTemplate, currentProductData, 
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      'application/json': ['.json']
+      'image/svg+xml': ['.svg']
     },
     onDrop: handleImportFile,
     maxFiles: 1
@@ -192,9 +192,9 @@ const TemplateManager = ({ onLoadTemplate, currentTemplate, currentProductData, 
               {importing ? (
                 <p>Importing...</p>
               ) : isDragActive ? (
-                <p>Drop the JSON file here...</p>
+                <p>Drop the SVG file here...</p>
               ) : (
-                <p>Drag & drop a JSON template file here, or click to select</p>
+                <p>Drag & drop an SVG template file here, or click to select</p>
               )}
             </div>
             
