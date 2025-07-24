@@ -8,10 +8,10 @@
   
   
   <!-- Brand Text (Bold, left quarter) -->
-  <text x="40" y="65" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold">{{BRAND_TEXT}}</text>
+  <text x="40" y="65" fill="white" font-family="Arial, sans-serif" font-size="32" font-weight="bold">{{BRAND_TEXT}}</text>
   
   <!-- Category Text (Small, not bold, under brand) -->
-  <text x="40" y="90" fill="white" font-family="Arial, sans-serif" font-size="12">{{CATEGORY_TEXT}}</text>
+  <text x="40" y="90" fill="white" font-family="Arial, sans-serif" font-size="20">{{CATEGORY_TEXT}}</text>
   
   <!-- Main Product Title -->
   <rect x="20" y="160" width="760" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="5"/>
