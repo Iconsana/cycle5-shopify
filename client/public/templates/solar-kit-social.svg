@@ -5,21 +5,13 @@
   <!-- Header Section -->
   <rect x="20" y="20" width="760" height="120" fill="#1e3a8a" stroke="#f59e0b" stroke-width="3" rx="10"/>
   
-  <!-- Stars -->
-  <g fill="#fbbf24">
-    <polygon points="40,45 45,35 50,45 60,45 52,53 55,63 45,57 35,63 38,53 30,45" />
-    <polygon points="65,45 70,35 75,45 85,45 77,53 80,63 70,57 60,63 63,53 55,45" />
-    <polygon points="90,45 95,35 100,45 110,45 102,53 105,63 95,57 85,63 88,53 80,45" />
-    <polygon points="115,45 120,35 125,45 135,45 127,53 130,63 120,57 110,63 113,53 105,45" />
-    <polygon points="140,45 145,35 150,45 160,45 152,53 155,63 145,57 135,63 138,53 130,45" />
-  </g>
   
-  <!-- Header Text -->
-  <text x="180" y="55" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">{{RATING_TEXT}}</text>
   
-  <!-- Brand and Category Text -->
-  <text x="600" y="50" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BRAND_TEXT}}</text>
-  <text x="600" y="75" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{CATEGORY_TEXT}}</text>
+  <!-- Brand Text (Bold, left quarter) -->
+  <text x="40" y="65" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold">{{BRAND_TEXT}}</text>
+  
+  <!-- Category Text (Small, not bold, under brand) -->
+  <text x="40" y="90" fill="white" font-family="Arial, sans-serif" font-size="12">{{CATEGORY_TEXT}}</text>
   
   <!-- Main Product Title -->
   <rect x="20" y="160" width="760" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="5"/>
