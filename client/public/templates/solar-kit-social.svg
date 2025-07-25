@@ -8,7 +8,7 @@
   
   
   <!-- Brand Text (Bold, takes up half of top left section) -->
-  <text x="40" y="80" fill="white" font-family="Arial, sans-serif" font-size="36" font-weight="bold">{{BRAND_TEXT}}</text>
+  <text x="40" y="80" fill="white" font-family="Arial, sans-serif" font-size="50" font-weight="bold">{{BRAND_TEXT}}</text>
   
   <!-- Category Text (positioned at right edge of header) -->
   <text x="770" y="120" fill="white" font-family="Arial, sans-serif" font-size="32" text-anchor="end">{{CATEGORY_TEXT}}</text>
