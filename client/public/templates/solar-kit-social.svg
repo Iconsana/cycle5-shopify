@@ -7,11 +7,11 @@
   
   
   
-  <!-- Brand Text (Bold, left quarter) -->
-  <text x="40" y="65" fill="white" font-family="Arial, sans-serif" font-size="32" font-weight="bold">{{BRAND_TEXT}}</text>
+  <!-- Brand Text (Bold, takes up half of top left section) -->
+  <text x="40" y="80" fill="white" font-family="Arial, sans-serif" font-size="28" font-weight="bold">{{BRAND_TEXT}}</text>
   
-  <!-- Category Text (Small, not bold, under brand) -->
-  <text x="40" y="90" fill="white" font-family="Arial, sans-serif" font-size="20">{{CATEGORY_TEXT}}</text>
+  <!-- Category Text (positioned in bottom right of header) -->
+  <text x="580" y="120" fill="white" font-family="Arial, sans-serif" font-size="18" text-anchor="end">{{CATEGORY_TEXT}}</text>
   
   <!-- Main Product Title -->
   <rect x="20" y="160" width="760" height="60" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="5"/>
@@ -83,7 +83,7 @@
   <text x="295" y="875" fill="white" font-family="Arial, sans-serif" font-size="11">{{ADDITIONAL_PART_9}}</text>
   <text x="295" y="890" fill="white" font-family="Arial, sans-serif" font-size="11">{{ADDITIONAL_PART_10}}</text>
   
-  <!-- Description Box (Left Column Extended) -->
+  <!-- Description Box (Left Column Extended - using more space) -->
   <text x="40" y="540" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{DESCRIPTION_TITLE}}</text>
   <text x="40" y="560" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_1}}</text>
   <text x="40" y="575" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_2}}</text>
@@ -91,13 +91,22 @@
   <text x="40" y="605" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_4}}</text>
   <text x="40" y="620" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_5}}</text>
   <text x="40" y="635" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_6}}</text>
+  <text x="40" y="650" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_7}}</text>
+  <text x="40" y="665" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_8}}</text>
+  <text x="40" y="680" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_9}}</text>
+  <text x="40" y="695" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_10}}</text>
   
-  <!-- System Benefits -->
-  <text x="40" y="665" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_1}}</text>
-  <text x="40" y="685" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_2}}</text>
-  <text x="40" y="705" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_3}}</text>
-  <text x="40" y="725" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_4}}</text>
-  <text x="40" y="745" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_5}}</text>
+  <!-- System Benefits (Extended to use more space) -->
+  <text x="40" y="720" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_1}}</text>
+  <text x="40" y="740" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_2}}</text>
+  <text x="40" y="760" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_3}}</text>
+  <text x="40" y="780" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_4}}</text>
+  <text x="40" y="800" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_5}}</text>
+  <text x="40" y="820" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_6}}</text>
+  <text x="40" y="840" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_7}}</text>
+  <text x="40" y="860" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_8}}</text>
+  <text x="40" y="880" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_9}}</text>
+  <text x="40" y="900" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_10}}</text>
   
   <!-- REMOVED: Warranty & Support Info and Performance Expectations sections -->
   
