@@ -146,8 +146,17 @@ export class TemplateStorage {
           // Extract template name from filename (remove .svg extension)
           const templateName = file.name.replace(/\.svg$/i, '');
           
-          // Generate a unique template ID based on filename
-          const templateId = templateName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+          // Generate a more standardized template ID based on filename
+          let templateId = templateName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+          
+          // For solar kit templates, try to normalize to 'solar-kit-social'
+          if (templateId.includes('solar') && templateId.includes('kit')) {
+            templateId = 'solar-kit-social';
+          }
+          // Truncate very long IDs and ensure they don't end with dashes
+          else if (templateId.length > 30) {
+            templateId = templateId.substring(0, 30).replace(/-+$/, '');
+          }
           
           // Create template object
           const template = {

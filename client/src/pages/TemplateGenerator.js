@@ -110,22 +110,42 @@ const TemplateGenerator = () => {
       console.log('handleLoadTemplate called with:', savedTemplate);
       
       // Find the template type in our available templates
-      const templateType = templates.find(t => t.id === savedTemplate.templateId);
+      let templateType = templates.find(t => t.id === savedTemplate.templateId);
+      
       if (!templateType) {
-        console.error('Template type not found:', savedTemplate.templateId);
-        // Try to find by name as fallback
-        const fallbackTemplate = templates.find(t => t.name.toLowerCase().includes(savedTemplate.templateId?.toLowerCase()));
-        if (fallbackTemplate) {
-          console.log('Using fallback template:', fallbackTemplate);
-          setSelectedTemplate(fallbackTemplate);
-        } else {
-          alert(`Template type "${savedTemplate.templateId}" not found. Please ensure the template is available.`);
-          return;
+        console.log('Exact template ID not found, trying fallback matching for:', savedTemplate.templateId);
+        
+        // Try various fallback matching strategies
+        const templateId = savedTemplate.templateId?.toLowerCase() || '';
+        
+        // Strategy 1: Check if the saved template ID contains any of our available template IDs
+        templateType = templates.find(t => templateId.includes(t.id.toLowerCase()));
+        
+        // Strategy 2: Check if any available template ID is contained in the saved template ID
+        if (!templateType) {
+          templateType = templates.find(t => templateId.startsWith(t.id.toLowerCase()));
         }
-      } else {
-        // Set the template type
-        setSelectedTemplate(templateType);
+        
+        // Strategy 3: For solar kit templates, default to solar-kit-social
+        if (!templateType && templateId.includes('solar')) {
+          templateType = templates.find(t => t.id === 'solar-kit-social');
+          console.log('Defaulting to solar-kit-social for solar template');
+        }
+        
+        // Strategy 4: Use the first available template as last resort
+        if (!templateType && templates.length > 0) {
+          templateType = templates[0];
+          console.log('Using first available template as fallback:', templateType.id);
+        }
       }
+      
+      if (!templateType) {
+        alert(`No suitable template found for "${savedTemplate.templateId}". Please ensure templates are available.`);
+        return;
+      }
+      
+      console.log('Using template:', templateType.id, 'for saved template:', savedTemplate.templateId);
+      setSelectedTemplate(templateType);
       
       // Load the product data - merge with existing data to avoid losing defaults
       const newProductData = {
