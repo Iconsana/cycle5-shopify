@@ -46,26 +46,69 @@ const ProductForm = ({ productData, onProductChange }) => {
     additionalParts: 10
   };
   
+  // State for image upload feedback
+  const [imageUploadStatus, setImageUploadStatus] = useState('');
+
   // Handle file drop for product image
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       'image/*': ['.jpeg', '.jpg', '.png', '.webp']
     },
     maxFiles: 1,
-    onDrop: async (acceptedFiles) => {
+    maxSize: 5 * 1024 * 1024, // 5MB limit
+    onDrop: async (acceptedFiles, rejectedFiles) => {
+      // Handle rejected files
+      if (rejectedFiles.length > 0) {
+        const rejection = rejectedFiles[0];
+        if (rejection.errors.some(e => e.code === 'file-too-large')) {
+          setImageUploadStatus('❌ File too large. Maximum size is 5MB.');
+        } else if (rejection.errors.some(e => e.code === 'file-invalid-type')) {
+          setImageUploadStatus('❌ Invalid file type. Please use JPEG, PNG, or WebP.');
+        } else {
+          setImageUploadStatus('❌ File rejected. Please try a different image.');
+        }
+        return;
+      }
+
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0];
+        setImageUploadStatus('⏳ Processing image...');
         
-        // Convert to base64 for SVG embedding
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const base64Image = event.target.result;
-          onProductChange({ image: base64Image });
-        };
-        reader.readAsDataURL(file);
-        
-        // Extract colors from the image
         try {
+          // Convert to base64 for SVG embedding
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const base64Image = event.target.result;
+            
+            // Check final base64 size
+            if (base64Image.length > 500000) { // ~500KB in base64
+              setImageUploadStatus('⚠️ Large image uploaded. Preview may be limited for performance.');
+              onProductChange({ 
+                image: base64Image,
+                imageFileName: file.name,
+                imageSize: file.size 
+              });
+            } else {
+              setImageUploadStatus('✅ Image uploaded successfully!');
+              onProductChange({ 
+                image: base64Image,
+                imageFileName: file.name,
+                imageSize: file.size 
+              });
+            }
+            
+            // Clear status after 3 seconds
+            setTimeout(() => setImageUploadStatus(''), 3000);
+          };
+          
+          reader.onerror = () => {
+            setImageUploadStatus('❌ Error reading file. Please try again.');
+            setTimeout(() => setImageUploadStatus(''), 3000);
+          };
+          
+          reader.readAsDataURL(file);
+          
+          // Extract colors from the image
           const reader2 = new FileReader();
           reader2.onload = async (event) => {
             try {
@@ -77,8 +120,11 @@ const ProductForm = ({ productData, onProductChange }) => {
             }
           };
           reader2.readAsDataURL(file);
+          
         } catch (error) {
           console.error('Error processing image:', error);
+          setImageUploadStatus('❌ Error processing image. Please try again.');
+          setTimeout(() => setImageUploadStatus(''), 3000);
         }
       }
     }
@@ -446,6 +492,9 @@ const ProductForm = ({ productData, onProductChange }) => {
           <div {...getRootProps({ className: 'dropzone' })}>
             <input {...getInputProps()} />
             <p>Drag & drop an image here, or click to select one</p>
+            <p style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
+              Maximum file size: 5MB. Supported formats: JPEG, PNG, WebP
+            </p>
             {productData.image && (
               <div className="image-preview">
                 <img 
@@ -453,9 +502,35 @@ const ProductForm = ({ productData, onProductChange }) => {
                   alt="Product preview" 
                   style={{maxWidth: '200px', maxHeight: '150px'}} 
                 />
+                <p style={{ fontSize: '11px', color: '#666', marginTop: '5px' }}>
+                  File: {productData.imageFileName || 'Unknown'} 
+                  {productData.imageSize && ` (${Math.round(productData.imageSize / 1024)}KB)`}
+                </p>
               </div>
             )}
           </div>
+          
+          {/* Upload Status Message */}
+          {imageUploadStatus && (
+            <div style={{
+              marginTop: '10px',
+              padding: '8px 12px',
+              borderRadius: '4px',
+              fontSize: '13px',
+              backgroundColor: imageUploadStatus.includes('❌') ? '#fee' : 
+                            imageUploadStatus.includes('⚠️') ? '#fef3cd' : 
+                            imageUploadStatus.includes('✅') ? '#d4edda' : '#e3f2fd',
+              color: imageUploadStatus.includes('❌') ? '#d63384' : 
+                     imageUploadStatus.includes('⚠️') ? '#856404' : 
+                     imageUploadStatus.includes('✅') ? '#155724' : '#0c63e4',
+              border: '1px solid',
+              borderColor: imageUploadStatus.includes('❌') ? '#f5c6cb' : 
+                          imageUploadStatus.includes('⚠️') ? '#ffeaa7' : 
+                          imageUploadStatus.includes('✅') ? '#c3e6cb' : '#b3d9ff'
+            }}>
+              {imageUploadStatus}
+            </div>
+          )}
           
           {renderField('imageTitle', 'Image Title', 'Solar Kit Components', fieldStyle)}
           {renderField('secondaryDescription', 'Secondary Description', 'Complete Installation Package', fieldStyle)}

@@ -39,7 +39,23 @@ const TemplatePreview = ({ template, productData, companyData }) => {
     addParam('price', sanitizeText(productData?.price));
     addParam('sku', sanitizeText(productData?.sku));
     addParam('description', sanitizeText(productData?.description));
-    addParam('imageUrl', productData?.image);
+    
+    // Handle image data more safely - avoid passing large base64 in URL
+    if (productData?.image) {
+      const imageData = productData.image;
+      // Check if it's a base64 image and if it's too large for URL params
+      if (imageData.startsWith('data:image/') && imageData.length > 10000) {
+        // For large images, don't pass in URL - handle separately
+        console.warn('Image too large for URL parameters, skipping image in preview');
+        addParam('hasLargeImage', 'true');
+      } else if (imageData.startsWith('data:image/') && imageData.length <= 10000) {
+        // For smaller base64 images, pass as URL param
+        addParam('imageUrl', encodeURIComponent(imageData));
+      } else if (imageData.startsWith('http')) {
+        // For regular URLs, pass as is
+        addParam('imageUrl', imageData);
+      }
+    }
 
     // Solar Kit Social specific parameters (only add if they exist)
     if (template.id === 'solar-kit-social') {

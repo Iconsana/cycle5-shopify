@@ -1,0 +1,253 @@
+<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definitions for reusable elements -->
+  <defs>
+    <!-- Enhanced Gradients -->
+    <linearGradient id="deepBlueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001428;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#002a56;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00162e;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="circleGradient" cx="50%" cy="50%" r="70%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#003366;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#001428;stop-opacity:0" />
+    </linearGradient>
+    
+    <!-- Right side curved white section gradient -->
+    <linearGradient id="rightSideGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.97" />
+      <stop offset="100%" style="stop-color:#f5f5f5;stop-opacity:0.97" />
+    </linearGradient>
+    
+    <!-- Glowing effect filters -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Circuit trace pattern -->
+    <pattern id="circuitPattern" patternUnits="userSpaceOnUse" width="500" height="500">
+      <!-- Horizontal traces -->
+      <path d="M0,100 L50,100 L70,120 L200,120 L230,150 L350,150 L400,200 L500,200" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      <path d="M0,300 L100,300 L150,350 L300,350 L350,300 L500,300" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      <path d="M0,450 L100,450 L120,470 L220,470 L250,500 L500,500" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      
+      <!-- Vertical traces -->
+      <path d="M150,0 L150,50 L170,70 L170,150 L150,170 L150,300 L170,320 L170,450 L150,470 L150,500" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      <path d="M350,0 L350,100 L330,120 L330,200 L350,220 L350,350 L330,370 L330,450 L350,470 L350,500" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      
+      <!-- Connection points -->
+      <circle cx="150" cy="100" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="350" cy="150" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="150" cy="300" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="350" cy="300" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="150" cy="450" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="250" cy="470" r="4" fill="#4d88ff" opacity="0.5"/>
+    </pattern>
+    
+    <!-- White circuit pattern for right side -->
+    <pattern id="whiteCircuitPattern" patternUnits="userSpaceOnUse" width="500" height="500">
+      <!-- Horizontal traces -->
+      <path d="M0,100 L50,100 L70,120 L200,120 L230,150 L350,150 L400,200 L500,200" 
+            fill="none" stroke="#dddddd" stroke-width="1.5" opacity="0.3"/>
+      <path d="M0,300 L100,300 L150,350 L300,350 L350,300 L500,300" 
+            fill="none" stroke="#dddddd" stroke-width="1.5" opacity="0.3"/>
+      <path d="M0,450 L100,450 L120,470 L220,470 L250,500 L500,500" 
+            fill="none" stroke="#dddddd" stroke-width="1.5" opacity="0.3"/>
+      
+      <!-- Vertical traces -->
+      <path d="M150,0 L150,50 L170,70 L170,150 L150,170 L150,300 L170,320 L170,450 L150,470 L150,500" 
+            fill="none" stroke="#dddddd" stroke-width="1.5" opacity="0.3"/>
+      <path d="M350,0 L350,100 L330,120 L330,200 L350,220 L350,350 L330,370 L330,450 L350,470 L350,500" 
+            fill="none" stroke="#dddddd" stroke-width="1.5" opacity="0.3"/>
+    </pattern>
+    
+    <!-- Yellow circuit pattern -->
+    <pattern id="yellowCircuitPattern" patternUnits="userSpaceOnUse" width="300" height="300">
+      <!-- Horizontal traces -->
+      <path d="M0,100 L50,100 L70,120 L200,120 L230,150 L300,150" 
+            fill="none" stroke="#FFB900" stroke-width="1" opacity="0.5"/>
+      <path d="M0,200 L100,200 L150,250 L300,250" 
+            fill="none" stroke="#FFB900" stroke-width="1" opacity="0.5"/>
+      
+      <!-- Vertical traces -->
+      <path d="M100,0 L100,50 L120,70 L120,150 L100,170 L100,300" 
+            fill="none" stroke="#FFB900" stroke-width="1" opacity="0.5"/>
+      <path d="M200,0 L200,100 L180,120 L180,200 L200,220 L200,300" 
+            fill="none" stroke="#FFB900" stroke-width="1" opacity="0.5"/>
+    </pattern>
+    
+    <!-- Energy particles -->
+    <filter id="particleBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Main background with enhanced gradients and patterns -->
+  <rect width="1200" height="1200" fill="url(#deepBlueGradient)"/>
+  <rect width="1200" height="1200" fill="url(#circuitPattern)"/>
+  
+  <!-- Right side curved white section -->
+  <path d="M600,0 C800,50 900,200 900,400 C900,600 800,800 900,1000 C1000,1200 1200,1200 1200,1200 L1200,0 Z" 
+        fill="url(#rightSideGradient)"/>
+  <path d="M600,0 C800,50 900,200 900,400 C900,600 800,800 900,1000 C1000,1200 1200,1200 1200,1200 L1200,0 Z" 
+        fill="url(#whiteCircuitPattern)"/>
+  
+  <!-- Yellow circuit traces accent along the curve -->
+  <path d="M600,0 C800,50 900,200 900,400 C900,600 800,800 900,1000 C1000,1200 1200,1200 1200,1200" 
+        fill="none" stroke="#FFB900" stroke-width="2" stroke-opacity="0.5" stroke-dasharray="5,10"/>
+  
+  <!-- Energy particles in background -->
+  <g opacity="0.6">
+    <circle cx="150" cy="180" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="420" cy="120" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="320" cy="350" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="250" cy="280" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="450" cy="150" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="180" cy="220" r="3" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="540" cy="280" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="80" cy="350" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+  </g>
+  
+  <!-- Header with B SHOCKED logo -->
+  <g id="logo" transform="translate(150, 120)">
+    <!-- B vertical line with enhanced glow -->
+    <rect x="0" y="-30" width="15" height="120" fill="white" filter="url(#glow)"/>
+    
+    <!-- SHOCKED text with improved font -->
+    <text x="30" y="50" font-family="Exo 2, Audiowide, Arial, sans-serif" font-size="70" font-weight="300" letter-spacing="5" fill="white">{{COMPANY_NAME}}</text>
+    
+    <!-- Custom O with electrical effect -->
+    <g transform="translate(245, 50)">
+      <circle cx="0" cy="0" r="35" fill="transparent" stroke="white" stroke-width="3"/>
+      
+      <!-- Enhanced lightning effect in O -->
+      <path d="M-15,-10 C0,-20 15,-10 0,0 C-15,10 0,20 15,10" 
+            fill="none" stroke="white" stroke-width="2" opacity="0.8" filter="url(#softGlow)"/>
+      
+      <!-- Additional electricity elements with glow -->
+      <path d="M-40,-5 L-35,0 L-40,5" stroke="white" stroke-width="1" opacity="0.6" filter="url(#softGlow)"/>
+      <path d="M40,-5 L35,0 L40,5" stroke="white" stroke-width="1" opacity="0.6" filter="url(#softGlow)"/>
+    </g>
+    
+    <!-- Subtitle with improved font -->
+    <text x="250" y="80" font-family="Rajdhani, Arial, sans-serif" font-size="24" font-weight="300" letter-spacing="3" fill="white">ELECTRICAL | SOLAR</text>
+  </g>
+  
+  <!-- ON PROMO badge -->
+  <g id="promo-badge" transform="translate(200, 300)">
+    <linearGradient id="promoBadgeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFB900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </linearGradient>
+    <rect x="-80" y="-30" width="160" height="60" rx="15" fill="url(#promoBadgeGradient)"/>
+    <text x="0" y="10" font-family="Russo One, Impact, Arial, sans-serif" font-size="28" fill="#002651" text-anchor="middle">ON PROMO</text>
+  </g>
+  
+  <!-- Product image section -->
+  <g id="product-image" transform="translate(300, 550)">
+    <!-- Product placeholder -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="5" dy="5" stdDeviation="10" flood-opacity="0.3"/>
+    </filter>
+    
+    <!-- Product image container with shadow -->
+<!-- In your SVG templates -->
+<image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>    
+    <!-- Product image -->
+<!-- In your SVG templates -->
+<image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>    
+    <!-- SKU label -->
+    <g transform="translate(-100, -120) rotate(-45)">
+      <rect x="-60" y="-15" width="120" height="30" fill="#ff0000"/>
+      <text x="0" y="5" font-family="Rajdhani, Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">SKU: {{PRODUCT_SKU}}</text>
+    </g>
+  </g>
+  
+  <!-- Product details section on white side -->
+  <g id="product-details" transform="translate(900, 300)">
+    <!-- Section title -->
+    <text x="0" y="0" font-family="Chakra Petch, Arial, sans-serif" font-size="50" font-weight="bold" fill="#002651" text-anchor="middle">{{PRODUCT_TITLE}}</text>
+    
+    <!-- Yellow underline with circuit node -->
+    <path d="M-150,80 C-50,70 50,70 150,80" fill="none" stroke="#FFB900" stroke-width="2"/>
+    <circle cx="0" cy="80" r="4" fill="#FFB900" filter="url(#particleBlur)"/>
+    
+    <!-- Product description -->
+    <foreignObject x="-200" y="100" width="400" height="200">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Rajdhani, Arial, sans-serif; font-size: 25px; color: #002651; text-align: center;">
+        {{PRODUCT_DESCRIPTION}}
+      </div>
+    </foreignObject>
+    
+    <!-- Pricing section with gradient backgrounds -->
+    <g transform="translate(0, 350)">
+      <linearGradient id="priceInclGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#FFB900;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+      </linearGradient>
+      
+      <text x="0" y="-20" font-family="Rajdhani, Arial, sans-serif" font-size="20" font-weight="bold" fill="#002651" text-anchor="middle">INCL. VAT</text>
+      <!-- Price per unit bubble -->
+      <rect x="-100" y="-10" width="200" height="70" rx="15" fill="url(#priceInclGradient)"/>
+      <text x="0" y="25" font-family="Teko, Impact, Arial, sans-serif" font-size="30" font-weight="bold" fill="#002651" text-anchor="middle">{{PRODUCT_PRICE}}</text>
+      <text x="0" y="50" font-family="Share Tech, Arial, sans-serif" font-size="18" fill="#002651" text-anchor="middle">p/Unit</text>
+    </g>
+    
+    <!-- Trade note -->
+    <g transform="translate(0, 450)">
+      <text x="0" y="0" font-family="Chakra Petch, Arial, sans-serif" font-size="20" fill="#002651" text-anchor="middle">INSTALLER &amp; WHOLESALERS PLEASE CONTACT US FOR PRICING</text>
+      <path d="M-200,10 C-100,20 100,20 200,10" fill="none" stroke="#FFB900" stroke-width="1"/>
+    </g>
+    
+    <!-- Additional note -->
+    <g transform="translate(0, 500)">
+      <text x="0" y="30" font-family="Titillium Web, Arial, sans-serif" font-size="14" fill="#002651" text-anchor="middle">*E&amp;EO MAY OCCUR. ALL PRICES ARE VAT INCLUSIVE.</text>
+      <text x="0" y="50" font-family="Titillium Web, Arial, sans-serif" font-size="14" fill="#002651" text-anchor="middle">T's &amp; C's APPLY. PRICING IS SUBJECT TO CHANGE WITHOUT PRIOR NOTICE.</text>
+    </g>
+  </g>
+  
+  <!-- Contact section at the bottom -->
+  <g id="contact-section" transform="translate(900, 900)">
+    <!-- Contact details with icons -->
+    <g transform="translate(0, 0)">
+      <rect x="-20" y="-20" width="40" height="40" fill="#002651"/>
+      <text x="0" y="5" font-family="Share Tech, Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">📞</text>
+      <text x="50" y="5" font-family="Share Tech, Arial, sans-serif" font-size="20" fill="#002651">{{PHONE_NUMBER}}</text>
+    </g>
+    
+    <g transform="translate(0, 50)">
+      <rect x="-20" y="-20" width="40" height="40" fill="#002651"/>
+      <text x="0" y="5" font-family="Share Tech, Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">✉️</text>
+      <text x="50" y="5" font-family="Share Tech, Arial, sans-serif" font-size="20" fill="#002651">{{EMAIL}}</text>
+    </g>
+    
+    <g transform="translate(0, 100)">
+      <rect x="-20" y="-20" width="40" height="40" fill="#002651"/>
+      <text x="0" y="5" font-family="Share Tech, Arial, sans-serif" font-size="20" fill="white" text-anchor="middle">🌐</text>
+      <text x="50" y="5" font-family="Share Tech, Arial, sans-serif" font-size="20" fill="#002651">{{WEBSITE}}</text>
+    </g>
+  </g>
+  
+  <!-- Energy particle accents throughout -->
+  <g opacity="0.7">
+    <circle cx="600" cy="300" r="3" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="650" cy="400" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="580" cy="500" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="620" cy="600" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="590" cy="700" r="3" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="630" cy="800" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="600" cy="900" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+  </g>
+</svg>

@@ -1,0 +1,338 @@
+<svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definitions for reusable elements -->
+  <defs>
+    <!-- Enhanced Gradients -->
+    <linearGradient id="deepBlueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001428;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#002a56;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00162e;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="glowCenter" cx="50%" cy="30%" r="70%" fx="50%" fy="30%">
+      <stop offset="0%" style="stop-color:#003366;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#001428;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Glowing effect filters -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Circuit trace pattern -->
+    <pattern id="circuitPattern" patternUnits="userSpaceOnUse" width="500" height="500">
+      <!-- Horizontal traces -->
+      <path d="M0,100 L50,100 L70,120 L200,120 L230,150 L350,150 L400,200 L500,200" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      <path d="M0,300 L100,300 L150,350 L300,350 L350,300 L500,300" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      <path d="M0,450 L100,450 L120,470 L220,470 L250,500 L500,500" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      
+      <!-- Vertical traces -->
+      <path d="M150,0 L150,50 L170,70 L170,150 L150,170 L150,300 L170,320 L170,450 L150,470 L150,500" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      <path d="M350,0 L350,100 L330,120 L330,200 L350,220 L350,350 L330,370 L330,450 L350,470 L350,500" 
+            fill="none" stroke="#4d88ff" stroke-width="1.5" opacity="0.3"/>
+      
+      <!-- Connection points -->
+      <circle cx="150" cy="100" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="350" cy="150" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="150" cy="300" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="350" cy="300" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="150" cy="450" r="4" fill="#4d88ff" opacity="0.5"/>
+      <circle cx="250" cy="470" r="4" fill="#4d88ff" opacity="0.5"/>
+    </pattern>
+    
+    <!-- Energy particles -->
+    <filter id="particleBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Main background with enhanced gradients and patterns -->
+  <rect width="1000" height="1000" fill="url(#deepBlueGradient)"/>
+  <rect width="1000" height="1000" fill="url(#glowCenter)"/>
+  <rect width="1000" height="1000" fill="url(#circuitPattern)"/>
+  
+  <!-- Energy particles in background -->
+  <g opacity="0.6">
+    <circle cx="150" cy="180" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="820" cy="120" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="720" cy="350" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="250" cy="280" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="450" cy="150" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="580" cy="220" r="3" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="940" cy="280" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="80" cy="350" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+  </g>
+  
+  <!-- Angular shard background element with gradient -->
+  <linearGradient id="shardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" style="stop-color:#001428;stop-opacity:0.7" />
+    <stop offset="100%" style="stop-color:#002651;stop-opacity:0.5" />
+  </linearGradient>
+  <polygon points="0,250 1000,400 1000,1000 0,1000" fill="url(#shardGradient)"/>
+  <line x1="0" y1="250" x2="1000" y2="400" stroke="#FFB900" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Header with B SHOCKED logo -->
+  <g id="logo" transform="translate(150, 120)">
+    <!-- B vertical line with enhanced glow -->
+    <rect x="0" y="-30" width="15" height="120" fill="white" filter="url(#glow)"/>
+    
+    <!-- SHOCKED text with improved font -->
+    <text x="30" y="50" font-family="Exo 2, Audiowide, Arial, sans-serif" font-size="70" font-weight="300" letter-spacing="5" fill="white">{{COMPANY_NAME}}</text>
+    
+    <!-- Custom O with electrical effect -->
+    <g transform="translate(245, 50)">
+      <circle cx="0" cy="0" r="35" fill="transparent" stroke="white" stroke-width="3"/>
+      
+      <!-- Enhanced lightning effect in O -->
+      <path d="M-15,-10 C0,-20 15,-10 0,0 C-15,10 0,20 15,10" 
+            fill="none" stroke="white" stroke-width="2" opacity="0.8" filter="url(#softGlow)"/>
+      
+      <!-- Additional electricity elements with glow -->
+      <path d="M-40,-5 L-35,0 L-40,5" stroke="white" stroke-width="1" opacity="0.6" filter="url(#softGlow)"/>
+      <path d="M40,-5 L35,0 L40,5" stroke="white" stroke-width="1" opacity="0.6" filter="url(#softGlow)"/>
+    </g>
+    
+    <!-- Subtitle with improved font -->
+    <text x="250" y="80" font-family="Rajdhani, Arial, sans-serif" font-size="24" font-weight="300" letter-spacing="3" fill="white">ELECTRICAL | SOLAR</text>
+  </g>
+  
+  <!-- SKU and model number with tech styling -->
+  <g id="sku-section" transform="translate(150, 250)">
+    <!-- Angular tech container with gradient -->
+    <linearGradient id="skuGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#001428;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#002651;stop-opacity:0.8" />
+    </linearGradient>
+    <polygon points="-30,-20 300,-20 310,0 300,20 -30,20 -40,0" fill="url(#skuGradient)" stroke="#4d88ff" stroke-width="1"/>
+    <text x="0" y="5" font-family="Share Tech Mono, Courier New, monospace" font-size="18" fill="white">SKU: {{PRODUCT_SKU}}</text>
+  </g>
+  
+  <!-- Main product title with tech angular design -->
+  <g id="main-title" transform="translate(500, 330)">
+    <!-- Title with angulated container and gradient -->
+    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001428;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#002651;stop-opacity:0.8" />
+    </linearGradient>
+    <polygon points="-450,-60 450,-60 470,-30 450,60 -450,60 -470,30" fill="url(#titleGradient)"/>
+    
+    <!-- Product title with tech flavor and improved fonts -->
+    <text x="0" y="0" font-family="Orbitron, Impact, Arial, sans-serif" font-size="60" font-weight="bold" fill="#FFB900" text-anchor="middle">{{PRODUCT_TITLE}}</text>
+    
+    <!-- Tech accents with glow -->
+    <line x1="-440" y1="-30" x2="-380" y2="-30" stroke="#FFB900" stroke-width="2" filter="url(#softGlow)"/>
+    <line x1="380" y1="-30" x2="440" y2="-30" stroke="#FFB900" stroke-width="2" filter="url(#softGlow)"/>
+    <line x1="-440" y1="30" x2="-380" y2="30" stroke="#FFB900" stroke-width="2" filter="url(#softGlow)"/>
+    <line x1="380" y1="30" x2="440" y2="30" stroke="#FFB900" stroke-width="2" filter="url(#softGlow)"/>
+    
+    <circle cx="-380" cy="-30" r="4" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="380" cy="-30" r="4" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="-380" cy="30" r="4" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="380" cy="30" r="4" fill="#FFB900" filter="url(#particleBlur)"/>
+  </g>
+  
+  <!-- Split content layout -->
+  <g id="split-content">
+    <!-- Left side - Product image with tech frame -->
+    <g id="product-image" transform="translate(280, 500)">
+      <!-- Tech frame for image with gradient -->
+      <linearGradient id="frameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#f5f5f5;stop-opacity:0.95" />
+        <stop offset="100%" style="stop-color:#e0e0e0;stop-opacity:0.95" />
+      </linearGradient>
+      <polygon points="-180,-150 180,-150 200,-130 200,150 180,170 -180,170 -200,150 -200,-130" 
+              fill="url(#frameGradient)"/>
+      
+      <!-- Inner frame with gradient -->
+      <linearGradient id="innerFrameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#001428;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#002651;stop-opacity:1" />
+      </linearGradient>
+      <polygon points="-170,-140 170,-140 190,-120 190,140 170,160 -170,160 -190,140 -190,-120" 
+              fill="url(#innerFrameGradient)"/>
+      
+      <!-- Product image -->
+<!-- In your SVG templates -->
+<image x="-180" y="-130" width="360" height="260" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet"/>
+      
+      <!-- Tech corner accents with glowing effect -->
+      <linearGradient id="cornerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#FFB900;stop-opacity:0.9" />
+        <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:0.8" />
+      </linearGradient>
+      <path d="M-180,-150 L-160,-150 L-160,-130 L-180,-130 Z" fill="url(#cornerGradient)" filter="url(#particleBlur)"/>
+      <path d="M160,-150 L180,-150 L180,-130 L160,-130 Z" fill="url(#cornerGradient)" filter="url(#particleBlur)"/>
+      <path d="M-180,150 L-160,150 L-160,170 L-180,170 Z" fill="url(#cornerGradient)" filter="url(#particleBlur)"/>
+      <path d="M160,150 L180,150 L180,170 L160,170 Z" fill="url(#cornerGradient)" filter="url(#particleBlur)"/>
+    </g>
+    
+    <!-- Right side - Tech specs with flowing design -->
+    <g id="tech-specs" transform="translate(720, 500)">
+      <!-- Section title with tech styling and gradient -->
+      <linearGradient id="specHeaderGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#001428;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#002651;stop-opacity:1" />
+      </linearGradient>
+      <polygon points="-220,-150 220,-150 230,-140 220,-130 -220,-130 -230,-140" fill="url(#specHeaderGradient)" stroke="#FFB900" stroke-width="1"/>
+      <text x="0" y="-137" font-family="Chakra Petch, Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">TECHNICAL SPECIFICATIONS</text>
+      
+      <!-- Product description -->
+      <foreignObject x="-200" y="-110" width="400" height="240">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family: Titillium Web, Arial, sans-serif; font-size: 18px; color: white; line-height: 1.5;">
+          {{PRODUCT_DESCRIPTION}}
+        </div>
+      </foreignObject>
+      
+      <!-- Tech border with animated feel and gradient -->
+      <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#4d88ff;stop-opacity:0.8" />
+        <stop offset="100%" style="stop-color:#4d88ff;stop-opacity:0.2" />
+      </linearGradient>
+      <rect x="-220" y="-110" width="440" height="230" fill="none" stroke="url(#borderGradient)" stroke-width="1" stroke-dasharray="5,5"/>
+    </g>
+  </g>
+  
+  <!-- Price section with tech styling -->
+  <g id="price-section" transform="translate(300, 730)">
+    <!-- Tech angular price container with gradient -->
+    <linearGradient id="priceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFB900;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </linearGradient>
+    <polygon points="-180,-40 180,-40 200,-20 200,40 180,60 -180,60 -200,40 -200,-20" 
+            fill="url(#priceGradient)"/>
+    
+    <!-- Price text with tech styling and improved font -->
+    <text x="0" y="20" font-family="Teko, Impact, Arial, sans-serif" font-size="50" font-weight="bold" fill="#001428" text-anchor="middle">{{PRODUCT_PRICE}}</text>
+    
+    <!-- Price qualifier with improved font -->
+    <text x="140" y="50" font-family="Quantico, Arial, sans-serif" font-size="16" font-weight="bold" fill="#001428" text-anchor="end">INCL. VAT</text>
+    
+    <!-- Tech corner accents with gradients -->
+    <linearGradient id="cornerDarkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#002651;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#001428;stop-opacity:0.9" />
+    </linearGradient>
+    <path d="M-180,-40 L-160,-40 L-160,-20 L-180,-20 Z" fill="url(#cornerDarkGradient)"/>
+    <path d="M160,-40 L180,-40 L180,-20 L160,-20 Z" fill="url(#cornerDarkGradient)"/>
+    <path d="M-180,40 L-160,40 L-160,60 L-180,60 Z" fill="url(#cornerDarkGradient)"/>
+    <path d="M160,40 L180,40 L180,60 L160,60 Z" fill="url(#cornerDarkGradient)"/>
+  </g>
+  
+  <!-- CTA with tech flow -->
+  <g id="call-to-action" transform="translate(700, 730)">
+    <!-- Tech angular CTA container with gradient -->
+    <linearGradient id="ctaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001428;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#002651;stop-opacity:0.8" />
+    </linearGradient>
+    <polygon points="-180,-40 180,-40 200,-20 200,40 180,60 -180,60 -200,40 -200,-20" 
+            fill="url(#ctaGradient)" stroke="#FFB900" stroke-width="2"/>
+    
+    <!-- Call to action with tech feel and improved fonts -->
+    <text x="0" y="0" font-family="Rajdhani, Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">SPECIAL PROMOTION</text>
+    <text x="0" y="30" font-family="Russo One, Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFB900" text-anchor="middle">LIMITED TIME OFFER</text>
+    
+    <!-- Tech accent with circuit node and glow -->
+    <line x1="-150" y1="0" x2="-100" y2="0" stroke="#FFB900" stroke-width="1" filter="url(#softGlow)"/>
+    <circle cx="-100" cy="0" r="3" fill="#FFB900" filter="url(#particleBlur)"/>
+    
+    <line x1="150" y1="0" x2="100" y2="0" stroke="#FFB900" stroke-width="1" filter="url(#softGlow)"/>
+    <circle cx="100" cy="0" r="3" fill="#FFB900" filter="url(#particleBlur)"/>
+  </g>
+  
+  <!-- Footer tech panel with contact info -->
+  <g id="contact-footer">
+    <!-- Tech footer background with angular edges and gradient -->
+    <linearGradient id="footerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#001428;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#002651;stop-opacity:0.8" />
+    </linearGradient>
+    <polygon points="0,830 1000,830 1000,1000 0,1000" fill="url(#footerGradient)"/>
+    <line x1="0" y1="830" x2="1000" y2="830" stroke="#4d88ff" stroke-width="1"/>
+    
+    <!-- Contact header with tech accent and improved font -->
+    <g transform="translate(500, 860)">
+      <line x1="-100" y1="0" x2="-50" y2="0" stroke="#FFB900" stroke-width="1" filter="url(#softGlow)"/>
+      <text x="0" y="0" font-family="Chakra Petch, Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">CONTACT US</text>
+      <line x1="50" y1="0" x2="100" y2="0" stroke="#FFB900" stroke-width="1" filter="url(#softGlow)"/>
+    </g>
+    
+    <!-- Contact items with tech styling and improved fonts -->
+    <g transform="translate(250, 900)">
+      <!-- Phone -->
+      <linearGradient id="contactItemGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#FFB900;stop-opacity:0.2" />
+        <stop offset="100%" style="stop-color:#FFB900;stop-opacity:0.1" />
+      </linearGradient>
+      <polygon points="-30,-15 30,-15 35,-10 30,15 -30,15 -35,10" fill="url(#contactItemGradient)" stroke="#FFB900" stroke-width="1"/>
+      <text x="0" y="5" font-family="Rajdhani, Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">PHONE</text>
+      <text x="0" y="40" font-family="Share Tech, Arial, sans-serif" font-size="16" fill="white" text-anchor="middle">{{PHONE_NUMBER}}</text>
+    </g>
+    
+    <g transform="translate(500, 900)">
+      <!-- Email -->
+      <polygon points="-30,-15 30,-15 35,-10 30,15 -30,15 -35,10" fill="url(#contactItemGradient)" stroke="#FFB900" stroke-width="1"/>
+      <text x="0" y="5" font-family="Rajdhani, Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">EMAIL</text>
+      <text x="0" y="40" font-family="Share Tech, Arial, sans-serif" font-size="16" fill="white" text-anchor="middle">{{EMAIL}}</text>
+    </g>
+    
+    <g transform="translate(750, 900)">
+      <!-- Website -->
+      <polygon points="-30,-15 30,-15 35,-10 30,15 -30,15 -35,10" fill="url(#contactItemGradient)" stroke="#FFB900" stroke-width="1"/>
+      <text x="0" y="5" font-family="Rajdhani, Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">WEBSITE</text>
+      <text x="0" y="40" font-family="Share Tech, Arial, sans-serif" font-size="16" fill="white" text-anchor="middle">{{WEBSITE}}</text>
+    </g>
+    
+    <!-- Footer note with tech styling and improved font -->
+    <g transform="translate(500, 970)">
+      <text x="0" y="0" font-family="Titillium Web, Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">*E&amp;EO may occur. All Prices are VAT Inclusive.</text>
+      <text x="0" y="20" font-family="Titillium Web, Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">Terms &amp; Conditions apply. Pricing subject to change without prior notice.</text>
+    </g>
+  </g>
+  
+  <!-- QR code with tech styling -->
+  <g id="qr-code" transform="translate(880, 940)">
+    <!-- Tech angular QR container with gradient -->
+    <linearGradient id="qrGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0f0f0;stop-opacity:1" />
+    </linearGradient>
+    <polygon points="-60,-60 60,-60 70,-50 70,50 60,60 -60,60 -70,50 -70,-50" fill="url(#qrGradient)"/>
+    
+    <!-- QR placeholder with improved font -->
+    <text x="0" y="-10" font-family="Rajdhani, Arial, sans-serif" font-size="12" fill="#001428" text-anchor="middle">SCAN FOR</text>
+    <text x="0" y="10" font-family="Chakra Petch, Arial, sans-serif" font-size="14" font-weight="bold" fill="#001428" text-anchor="middle">ENQUIRY</text>
+    
+    <!-- Tech QR corner accents with gradient -->
+    <linearGradient id="qrCornerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#001428;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#002651;stop-opacity:1" />
+    </linearGradient>
+    <path d="M-60,-60 L-40,-60 L-40,-40 L-60,-40 Z" fill="url(#qrCornerGradient)"/>
+    <path d="M40,-60 L60,-60 L60,-40 L40,-40 Z" fill="url(#qrCornerGradient)"/>
+    <path d="M-60,40 L-40,40 L-40,60 L-60,60 Z" fill="url(#qrCornerGradient)"/>
+    <path d="M40,40 L60,40 L60,60 L40,60 Z" fill="url(#qrCornerGradient)"/>
+  </g>
+  
+  <!-- Decorative energy particles throughout -->
+  <g opacity="0.7">
+    <circle cx="250" cy="780" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="750" cy="820" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="150" cy="620" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="850" cy="680" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="450" cy="950" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="650" cy="500" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+    <circle cx="350" cy="400" r="2" fill="#FFB900" filter="url(#particleBlur)"/>
+  </g>
+</svg>

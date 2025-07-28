@@ -172,16 +172,50 @@ async function handleRender(req, res) {
     if (imageTitle) svgContent = svgContent.replace(/\{\{IMAGE_TITLE\}\}/g, escapeXML(imageTitle));
     if (secondaryDescription) svgContent = svgContent.replace(/\{\{SECONDARY_DESCRIPTION\}\}/g, escapeXML(secondaryDescription));
     
-    // Process product image
+    // Process product image with better error handling
     const productImage = image || imageUrl;
-    if (productImage) {
-      // If we have an image, use it and hide the fallback
-      svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, productImage);
-      svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '0');
+    const hasLargeImage = req.query.hasLargeImage === 'true';
+    
+    if (productImage && !hasLargeImage) {
+      try {
+        // Decode the image URL if it was encoded
+        const decodedImage = decodeURIComponent(productImage);
+        
+        // Basic validation for base64 images
+        if (decodedImage.startsWith('data:image/')) {
+          // Ensure the base64 data is reasonable size for SVG
+          if (decodedImage.length > 50000) {
+            console.warn('Image data too large, using fallback');
+            svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
+            svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '1');
+          } else {
+            svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, decodedImage);
+            svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '0');
+          }
+        } else if (decodedImage.startsWith('http')) {
+          // Regular URL
+          svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, decodedImage);
+          svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '0');
+        } else {
+          // Invalid image format, use fallback
+          svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
+          svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '1');
+        }
+      } catch (error) {
+        console.error('Error processing image:', error.message);
+        // Use fallback on any error
+        svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
+        svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '1');
+      }
     } else {
-      // If no image, show fallback and hide the image element
+      // If no image or large image detected, show fallback
       svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
       svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '1');
+      
+      if (hasLargeImage) {
+        // Add a notice for large images
+        console.log('Large image detected, using fallback display');
+      }
     }
     
     // Dynamic fields
