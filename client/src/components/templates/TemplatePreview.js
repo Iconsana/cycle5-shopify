@@ -43,17 +43,25 @@ const TemplatePreview = ({ template, productData, companyData }) => {
     // Handle image data more safely - avoid passing large base64 in URL
     if (productData?.image) {
       const imageData = productData.image;
+      console.log('Image data type:', typeof imageData);
+      console.log('Image data length:', imageData?.length || 'N/A');
+      console.log('Image data starts with data:image/?', imageData?.startsWith?.('data:image/'));
+      
       // Check if it's a base64 image and if it's too large for URL params
-      if (imageData.startsWith('data:image/') && imageData.length > 10000) {
+      if (imageData && imageData.startsWith && imageData.startsWith('data:image/') && imageData.length > 10000) {
         // For large images, don't pass in URL - handle separately
         console.warn('Image too large for URL parameters, skipping image in preview');
         addParam('hasLargeImage', 'true');
-      } else if (imageData.startsWith('data:image/') && imageData.length <= 10000) {
+      } else if (imageData && imageData.startsWith && imageData.startsWith('data:image/') && imageData.length <= 10000) {
         // For smaller base64 images, pass as URL param
+        console.log('Adding small base64 image to URL');
         addParam('imageUrl', encodeURIComponent(imageData));
-      } else if (imageData.startsWith('http')) {
+      } else if (imageData && imageData.startsWith && imageData.startsWith('http')) {
         // For regular URLs, pass as is
+        console.log('Adding HTTP image URL');
         addParam('imageUrl', imageData);
+      } else {
+        console.warn('Image data format not recognized:', imageData?.substring?.(0, 50) || imageData);
       }
     }
 
@@ -205,6 +213,14 @@ const TemplatePreview = ({ template, productData, companyData }) => {
   const handleImageError = (e) => {
     console.error('Preview failed to load:', previewUrl);
     console.error('Error details:', e);
+    console.error('Event target:', e.target);
+    console.error('Event type:', e.type);
+    
+    // Try to get more information about the error
+    if (e.target && e.target.src) {
+      console.error('Failed image src:', e.target.src.substring(0, 200) + '...');
+    }
+    
     setImageError(true);
   };
 
@@ -242,7 +258,21 @@ const TemplatePreview = ({ template, productData, companyData }) => {
   const testDirectAPI = () => {
     console.log('🧪 Testing direct API access...');
     
-    // Open debug endpoint in new tab for direct testing
+    // Test the API endpoint directly first
+    fetch('/api/main?action=debug')
+      .then(response => {
+        console.log('API Response status:', response.status);
+        console.log('API Response headers:', response.headers);
+        return response.text();
+      })
+      .then(data => {
+        console.log('API Response data:', data.substring(0, 200) + '...');
+      })
+      .catch(error => {
+        console.error('API Test error:', error);
+      });
+    
+    // Also open debug endpoint in new tab for visual testing
     const debugUrl = `/api/main?action=debug&t=${Date.now()}`;
     window.open(debugUrl, '_blank');
   };
@@ -334,7 +364,7 @@ const TemplatePreview = ({ template, productData, companyData }) => {
               backgroundColor: '#f8f9fa',
               borderRadius: '4px'
             }}>
-              📊 Active fields: {Object.keys(productData || {}).filter(k => productData[k] && productData[k].trim()).length}
+              📊 Active fields: {Object.keys(productData || {}).filter(k => productData[k] && typeof productData[k] === 'string' && productData[k].trim()).length}
               {template.id === 'solar-kit-social' && (
                 <span> | Additional parts: {Object.keys(productData || {}).filter(k => k.startsWith('additionalPart') && productData[k]).length}</span>
               )}
