@@ -107,22 +107,38 @@ const TemplateGenerator = () => {
   // Handle loading a saved template
   const handleLoadTemplate = (savedTemplate) => {
     try {
+      console.log('handleLoadTemplate called with:', savedTemplate);
+      
       // Find the template type in our available templates
       const templateType = templates.find(t => t.id === savedTemplate.templateId);
       if (!templateType) {
         console.error('Template type not found:', savedTemplate.templateId);
-        return;
+        // Try to find by name as fallback
+        const fallbackTemplate = templates.find(t => t.name.toLowerCase().includes(savedTemplate.templateId?.toLowerCase()));
+        if (fallbackTemplate) {
+          console.log('Using fallback template:', fallbackTemplate);
+          setSelectedTemplate(fallbackTemplate);
+        } else {
+          alert(`Template type "${savedTemplate.templateId}" not found. Please ensure the template is available.`);
+          return;
+        }
+      } else {
+        // Set the template type
+        setSelectedTemplate(templateType);
       }
-
-      // Set the template type
-      setSelectedTemplate(templateType);
       
-      // Load the product data
-      setProductData(savedTemplate.productData || {});
+      // Load the product data - merge with existing data to avoid losing defaults
+      const newProductData = {
+        ...productData,
+        ...savedTemplate.productData
+      };
+      setProductData(newProductData);
       
-      console.log('Loaded template:', savedTemplate.name);
+      console.log('Successfully loaded template:', savedTemplate.name);
+      alert(`Template "${savedTemplate.name}" loaded successfully!`);
     } catch (error) {
       console.error('Error loading template:', error);
+      alert('Failed to load template: ' + error.message);
     }
   };
 

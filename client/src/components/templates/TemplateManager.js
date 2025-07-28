@@ -47,7 +47,13 @@ const TemplateManager = ({ onLoadTemplate, currentTemplate, currentProductData, 
   };
 
   const handleLoadTemplate = (template) => {
-    onLoadTemplate(template);
+    try {
+      console.log('Loading template:', template);
+      onLoadTemplate(template);
+    } catch (error) {
+      console.error('Error loading template:', error);
+      setError('Failed to load template: ' + error.message);
+    }
   };
 
   const handleDeleteTemplate = (templateId) => {
@@ -249,8 +255,10 @@ const TemplateManager = ({ onLoadTemplate, currentTemplate, currentProductData, 
                     <button 
                       className="btn btn-sm btn-primary"
                       onClick={() => handleLoadTemplate(template)}
+                      disabled={importing}
+                      title="Load this template configuration"
                     >
-                      Load
+                      {importing ? 'Loading...' : 'Load'}
                     </button>
                     <button 
                       className="btn btn-sm btn-secondary"
@@ -420,6 +428,18 @@ const TemplateManager = ({ onLoadTemplate, currentTemplate, currentProductData, 
           border-radius: 4px;
           cursor: pointer;
           font-size: 14px;
+          transition: all 0.2s ease;
+          text-decoration: none;
+        }
+
+        .btn:hover:not(:disabled) {
+          opacity: 0.8;
+          transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
         }
 
         .btn-primary {

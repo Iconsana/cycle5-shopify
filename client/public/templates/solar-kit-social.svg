@@ -35,8 +35,8 @@
   <rect x="45" y="325" width="210" height="150" fill="#f0f0f0" rx="3" opacity="{{IMAGE_FALLBACK_OPACITY}}"/>
   <text x="150" y="400" fill="#666" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" opacity="{{IMAGE_FALLBACK_OPACITY}}">[Product Image]</text>
   
-  <text x="150" y="490" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">{{IMAGE_TITLE}}</text>
-  <text x="150" y="510" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
+  <text x="150" y="520" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">{{IMAGE_TITLE}}</text>
+  <text x="150" y="540" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
   
   <!-- Right Column - Product Details Header -->
   <text x="290" y="345" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold">PRODUCT DETAILS</text>
@@ -85,23 +85,23 @@
   
   <!-- Description Box (Left Column Extended - using more space) -->
   <text x="40" y="540" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{DESCRIPTION_TITLE}}</text>
-  <text x="40" y="560" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_1}}</text>
-  <text x="40" y="575" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_2}}</text>
-  <text x="40" y="590" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_3}}</text>
-  <text x="40" y="605" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_4}}</text>
-  <text x="40" y="620" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_5}}</text>
-  <text x="40" y="635" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_6}}</text>
+  <text x="40" y="560" fill="white" font-family="Arial, sans-serif" font-size="14">{{DESCRIPTION_LINE_1}}</text>
+  <text x="40" y="575" fill="white" font-family="Arial, sans-serif" font-size="14">{{DESCRIPTION_LINE_2}}</text>
+  <text x="40" y="590" fill="white" font-family="Arial, sans-serif" font-size="14">{{DESCRIPTION_LINE_3}}</text>
+  <text x="40" y="605" fill="white" font-family="Arial, sans-serif" font-size="14">{{DESCRIPTION_LINE_4}}</text>
+  <text x="40" y="620" fill="white" font-family="Arial, sans-serif" font-size="14">{{DESCRIPTION_LINE_5}}</text>
+  <text x="40" y="635" fill="white" font-family="Arial, sans-serif" font-size="14">{{DESCRIPTION_LINE_6}}</text>
   <text x="40" y="650" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_7}}</text>
   <text x="40" y="665" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_8}}</text>
   <text x="40" y="680" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_9}}</text>
   <text x="40" y="695" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_10}}</text>
   
   <!-- System Benefits (Extended to use more space) -->
-  <text x="40" y="720" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_1}}</text>
-  <text x="40" y="740" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_2}}</text>
-  <text x="40" y="760" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_3}}</text>
-  <text x="40" y="780" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_4}}</text>
-  <text x="40" y="800" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_5}}</text>
+  <text x="40" y="720" fill="#fbbf24" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BENEFIT_1}}</text>
+  <text x="40" y="740" fill="#fbbf24" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BENEFIT_2}}</text>
+  <text x="40" y="760" fill="#fbbf24" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BENEFIT_3}}</text>
+  <text x="40" y="780" fill="#fbbf24" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BENEFIT_4}}</text>
+  <text x="40" y="800" fill="#fbbf24" font-family="Arial, sans-serif" font-size="16" font-weight="bold">{{BENEFIT_5}}</text>
   <text x="40" y="820" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_6}}</text>
   <text x="40" y="840" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_7}}</text>
   <text x="40" y="860" fill="#fbbf24" font-family="Arial, sans-serif" font-size="12" font-weight="bold">{{BENEFIT_8}}</text>
