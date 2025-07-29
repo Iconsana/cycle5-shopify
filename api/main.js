@@ -183,8 +183,8 @@ async function handleRender(req, res) {
   
   let svgContent = fs.readFileSync(svgPath, 'utf8');
   
-  // Process solar-kit-social template
-  if (templateId === 'solar-kit-social') {
+  // Process solar-kit-social template (all versions)
+  if (templateId === 'solar-kit-social' || templateId.startsWith('solar-kit-social-v')) {
     // Basic fields
     if (ratingText) svgContent = svgContent.replace(/\{\{RATING_TEXT\}\}/g, escapeXML(ratingText));
     if (brandText) svgContent = svgContent.replace(/\{\{BRAND_TEXT\}\}/g, escapeXML(brandText));

@@ -26,76 +26,76 @@
   <!-- Main Content Area -->
   <rect x="20" y="300" width="760" height="720" fill="#1e3a8a" stroke="#f59e0b" stroke-width="2" rx="10"/>
 
-  <!-- Left Column - LARGER Rectangular Image -->
-  <rect x="40" y="320" width="320" height="240" fill="white" rx="5"/>
+  <!-- Left Column - QUARTER SIZE Image (190x180 = ~25% of 760x720 container) -->
+  <rect x="40" y="320" width="200" height="190" fill="white" rx="5"/>
 
-  <!-- Product Image Element - 4:3 RATIO -->
-  <image x="50" y="330" width="300" height="225" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet" />
+  <!-- Product Image Element - QUARTER SIZE -->
+  <image x="45" y="325" width="190" height="180" href="{{PRODUCT_IMAGE}}" preserveAspectRatio="xMidYMid meet" />
 
   <!-- Fallback for when no image is provided -->
-  <rect x="50" y="330" width="300" height="225" fill="#f0f0f0" rx="3" opacity="{{IMAGE_FALLBACK_OPACITY}}"/>
-  <text x="200" y="442" fill="#666" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" opacity="{{IMAGE_FALLBACK_OPACITY}}">[Product Image]</text>
+  <rect x="45" y="325" width="190" height="180" fill="#f0f0f0" rx="3" opacity="{{IMAGE_FALLBACK_OPACITY}}"/>
+  <text x="140" y="415" fill="#666" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" opacity="{{IMAGE_FALLBACK_OPACITY}}">[Product Image]</text>
 
-  <text x="200" y="585" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">{{IMAGE_TITLE}}</text>
-  <text x="200" y="605" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
+  <text x="140" y="535" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">{{IMAGE_TITLE}}</text>
+  <text x="140" y="555" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">{{SECONDARY_DESCRIPTION}}</text>
 
-  <!-- Right Column - Product Details (NARROWER) -->
-  <text x="380" y="345" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">PRODUCT DETAILS</text>
+  <!-- Right Column - Product Details (WIDER since image is smaller) -->
+  <text x="260" y="345" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">PRODUCT DETAILS</text>
 
   <!-- Dynamic Power System Section -->
-  <text x="380" y="370" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">POWER SYSTEM:</text>
-  <text x="385" y="387" fill="white" font-family="Arial, sans-serif" font-size="11">{{POWER_DETAIL_1}}</text>
-  <text x="385" y="401" fill="white" font-family="Arial, sans-serif" font-size="11">{{POWER_DETAIL_2}}</text>
-  <text x="385" y="415" fill="white" font-family="Arial, sans-serif" font-size="11">{{POWER_DETAIL_3}}</text>
+  <text x="260" y="370" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">POWER SYSTEM:</text>
+  <text x="265" y="387" fill="white" font-family="Arial, sans-serif" font-size="11">{{POWER_DETAIL_1}}</text>
+  <text x="265" y="401" fill="white" font-family="Arial, sans-serif" font-size="11">{{POWER_DETAIL_2}}</text>
+  <text x="265" y="415" fill="white" font-family="Arial, sans-serif" font-size="11">{{POWER_DETAIL_3}}</text>
 
   <!-- Dynamic Solar Panels Section -->
-  <text x="380" y="435" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">SOLAR PANELS:</text>
-  <text x="385" y="452" fill="white" font-family="Arial, sans-serif" font-size="11">{{PANEL_DETAIL_1}}</text>
-  <text x="385" y="466" fill="white" font-family="Arial, sans-serif" font-size="11">{{PANEL_DETAIL_2}}</text>
+  <text x="260" y="435" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">SOLAR PANELS:</text>
+  <text x="265" y="452" fill="white" font-family="Arial, sans-serif" font-size="11">{{PANEL_DETAIL_1}}</text>
+  <text x="265" y="466" fill="white" font-family="Arial, sans-serif" font-size="11">{{PANEL_DETAIL_2}}</text>
 
   <!-- Dynamic Mounting Hardware Section -->
-  <text x="380" y="486" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">MOUNTING HARDWARE:</text>
-  <text x="385" y="503" fill="white" font-family="Arial, sans-serif" font-size="11">{{MOUNT_DETAIL_1}}</text>
-  <text x="385" y="517" fill="white" font-family="Arial, sans-serif" font-size="11">{{MOUNT_DETAIL_2}}</text>
-  <text x="385" y="531" fill="white" font-family="Arial, sans-serif" font-size="11">{{MOUNT_DETAIL_3}}</text>
+  <text x="260" y="486" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">MOUNTING HARDWARE:</text>
+  <text x="265" y="503" fill="white" font-family="Arial, sans-serif" font-size="11">{{MOUNT_DETAIL_1}}</text>
+  <text x="265" y="517" fill="white" font-family="Arial, sans-serif" font-size="11">{{MOUNT_DETAIL_2}}</text>
+  <text x="265" y="531" fill="white" font-family="Arial, sans-serif" font-size="11">{{MOUNT_DETAIL_3}}</text>
 
   <!-- Dynamic Electrical Components Section -->
-  <text x="380" y="551" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">ELECTRICAL COMPONENTS:</text>
-  <text x="385" y="568" fill="white" font-family="Arial, sans-serif" font-size="11">{{ELEC_DETAIL_1}}</text>
-  <text x="385" y="582" fill="white" font-family="Arial, sans-serif" font-size="11">{{ELEC_DETAIL_2}}</text>
-  <text x="385" y="596" fill="white" font-family="Arial, sans-serif" font-size="11">{{ELEC_DETAIL_3}}</text>
+  <text x="260" y="551" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">ELECTRICAL COMPONENTS:</text>
+  <text x="265" y="568" fill="white" font-family="Arial, sans-serif" font-size="11">{{ELEC_DETAIL_1}}</text>
+  <text x="265" y="582" fill="white" font-family="Arial, sans-serif" font-size="11">{{ELEC_DETAIL_2}}</text>
+  <text x="265" y="596" fill="white" font-family="Arial, sans-serif" font-size="11">{{ELEC_DETAIL_3}}</text>
 
   <!-- Dynamic Cables Section -->
-  <text x="380" y="616" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">CABLES & INSTALL:</text>
-  <text x="385" y="633" fill="white" font-family="Arial, sans-serif" font-size="11">{{CABLE_DETAIL_1}}</text>
-  <text x="385" y="647" fill="white" font-family="Arial, sans-serif" font-size="11">{{CABLE_DETAIL_2}}</text>
-  <text x="385" y="661" fill="white" font-family="Arial, sans-serif" font-size="11">{{CABLE_DETAIL_3}}</text>
+  <text x="260" y="616" fill="#fbbf24" font-family="Arial, sans-serif" font-size="13" font-weight="bold">CABLES & INSTALL:</text>
+  <text x="265" y="633" fill="white" font-family="Arial, sans-serif" font-size="11">{{CABLE_DETAIL_1}}</text>
+  <text x="265" y="647" fill="white" font-family="Arial, sans-serif" font-size="11">{{CABLE_DETAIL_2}}</text>
+  <text x="265" y="661" fill="white" font-family="Arial, sans-serif" font-size="11">{{CABLE_DETAIL_3}}</text>
 
   <!-- Additional Parts Section (SMALLER TEXT) -->
-  <text x="380" y="681" fill="#f59e0b" font-family="Arial, sans-serif" font-size="12" font-weight="bold">ADDITIONAL PARTS:</text>
-  <text x="385" y="695" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_1}}</text>
-  <text x="385" y="706" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_2}}</text>
-  <text x="385" y="717" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_3}}</text>
-  <text x="385" y="728" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_4}}</text>
-  <text x="385" y="739" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_5}}</text>
-  <text x="385" y="750" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_6}}</text>
-  <text x="385" y="761" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_7}}</text>
-  <text x="385" y="772" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_8}}</text>
-  <text x="385" y="783" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_9}}</text>
-  <text x="385" y="794" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_10}}</text>
+  <text x="260" y="681" fill="#f59e0b" font-family="Arial, sans-serif" font-size="12" font-weight="bold">ADDITIONAL PARTS:</text>
+  <text x="265" y="695" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_1}}</text>
+  <text x="265" y="706" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_2}}</text>
+  <text x="265" y="717" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_3}}</text>
+  <text x="265" y="728" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_4}}</text>
+  <text x="265" y="739" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_5}}</text>
+  <text x="265" y="750" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_6}}</text>
+  <text x="265" y="761" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_7}}</text>
+  <text x="265" y="772" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_8}}</text>
+  <text x="265" y="783" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_9}}</text>
+  <text x="265" y="794" fill="white" font-family="Arial, sans-serif" font-size="10">{{ADDITIONAL_PART_10}}</text>
 
-  <!-- Description Box (Left Column) -->
-  <text x="40" y="640" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{DESCRIPTION_TITLE}}</text>
-  <text x="40" y="660" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_1}}</text>
-  <text x="40" y="675" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_2}}</text>
-  <text x="40" y="690" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_3}}</text>
-  <text x="40" y="705" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_4}}</text>
-  <text x="40" y="720" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_5}}</text>
-  <text x="40" y="735" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_6}}</text>
-  <text x="40" y="750" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_7}}</text>
-  <text x="40" y="762" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_8}}</text>
-  <text x="40" y="774" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_9}}</text>
-  <text x="40" y="786" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_10}}</text>
+  <!-- Description Box (Left Column - below smaller image) -->
+  <text x="40" y="580" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{DESCRIPTION_TITLE}}</text>
+  <text x="40" y="600" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_1}}</text>
+  <text x="40" y="615" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_2}}</text>
+  <text x="40" y="630" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_3}}</text>
+  <text x="40" y="645" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_4}}</text>
+  <text x="40" y="660" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_5}}</text>
+  <text x="40" y="675" fill="white" font-family="Arial, sans-serif" font-size="12">{{DESCRIPTION_LINE_6}}</text>
+  <text x="40" y="690" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_7}}</text>
+  <text x="40" y="702" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_8}}</text>
+  <text x="40" y="714" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_9}}</text>
+  <text x="40" y="726" fill="white" font-family="Arial, sans-serif" font-size="11">{{DESCRIPTION_LINE_10}}</text>
 
   <!-- System Benefits -->
   <text x="40" y="810" fill="#fbbf24" font-family="Arial, sans-serif" font-size="14" font-weight="bold">{{BENEFIT_1}}</text>
