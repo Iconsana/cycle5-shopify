@@ -149,9 +149,13 @@ export class TemplateStorage {
           // Generate a more standardized template ID based on filename
           let templateId = templateName.toLowerCase().replace(/[^a-z0-9]/g, '-');
           
-          // For solar kit templates, try to normalize to 'solar-kit-social'
+          // For solar kit templates, preserve version suffixes
           if (templateId.includes('solar') && templateId.includes('kit')) {
-            templateId = 'solar-kit-social';
+            // Keep version suffixes like -v1, -v2, -v3
+            if (!templateId.includes('-v')) {
+              templateId = 'solar-kit-social';
+            }
+            // Otherwise keep the original templateId (e.g., solar-kit-social-v1)
           }
           // Truncate very long IDs and ensure they don't end with dashes
           else if (templateId.length > 30) {

@@ -3,7 +3,14 @@ import axios from 'axios';
 // Get all templates
 export const getTemplates = async () => {
   try {
-    const response = await axios.get('/api/templates');
+    // Try consolidated API first, then fallback to legacy
+    let response;
+    try {
+      response = await axios.get('/api/main?action=templates');
+    } catch (error) {
+      console.log('Consolidated API failed, trying legacy...');
+      response = await axios.get('/api/templates');
+    }
     return response.data.data;
   } catch (error) {
     console.error('Error fetching templates:', error);

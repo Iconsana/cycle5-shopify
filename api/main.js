@@ -41,7 +41,10 @@ async function handleTemplates(req, res) {
     { id: 'gradient-seasonal', name: 'Gradient Seasonal' },
     { id: 'tech-enhanced', name: 'Tech Enhanced' },
     { id: 'solar-bulk-deal', name: 'Solar Bulk Deal' },
-    { id: 'solar-kit-social', name: 'Solar Kit Social' }
+    { id: 'solar-kit-social', name: 'Solar Kit Social' },
+    { id: 'solar-kit-social-v1', name: 'Solar Kit Social V1 (Vertical)' },
+    { id: 'solar-kit-social-v2', name: 'Solar Kit Social V2 (Horizontal)' },
+    { id: 'solar-kit-social-v3', name: 'Solar Kit Social V3 (Two-Column)' }
   ];
   
   res.setHeader('Content-Type', 'application/json');
@@ -54,7 +57,28 @@ async function handleTemplates(req, res) {
 
 // Handle template rendering (SVG generation)
 async function handleRender(req, res) {
-  const { templateId } = req.query;
+  let templateId, queryData;
+  
+  // Handle both GET and POST requests
+  if (req.method === 'POST') {
+    // For POST requests, get data from body
+    const body = req.body || {};
+    templateId = body.templateId;
+    queryData = body.productData || {};
+    
+    // Also include company data if provided
+    if (body.companyData) {
+      Object.assign(queryData, body.companyData);
+    }
+    
+    console.log('POST render request for template:', templateId);
+    console.log('POST data keys:', Object.keys(queryData));
+  } else {
+    // For GET requests, use query parameters as before
+    templateId = req.query.templateId;
+    queryData = req.query;
+    console.log('GET render request for template:', templateId);
+  }
   
   if (!templateId) {
     return res.status(400).send(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300">
@@ -77,7 +101,7 @@ async function handleRender(req, res) {
       .substring(0, 150);
   };
   
-  // Get parameters
+  // Get parameters from the unified queryData object
   const {
     ratingText, brandText, categoryText, mainTitle, sku,
     imageTitle, secondaryDescription, image, imageUrl,
@@ -86,9 +110,9 @@ async function handleRender(req, res) {
     contactPhone1, contactPhone2, contactEmail, contactWebsite,
     benefit1, benefit2, benefit3, benefit4, benefit5,
     descriptionTitle, descriptionLine1, descriptionLine2, descriptionLine3, descriptionLine4, descriptionLine5, descriptionLine6
-  } = req.query;
+  } = queryData;
   
-  // Extract dynamic fields
+  // Extract dynamic fields from unified queryData (works for both GET and POST)
   const dynamicFields = {
     powerDetails: {},
     panelDetails: {},
@@ -98,25 +122,25 @@ async function handleRender(req, res) {
     additionalParts: {}
   };
   
-  Object.keys(req.query).forEach(key => {
+  Object.keys(queryData).forEach(key => {
     if (key.startsWith('powerDetail')) {
       const number = key.replace('powerDetail', '');
-      dynamicFields.powerDetails[number] = req.query[key];
+      dynamicFields.powerDetails[number] = queryData[key];
     } else if (key.startsWith('panelDetail')) {
       const number = key.replace('panelDetail', '');
-      dynamicFields.panelDetails[number] = req.query[key];
+      dynamicFields.panelDetails[number] = queryData[key];
     } else if (key.startsWith('mountDetail')) {
       const number = key.replace('mountDetail', '');
-      dynamicFields.mountDetails[number] = req.query[key];
+      dynamicFields.mountDetails[number] = queryData[key];
     } else if (key.startsWith('elecDetail')) {
       const number = key.replace('elecDetail', '');
-      dynamicFields.elecDetails[number] = req.query[key];
+      dynamicFields.elecDetails[number] = queryData[key];
     } else if (key.startsWith('cableDetail')) {
       const number = key.replace('cableDetail', '');
-      dynamicFields.cableDetails[number] = req.query[key];
+      dynamicFields.cableDetails[number] = queryData[key];
     } else if (key.startsWith('additionalPart')) {
       const number = key.replace('additionalPart', '');
-      dynamicFields.additionalParts[number] = req.query[key];
+      dynamicFields.additionalParts[number] = queryData[key];
     }
   });
   
@@ -175,6 +199,14 @@ async function handleRender(req, res) {
     // Process product image with better error handling
     const productImage = image || imageUrl;
     const hasLargeImage = req.query.hasLargeImage === 'true';
+    
+    // Debug logging for image processing
+    console.log('=== IMAGE DEBUG INFO ===');
+    console.log('image param:', image ? `${image.substring(0, 50)}... (length: ${image.length})` : 'null');
+    console.log('imageUrl param:', imageUrl ? `${imageUrl.substring(0, 50)}... (length: ${imageUrl.length})` : 'null');
+    console.log('hasLargeImage:', hasLargeImage);
+    console.log('productImage chosen:', productImage ? `${productImage.substring(0, 50)}... (length: ${productImage.length})` : 'null');
+    console.log('========================');
     
     if (productImage && !hasLargeImage) {
       try {

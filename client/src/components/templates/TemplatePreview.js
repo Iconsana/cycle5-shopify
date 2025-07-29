@@ -48,13 +48,13 @@ const TemplatePreview = ({ template, productData, companyData }) => {
       console.log('Image data starts with data:image/?', imageData?.startsWith?.('data:image/'));
       
       // Check if it's a base64 image and if it's too large for URL params
-      if (imageData && imageData.startsWith && imageData.startsWith('data:image/') && imageData.length > 10000) {
-        // For large images, don't pass in URL - handle separately
-        console.warn('Image too large for URL parameters, skipping image in preview');
+      if (imageData && imageData.startsWith && imageData.startsWith('data:image/') && imageData.length > 50000) {
+        // For very large images, use POST method instead
+        console.warn('Image too large for URL parameters, will use fallback display');
         addParam('hasLargeImage', 'true');
-      } else if (imageData && imageData.startsWith && imageData.startsWith('data:image/') && imageData.length <= 10000) {
+      } else if (imageData && imageData.startsWith && imageData.startsWith('data:image/') && imageData.length <= 50000) {
         // For smaller base64 images, pass as URL param
-        console.log('Adding small base64 image to URL');
+        console.log('Adding base64 image to URL (size:', imageData.length, ')');
         addParam('imageUrl', encodeURIComponent(imageData));
       } else if (imageData && imageData.startsWith && imageData.startsWith('http')) {
         // For regular URLs, pass as is
@@ -65,8 +65,8 @@ const TemplatePreview = ({ template, productData, companyData }) => {
       }
     }
 
-    // Solar Kit Social specific parameters (only add if they exist)
-    if (template.id === 'solar-kit-social') {
+    // Solar Kit Social specific parameters (including all versions)
+    if (template.id === 'solar-kit-social' || template.id.startsWith('solar-kit-social-v')) {
       console.log('Building solar-kit-social preview URL with dynamic field support');
       
       // Header fields
@@ -185,22 +185,67 @@ const TemplatePreview = ({ template, productData, companyData }) => {
     // Add cache-busting parameter
     params.append('t', Date.now());
     
-    // TRY MULTIPLE API ENDPOINTS (fallback approach)
-    let urls = [
-      `/api/main?action=render&${params.toString()}`,           // New consolidated API
-      `/api/render-template?${params.toString()}`,              // Original API
-      `/api/main?action=debug&${params.toString()}`             // Debug fallback
-    ];
+    // Check if we need to use POST for large images
+    const needsPost = params.get('hasLargeImage') === 'true' && productData?.image;
     
-    // Try the first URL
-    const url = urls[0];
-    setPreviewUrl(url);
-    setImageError(false);
-    
-    console.log('Preview URL:', url);
-    console.log('Fallback URLs available:', urls.length);
+    if (needsPost) {
+      // For large images, use POST with the image data in the body
+      console.log('Using POST method for large image');
+      handlePostPreview(template.id, productData, companyData);
+    } else {
+      // TRY MULTIPLE API ENDPOINTS (fallback approach)
+      let urls = [
+        `/api/main?action=render&${params.toString()}`,           // New consolidated API
+        `/api/render-template?${params.toString()}`,              // Original API
+        `/api/main?action=debug&${params.toString()}`             // Debug fallback
+      ];
+      
+      // Try the first URL
+      const url = urls[0];
+      setPreviewUrl(url);
+      setImageError(false);
+      
+      console.log('Preview URL:', url);
+      console.log('Fallback URLs available:', urls.length);
+    }
     
   }, [template, productData, companyData]);
+
+  // Handle POST preview for large images
+  const handlePostPreview = async (templateId, productData, companyData) => {
+    try {
+      console.log('Sending POST request for large image preview...');
+      
+      const response = await fetch('/api/main?action=render', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          templateId,
+          productData,
+          companyData,
+          t: Date.now()
+        })
+      });
+      
+      if (response.ok) {
+        const svgData = await response.text();
+        // Create a blob URL for the SVG data
+        const blob = new Blob([svgData], { type: 'image/svg+xml' });
+        const blobUrl = URL.createObjectURL(blob);
+        setPreviewUrl(blobUrl);
+        setImageError(false);
+        console.log('POST preview successful, blob URL created');
+      } else {
+        console.error('POST preview failed:', response.status);
+        setImageError(true);
+      }
+    } catch (error) {
+      console.error('Error with POST preview:', error);
+      setImageError(true);
+    }
+  };
 
   if (!template) {
     return (
@@ -365,7 +410,7 @@ const TemplatePreview = ({ template, productData, companyData }) => {
               borderRadius: '4px'
             }}>
               📊 Active fields: {Object.keys(productData || {}).filter(k => productData[k] && typeof productData[k] === 'string' && productData[k].trim()).length}
-              {template.id === 'solar-kit-social' && (
+              {(template.id === 'solar-kit-social' || template.id.startsWith('solar-kit-social-v')) && (
                 <span> | Additional parts: {Object.keys(productData || {}).filter(k => k.startsWith('additionalPart') && productData[k]).length}</span>
               )}
               <br/>
