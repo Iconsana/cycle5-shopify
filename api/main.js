@@ -43,7 +43,6 @@ async function handleTemplates(req, res) {
     { id: 'solar-bulk-deal', name: 'Solar Bulk Deal' },
     { id: 'solar-kit-social', name: 'Solar Kit Social' },
     { id: 'solar-kit-social-v1', name: 'Solar Kit Social V1 (Vertical)' },
-    { id: 'solar-kit-social-v2', name: 'Solar Kit Social V2 (Horizontal)' },
     { id: 'solar-kit-social-v3', name: 'Solar Kit Social V3 (Two-Column)' }
   ];
   
@@ -198,7 +197,7 @@ async function handleRender(req, res) {
     
     // Process product image with better error handling
     const productImage = image || imageUrl;
-    const hasLargeImage = req.query.hasLargeImage === 'true';
+    const hasLargeImage = (req.query.hasLargeImage === 'true') || (queryData.hasLargeImage === 'true');
     
     // Debug logging for image processing
     console.log('=== IMAGE DEBUG INFO ===');
@@ -208,19 +207,20 @@ async function handleRender(req, res) {
     console.log('productImage chosen:', productImage ? `${productImage.substring(0, 50)}... (length: ${productImage.length})` : 'null');
     console.log('========================');
     
-    if (productImage && !hasLargeImage) {
+    if (productImage) {
       try {
         // Decode the image URL if it was encoded
         const decodedImage = decodeURIComponent(productImage);
         
         // Basic validation for base64 images
         if (decodedImage.startsWith('data:image/')) {
-          // Ensure the base64 data is reasonable size for SVG
-          if (decodedImage.length > 50000) {
-            console.warn('Image data too large, using fallback');
+          // Allow reasonable base64 image sizes (increased limit to 500KB)
+          if (decodedImage.length > 500000) {
+            console.warn('Image data too large (>500KB), using fallback');
             svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
             svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '1');
           } else {
+            console.log(`Using image data (${decodedImage.length} chars)`);
             svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, decodedImage);
             svgContent = svgContent.replace(/\{\{IMAGE_FALLBACK_OPACITY\}\}/g, '0');
           }
@@ -246,7 +246,9 @@ async function handleRender(req, res) {
       
       if (hasLargeImage) {
         // Add a notice for large images
-        console.log('Large image detected, using fallback display');
+        console.log('Large image detected or no image provided, using fallback display');
+      } else {
+        console.log('No image provided, using fallback display');
       }
     }
     
