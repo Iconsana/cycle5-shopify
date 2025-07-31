@@ -10,8 +10,8 @@
     <!-- Removed stars and Hellopeter rating -->
     
     <!-- Company name and category -->
-    <text x="200" y="90" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white">{{COMPANY_NAME}}</text>
-    <text x="200" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="normal" fill="white">{{CATEGORY_TEXT}}</text>
+    <text x="80" y="100" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">{{COMPANY_NAME}}</text>
+    <text x="1080" y="100" font-family="Arial, sans-serif" font-size="18" font-weight="normal" fill="white" text-anchor="end">{{CATEGORY_TEXT}}</text>
   </g>
   
   <!-- Title Container - EDITABLE PROMOTIONAL PHASE -->

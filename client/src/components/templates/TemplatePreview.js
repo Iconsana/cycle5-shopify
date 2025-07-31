@@ -206,11 +206,13 @@ const TemplatePreview = ({ template, productData, companyData }) => {
       }
     }
     
-    // Bullet points for other templates
-    for (let i = 1; i <= 5; i++) {
-      const fieldName = `bulletPoint${i}`;
-      if (productData?.[fieldName]) {
-        addParam(fieldName, sanitizeText(productData[fieldName]));
+    // Bullet points for other templates (skip if solar-bulk-deal already handled)
+    if (template.id !== 'solar-bulk-deal') {
+      for (let i = 1; i <= 5; i++) {
+        const fieldName = `bulletPoint${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
       }
     }
 
