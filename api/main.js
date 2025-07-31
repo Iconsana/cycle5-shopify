@@ -327,7 +327,8 @@ async function handleRender(req, res) {
       companyName, promotionTitle, productSku, productTitle, productPrice,
       bulletPoint1, bulletPoint2, bulletPoint3, bulletPoint4,
       phoneNumber, phoneNumber2, email, website,
-      brandText // Add brandText as fallback for companyName
+      brandText, // Add brandText as fallback for companyName
+      sku // Add sku as fallback for productSku
     } = queryData;
     
     // Header fields - use brandText as fallback for companyName
@@ -335,9 +336,10 @@ async function handleRender(req, res) {
     if (actualCompanyName) svgContent = svgContent.replace(/\{\{COMPANY_NAME\}\}/g, escapeXML(actualCompanyName));
     if (categoryText) svgContent = svgContent.replace(/\{\{CATEGORY_TEXT\}\}/g, escapeXML(categoryText));
     
-    // Title fields
+    // Title fields - use sku as fallback for productSku
     if (promotionTitle) svgContent = svgContent.replace(/\{\{PROMOTION_TITLE\}\}/g, escapeXML(promotionTitle));
-    if (productSku) svgContent = svgContent.replace(/\{\{PRODUCT_SKU\}\}/g, escapeXML(productSku));
+    const actualProductSku = productSku || sku;
+    if (actualProductSku) svgContent = svgContent.replace(/\{\{PRODUCT_SKU\}\}/g, escapeXML(actualProductSku));
     if (productTitle) svgContent = svgContent.replace(/\{\{PRODUCT_TITLE\}\}/g, escapeXML(productTitle));
     
     // Image section
