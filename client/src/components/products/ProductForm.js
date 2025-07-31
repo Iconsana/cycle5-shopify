@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { extractColors } from '../../services/productService';
 
-const ProductForm = ({ productData, onProductChange }) => {
+const ProductForm = ({ productData, onProductChange, template }) => {
   const [colorPalette, setColorPalette] = useState([]);
   
   // State to track which individual fields are hidden
@@ -467,215 +467,347 @@ const ProductForm = ({ productData, onProductChange }) => {
     );
   };
   
+  // Template-specific field rendering based on selected template
+  const renderTemplateSpecificFields = () => {
+    if (!template) return null;
+    
+    if (template.id === 'solar-bulk-deal') {
+      return (
+        <>
+          {/* Header Fields for Solar Bulk Deal */}
+          {renderSection('header', 'Header Information', (
+            <>
+              {renderField('brandText', 'Company Name', 'B SHOCKED')}
+              {renderField('categoryText', 'Category Text', 'ELECTRICAL | SOLAR', fieldStyle)}
+            </>
+          ))}
+
+          {/* Main Title and SKU for Solar Bulk Deal */}
+          {renderSection('titleSku', 'Product Title & SKU', (
+            <>
+              {renderField('promotionTitle', 'Promotion Title', 'WINTER SPECIAL BULK DEAL')}
+              {renderField('sku', 'Product SKU', 'BULK-SOLAR-2024', fieldStyle)}
+              {renderField('productTitle', 'Product Title', '5kW Complete Solar Kit', fieldStyle)}
+            </>
+          ))}
+
+          {/* Product Image Upload */}
+          {renderSection('productImage', 'Product Image', (
+            <>
+              <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag & drop an image here, or click to select one</p>
+                <p style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
+                  Maximum file size: 5MB. Supported formats: JPEG, PNG, WebP
+                </p>
+                {productData.image && (
+                  <div className="image-preview">
+                    <img 
+                      src={productData.image} 
+                      alt="Product preview" 
+                      style={{maxWidth: '200px', maxHeight: '150px'}} 
+                    />
+                    <p style={{ fontSize: '11px', color: '#666', marginTop: '5px' }}>
+                      File: {productData.imageFileName || 'Unknown'} 
+                      {productData.imageSize && ` (${Math.round(productData.imageSize / 1024)}KB)`}
+                    </p>
+                  </div>
+                )}
+              </div>
+              
+              {/* Upload Status Message */}
+              {imageUploadStatus && (
+                <div style={{
+                  marginTop: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
+                  fontSize: '13px',
+                  backgroundColor: imageUploadStatus.includes('❌') ? '#fee' : 
+                                imageUploadStatus.includes('⚠️') ? '#fef3cd' : 
+                                imageUploadStatus.includes('✅') ? '#d4edda' : '#e3f2fd',
+                  color: imageUploadStatus.includes('❌') ? '#d63384' : 
+                         imageUploadStatus.includes('⚠️') ? '#856404' : 
+                         imageUploadStatus.includes('✅') ? '#155724' : '#0c63e4',
+                  border: '1px solid',
+                  borderColor: imageUploadStatus.includes('❌') ? '#f5c6cb' : 
+                              imageUploadStatus.includes('⚠️') ? '#ffeaa7' : 
+                              imageUploadStatus.includes('✅') ? '#c3e6cb' : '#b3d9ff'
+                }}>
+                  {imageUploadStatus}
+                </div>
+              )}
+              
+              {renderField('imageTitle', 'Image Title', 'COMPLETE SOLAR KIT', fieldStyle)}
+            </>
+          ))}
+
+          {/* Product Details Section */}
+          {renderSection('productDescription', 'Product Details', (
+            <>
+              {[1, 2, 3, 4].map(index => {
+                const fieldName = `bulletPoint${index}`;
+                const placeholders = [
+                  'Hybrid Inverter + Lithium Battery',
+                  'High-Quality Solar Panels',
+                  'Complete Mounting Hardware',
+                  'Professional Installation Support'
+                ];
+                
+                return (
+                  <div key={fieldName} style={index === 1 ? {} : fieldStyle}>
+                    {renderField(fieldName, `Bullet Point ${index}`, placeholders[index - 1])}
+                  </div>
+                );
+              })}
+            </>
+          ))}
+
+          {/* Price Section */}
+          {renderSection('priceInformation', 'Price Information', (
+            <>
+              {renderField('productPrice', 'Product Price', 'R51,779.35')}
+            </>
+          ))}
+
+          {/* Delivery Information */}
+          {renderSection('deliveryInformation', '🚚 Delivery Information', (
+            <>
+              {renderField('delivery1', 'Delivery Option 1', 'Delivery JHB free up to 20 km')}
+              {renderField('delivery2', 'Delivery Option 2', 'Delivery 60-100 km JHB R440 fee', fieldStyle)}
+              {renderField('delivery3', 'Delivery Option 3', 'Fee for other regions calculated', fieldStyle)}
+            </>
+          ), true)}
+
+          {/* Contact Information */}
+          {renderSection('contactInformation', 'Contact Information', (
+            <>
+              {renderField('phoneNumber', 'Phone Number 1', '011 568 7166')}
+              {renderField('phoneNumber2', 'Phone Number 2', '067 923 6196', fieldStyle)}
+              {renderField('email', 'Email', 'sales@bshockedelectrical.co.za', fieldStyle)}
+              {renderField('website', 'Website', 'https://bshockedelectrical.co.za', fieldStyle)}
+            </>
+          ))}
+        </>
+      );
+    } else {
+      // Default fields for solar-kit-social and other templates
+      return (
+        <>
+          {/* Header Fields */}
+          {renderSection('header', 'Header Information', (
+            <>
+              {renderField('ratingText', 'Rating Text', 'Hellopeter 4.67')}
+              {renderField('brandText', 'Brand Text', 'B SHOCKED', fieldStyle)}
+              {renderField('categoryText', 'Category Text', 'ELECTRICAL | SOLAR', fieldStyle)}
+            </>
+          ))}
+
+          {/* Main Title and SKU */}
+          {renderSection('titleSku', 'Product Title & SKU', (
+            <>
+              {renderField('mainTitle', 'Main Title', 'SOLAR KIT PACKAGE')}
+              {renderField('sku', 'SKU', 'RIIGDEYE-5KW-PACK', fieldStyle)}
+            </>
+          ))}
+
+          {/* Product Image Upload */}
+          {renderSection('productImage', 'Product Image', (
+            <>
+              <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <p>Drag & drop an image here, or click to select one</p>
+                <p style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
+                  Maximum file size: 5MB. Supported formats: JPEG, PNG, WebP
+                </p>
+                {productData.image && (
+                  <div className="image-preview">
+                    <img 
+                      src={productData.image} 
+                      alt="Product preview" 
+                      style={{maxWidth: '200px', maxHeight: '150px'}} 
+                    />
+                    <p style={{ fontSize: '11px', color: '#666', marginTop: '5px' }}>
+                      File: {productData.imageFileName || 'Unknown'} 
+                      {productData.imageSize && ` (${Math.round(productData.imageSize / 1024)}KB)`}
+                    </p>
+                  </div>
+                )}
+              </div>
+              
+              {/* Upload Status Message */}
+              {imageUploadStatus && (
+                <div style={{
+                  marginTop: '10px',
+                  padding: '8px 12px',
+                  borderRadius: '4px',
+                  fontSize: '13px',
+                  backgroundColor: imageUploadStatus.includes('❌') ? '#fee' : 
+                                imageUploadStatus.includes('⚠️') ? '#fef3cd' : 
+                                imageUploadStatus.includes('✅') ? '#d4edda' : '#e3f2fd',
+                  color: imageUploadStatus.includes('❌') ? '#d63384' : 
+                         imageUploadStatus.includes('⚠️') ? '#856404' : 
+                         imageUploadStatus.includes('✅') ? '#155724' : '#0c63e4',
+                  border: '1px solid',
+                  borderColor: imageUploadStatus.includes('❌') ? '#f5c6cb' : 
+                              imageUploadStatus.includes('⚠️') ? '#ffeaa7' : 
+                              imageUploadStatus.includes('✅') ? '#c3e6cb' : '#b3d9ff'
+                }}>
+                  {imageUploadStatus}
+                </div>
+              )}
+              
+              {renderField('imageTitle', 'Image Title', 'Solar Kit Components', fieldStyle)}
+              {renderField('secondaryDescription', 'Secondary Description', 'Complete Installation Package', fieldStyle)}
+            </>
+          ))}
+
+          {/* Expandable Power System Details */}
+          {renderSection('powerSystem', 'Power System Details', (
+            renderCategoryFields('powerSystem', 'Power Detail', [
+              '• 5kW Deye Hybrid Inverter',
+              '• 5.12kWh Dyness Lithium Battery',
+              '• Additional power component'
+            ])
+          ))}
+
+          {/* Expandable Solar Panel Details */}
+          {renderSection('solarPanels', 'Solar Panel Details', (
+            renderCategoryFields('solarPanels', 'Panel Detail', [
+              '• 8x 565W JA Solar Mono Panels',
+              '• 4.52kW Total Panel Capacity'
+            ])
+          ))}
+
+          {/* Expandable Mounting Hardware */}
+          {renderSection('mountingHardware', 'Mounting Hardware', (
+            renderCategoryFields('mountingHardware', 'Mount Detail', [
+              '• PV Rails, Roof Hooks, Clamps',
+              '• Complete Mounting System',
+              '• Additional mounting hardware'
+            ])
+          ))}
+
+          {/* Expandable Electrical Components */}
+          {renderSection('electricalComponents', 'Electrical Components', (
+            renderCategoryFields('electricalComponents', 'Electrical Detail', [
+              '• DC/AC Combiners, Surge Protection',
+              '• Fuses, Switches, Safety Equipment',
+              '• Additional electrical components'
+            ])
+          ))}
+
+          {/* Expandable Cables & Installation */}
+          {renderSection('cablesInstallation', '🔌 Cables & Installation', (
+            renderCategoryFields('cablesInstallation', 'Cable Detail', [
+              '• Solar Cables, Battery Cables, MC4',
+              '• Conduits, Trunking, Earth Spike',
+              '• Additional cables & installation materials'
+            ])
+          ), true)}
+
+          {/* NEW: Additional Assembly Parts Section */}
+          {renderSection('additionalParts', '📦 Additional Assembly Parts', (
+            renderAdditionalParts()
+          ), true)}
+
+          {/* Field Count Summary */}
+          <div style={{...sectionStyle, backgroundColor: '#e8f5e8', padding: '15px', borderRadius: '8px', border: '1px solid #c3e6cb'}}>
+            <h4 style={{color: '#155724', marginBottom: '10px'}}>📊 Field Usage Summary</h4>
+            <div style={{fontSize: '12px', color: '#155724'}}>
+              <div>Power System: {categoryFieldCounts.powerSystem}/{maxFields.powerSystem} fields</div>
+              <div>Solar Panels: {categoryFieldCounts.solarPanels}/{maxFields.solarPanels} fields</div>
+              <div>Mounting Hardware: {categoryFieldCounts.mountingHardware}/{maxFields.mountingHardware} fields</div>
+              <div>Electrical Components: {categoryFieldCounts.electricalComponents}/{maxFields.electricalComponents} fields</div>
+              <div>Cables & Installation: {categoryFieldCounts.cablesInstallation}/{maxFields.cablesInstallation} fields</div>
+              <div><strong>Additional Parts: {categoryFieldCounts.additionalParts}/{maxFields.additionalParts} fields</strong></div>
+              <div style={{marginTop: '8px', fontWeight: 'bold'}}>
+                Total Active Fields: {Object.values(categoryFieldCounts).reduce((a, b) => a + b, 0)}
+              </div>
+            </div>
+          </div>
+
+          {/* Description Section */}
+          {renderSection('productDescription', 'Product Description', (
+            <>
+              {renderField('descriptionTitle', 'Description Title', 'COMPLETE SOLAR KIT')}
+              
+              {[1, 2, 3, 4, 5, 6].map(index => {
+                const fieldName = `descriptionLine${index}`;
+                const placeholders = [
+                  'Everything you need for a',
+                  'professional solar installation.',
+                  'Hybrid system with battery',
+                  'backup for load-shedding',
+                  'protection and energy',
+                  'independence.'
+                ];
+                
+                return (
+                  <div key={fieldName} style={fieldStyle}>
+                    {renderField(fieldName, `Description Line ${index}`, placeholders[index - 1])}
+                  </div>
+                );
+              })}
+            </>
+          ))}
+
+          {/* Benefits Section */}
+          {renderSection('systemBenefits', 'System Benefits', (
+            <>
+              {[1, 2, 3, 4, 5].map(index => {
+                const fieldName = `benefit${index}`;
+                const placeholders = [
+                  '✓ Load Shedding Protection',
+                  '✓ Reduce Electricity Bills',
+                  '✓ Eco-Friendly Power',
+                  '✓ Professional Support',
+                  '✓ Complete Installation Kit'
+                ];
+                
+                return (
+                  <div key={fieldName} style={index === 1 ? {} : fieldStyle}>
+                    {renderField(fieldName, `Benefit ${index}`, placeholders[index - 1])}
+                  </div>
+                );
+              })}
+            </>
+          ))}
+
+          {/* Price Section */}
+          {renderSection('priceInformation', 'Price Information', (
+            <>
+              {renderField('priceHeader', 'Price Header', 'Incl. VAT')}
+              {renderField('priceAmount', 'Price Amount', 'R51,779.35', fieldStyle)}
+              {renderField('priceNote', 'Price Note', 'Professional Installation Available', fieldStyle)}
+            </>
+          ))}
+
+          {/* Delivery Information */}
+          {renderSection('deliveryInformation', '🚚 Delivery Information', (
+            <>
+              {renderField('delivery1', 'Delivery Option 1', 'Delivery JHB free up to 20 km')}
+              {renderField('delivery2', 'Delivery Option 2', 'Delivery 60-100 km JHB R440 fee', fieldStyle)}
+              {renderField('delivery3', 'Delivery Option 3', 'Fee for other regions calculated', fieldStyle)}
+            </>
+          ), true)}
+
+          {/* Contact Information */}
+          {renderSection('contactInformation', 'Contact Information', (
+            <>
+              {renderField('contactPhone1', 'Phone 1', '011 568 7166')}
+              {renderField('contactPhone2', 'Phone 2', '067 923 8166', fieldStyle)}
+              {renderField('contactEmail', 'Email', 'sales@bshockedelectrical.co.za', fieldStyle)}
+              {renderField('contactWebsite', 'Website', 'https://bshockedelectrical.co.za', fieldStyle)}
+            </>
+          ))}
+        </>
+      );
+    }
+  };
+
   return (
     <div className="product-form">
-      {/* Header Fields */}
-      {renderSection('header', 'Header Information', (
-        <>
-          {renderField('ratingText', 'Rating Text', 'Hellopeter 4.67')}
-          {renderField('brandText', 'Brand Text', 'B SHOCKED', fieldStyle)}
-          {renderField('categoryText', 'Category Text', 'ELECTRICAL | SOLAR', fieldStyle)}
-        </>
-      ))}
-
-      {/* Main Title and SKU */}
-      {renderSection('titleSku', 'Product Title & SKU', (
-        <>
-          {renderField('mainTitle', 'Main Title', 'SOLAR KIT PACKAGE')}
-          {renderField('sku', 'SKU', 'RIIGDEYE-5KW-PACK', fieldStyle)}
-        </>
-      ))}
-
-      {/* Product Image Upload */}
-      {renderSection('productImage', 'Product Image', (
-        <>
-          <div {...getRootProps({ className: 'dropzone' })}>
-            <input {...getInputProps()} />
-            <p>Drag & drop an image here, or click to select one</p>
-            <p style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
-              Maximum file size: 5MB. Supported formats: JPEG, PNG, WebP
-            </p>
-            {productData.image && (
-              <div className="image-preview">
-                <img 
-                  src={productData.image} 
-                  alt="Product preview" 
-                  style={{maxWidth: '200px', maxHeight: '150px'}} 
-                />
-                <p style={{ fontSize: '11px', color: '#666', marginTop: '5px' }}>
-                  File: {productData.imageFileName || 'Unknown'} 
-                  {productData.imageSize && ` (${Math.round(productData.imageSize / 1024)}KB)`}
-                </p>
-              </div>
-            )}
-          </div>
-          
-          {/* Upload Status Message */}
-          {imageUploadStatus && (
-            <div style={{
-              marginTop: '10px',
-              padding: '8px 12px',
-              borderRadius: '4px',
-              fontSize: '13px',
-              backgroundColor: imageUploadStatus.includes('❌') ? '#fee' : 
-                            imageUploadStatus.includes('⚠️') ? '#fef3cd' : 
-                            imageUploadStatus.includes('✅') ? '#d4edda' : '#e3f2fd',
-              color: imageUploadStatus.includes('❌') ? '#d63384' : 
-                     imageUploadStatus.includes('⚠️') ? '#856404' : 
-                     imageUploadStatus.includes('✅') ? '#155724' : '#0c63e4',
-              border: '1px solid',
-              borderColor: imageUploadStatus.includes('❌') ? '#f5c6cb' : 
-                          imageUploadStatus.includes('⚠️') ? '#ffeaa7' : 
-                          imageUploadStatus.includes('✅') ? '#c3e6cb' : '#b3d9ff'
-            }}>
-              {imageUploadStatus}
-            </div>
-          )}
-          
-          {renderField('imageTitle', 'Image Title', 'Solar Kit Components', fieldStyle)}
-          {renderField('secondaryDescription', 'Secondary Description', 'Complete Installation Package', fieldStyle)}
-        </>
-      ))}
-
-      {/* Expandable Power System Details */}
-      {renderSection('powerSystem', 'Power System Details', (
-        renderCategoryFields('powerSystem', 'Power Detail', [
-          '• 5kW Deye Hybrid Inverter',
-          '• 5.12kWh Dyness Lithium Battery',
-          '• Additional power component'
-        ])
-      ))}
-
-      {/* Expandable Solar Panel Details */}
-      {renderSection('solarPanels', 'Solar Panel Details', (
-        renderCategoryFields('solarPanels', 'Panel Detail', [
-          '• 8x 565W JA Solar Mono Panels',
-          '• 4.52kW Total Panel Capacity'
-        ])
-      ))}
-
-      {/* Expandable Mounting Hardware */}
-      {renderSection('mountingHardware', 'Mounting Hardware', (
-        renderCategoryFields('mountingHardware', 'Mount Detail', [
-          '• PV Rails, Roof Hooks, Clamps',
-          '• Complete Mounting System',
-          '• Additional mounting hardware'
-        ])
-      ))}
-
-      {/* Expandable Electrical Components */}
-      {renderSection('electricalComponents', 'Electrical Components', (
-        renderCategoryFields('electricalComponents', 'Electrical Detail', [
-          '• DC/AC Combiners, Surge Protection',
-          '• Fuses, Switches, Safety Equipment',
-          '• Additional electrical components'
-        ])
-      ))}
-
-      {/* Expandable Cables & Installation */}
-      {renderSection('cablesInstallation', '🔌 Cables & Installation', (
-        renderCategoryFields('cablesInstallation', 'Cable Detail', [
-          '• Solar Cables, Battery Cables, MC4',
-          '• Conduits, Trunking, Earth Spike',
-          '• Additional cables & installation materials'
-        ])
-      ), true)}
-
-      {/* NEW: Additional Assembly Parts Section */}
-      {renderSection('additionalParts', '📦 Additional Assembly Parts', (
-        renderAdditionalParts()
-      ), true)}
-
-      {/* Field Count Summary */}
-      <div style={{...sectionStyle, backgroundColor: '#e8f5e8', padding: '15px', borderRadius: '8px', border: '1px solid #c3e6cb'}}>
-        <h4 style={{color: '#155724', marginBottom: '10px'}}>📊 Field Usage Summary</h4>
-        <div style={{fontSize: '12px', color: '#155724'}}>
-          <div>Power System: {categoryFieldCounts.powerSystem}/{maxFields.powerSystem} fields</div>
-          <div>Solar Panels: {categoryFieldCounts.solarPanels}/{maxFields.solarPanels} fields</div>
-          <div>Mounting Hardware: {categoryFieldCounts.mountingHardware}/{maxFields.mountingHardware} fields</div>
-          <div>Electrical Components: {categoryFieldCounts.electricalComponents}/{maxFields.electricalComponents} fields</div>
-          <div>Cables & Installation: {categoryFieldCounts.cablesInstallation}/{maxFields.cablesInstallation} fields</div>
-          <div><strong>Additional Parts: {categoryFieldCounts.additionalParts}/{maxFields.additionalParts} fields</strong></div>
-          <div style={{marginTop: '8px', fontWeight: 'bold'}}>
-            Total Active Fields: {Object.values(categoryFieldCounts).reduce((a, b) => a + b, 0)}
-          </div>
-        </div>
-      </div>
-
-      {/* Description Section */}
-      {renderSection('productDescription', 'Product Description', (
-        <>
-          {renderField('descriptionTitle', 'Description Title', 'COMPLETE SOLAR KIT')}
-          
-          {[1, 2, 3, 4, 5, 6].map(index => {
-            const fieldName = `descriptionLine${index}`;
-            const placeholders = [
-              'Everything you need for a',
-              'professional solar installation.',
-              'Hybrid system with battery',
-              'backup for load-shedding',
-              'protection and energy',
-              'independence.'
-            ];
-            
-            return (
-              <div key={fieldName} style={fieldStyle}>
-                {renderField(fieldName, `Description Line ${index}`, placeholders[index - 1])}
-              </div>
-            );
-          })}
-        </>
-      ))}
-
-      {/* Benefits Section */}
-      {renderSection('systemBenefits', 'System Benefits', (
-        <>
-          {[1, 2, 3, 4, 5].map(index => {
-            const fieldName = `benefit${index}`;
-            const placeholders = [
-              '✓ Load Shedding Protection',
-              '✓ Reduce Electricity Bills',
-              '✓ Eco-Friendly Power',
-              '✓ Professional Support',
-              '✓ Complete Installation Kit'
-            ];
-            
-            return (
-              <div key={fieldName} style={index === 1 ? {} : fieldStyle}>
-                {renderField(fieldName, `Benefit ${index}`, placeholders[index - 1])}
-              </div>
-            );
-          })}
-        </>
-      ))}
-
-      {/* Price Section */}
-      {renderSection('priceInformation', 'Price Information', (
-        <>
-          {renderField('priceHeader', 'Price Header', 'Incl. VAT')}
-          {renderField('priceAmount', 'Price Amount', 'R51,779.35', fieldStyle)}
-          {renderField('priceNote', 'Price Note', 'Professional Installation Available', fieldStyle)}
-        </>
-      ))}
-
-      {/* Delivery Information */}
-      {renderSection('deliveryInformation', '🚚 Delivery Information', (
-        <>
-          {renderField('delivery1', 'Delivery Option 1', 'Delivery JHB free up to 20 km')}
-          {renderField('delivery2', 'Delivery Option 2', 'Delivery 60-100 km JHB R440 fee', fieldStyle)}
-          {renderField('delivery3', 'Delivery Option 3', 'Fee for other regions calculated', fieldStyle)}
-        </>
-      ), true)}
-
-      {/* Contact Information */}
-      {renderSection('contactInformation', 'Contact Information', (
-        <>
-          {renderField('contactPhone1', 'Phone 1', '011 568 7166')}
-          {renderField('contactPhone2', 'Phone 2', '067 923 8166', fieldStyle)}
-          {renderField('contactEmail', 'Email', 'sales@bshockedelectrical.co.za', fieldStyle)}
-          {renderField('contactWebsite', 'Website', 'https://bshockedelectrical.co.za', fieldStyle)}
-        </>
-      ))}
+      {renderTemplateSpecificFields()}
       
       {colorPalette.length > 0 && (
         <div className="color-palette">

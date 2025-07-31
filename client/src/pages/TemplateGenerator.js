@@ -278,6 +278,7 @@ const TemplateGenerator = () => {
             <ProductForm 
               productData={productData}
               onProductChange={handleProductChange}
+              template={selectedTemplate}
             />
           </section>
         </div>

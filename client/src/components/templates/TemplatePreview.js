@@ -164,9 +164,47 @@ const TemplatePreview = ({ template, productData, companyData }) => {
       addParam('contactWebsite', sanitizeText(productData?.contactWebsite));
     }
 
-    // Existing Solar Bulk Deal parameters (only add if they exist)
-    addParam('promotionTitle', sanitizeText(productData?.promotionTitle));
-    // Note: imageTitle and secondaryDescription are already handled in solar-kit-social section above
+    // Solar Bulk Deal specific parameters
+    if (template.id === 'solar-bulk-deal') {
+      console.log('Building solar-bulk-deal preview URL');
+      
+      // Header fields (no rating/stars for bulk deal)
+      addParam('companyName', sanitizeText(productData?.brandText));
+      addParam('categoryText', sanitizeText(productData?.categoryText));
+      
+      // Title fields
+      addParam('promotionTitle', sanitizeText(productData?.promotionTitle));
+      addParam('productSku', sanitizeText(productData?.sku));
+      addParam('productTitle', sanitizeText(productData?.productTitle));
+      
+      // Image section
+      addParam('imageTitle', sanitizeText(productData?.imageTitle));
+      
+      // Bullet points
+      for (let i = 1; i <= 4; i++) {
+        const fieldName = `bulletPoint${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
+      
+      // Price
+      addParam('productPrice', sanitizeText(productData?.productPrice));
+      
+      // Contact information
+      addParam('phoneNumber', sanitizeText(productData?.phoneNumber));
+      addParam('phoneNumber2', sanitizeText(productData?.phoneNumber2));
+      addParam('email', sanitizeText(productData?.email));
+      addParam('website', sanitizeText(productData?.website));
+      
+      // Delivery information
+      for (let i = 1; i <= 3; i++) {
+        const fieldName = `delivery${i}`;
+        if (productData?.[fieldName]) {
+          addParam(fieldName, sanitizeText(productData[fieldName]));
+        }
+      }
+    }
     
     // Bullet points for other templates
     for (let i = 1; i <= 5; i++) {

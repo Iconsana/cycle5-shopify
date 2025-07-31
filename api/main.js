@@ -320,6 +320,71 @@ async function handleRender(req, res) {
     if (descriptionLine6) svgContent = svgContent.replace(/\{\{DESCRIPTION_LINE_6\}\}/g, escapeXML(descriptionLine6));
   }
   
+  // Process solar-bulk-deal template
+  if (templateId === 'solar-bulk-deal') {
+    // Get solar-bulk-deal specific parameters
+    const {
+      companyName, promotionTitle, productSku, productTitle, productPrice,
+      bulletPoint1, bulletPoint2, bulletPoint3, bulletPoint4,
+      phoneNumber, phoneNumber2, email, website
+    } = queryData;
+    
+    // Header fields
+    if (companyName) svgContent = svgContent.replace(/\{\{COMPANY_NAME\}\}/g, escapeXML(companyName));
+    if (categoryText) svgContent = svgContent.replace(/\{\{CATEGORY_TEXT\}\}/g, escapeXML(categoryText));
+    
+    // Title fields
+    if (promotionTitle) svgContent = svgContent.replace(/\{\{PROMOTION_TITLE\}\}/g, escapeXML(promotionTitle));
+    if (productSku) svgContent = svgContent.replace(/\{\{PRODUCT_SKU\}\}/g, escapeXML(productSku));
+    if (productTitle) svgContent = svgContent.replace(/\{\{PRODUCT_TITLE\}\}/g, escapeXML(productTitle));
+    
+    // Image section
+    if (imageTitle) svgContent = svgContent.replace(/\{\{IMAGE_TITLE\}\}/g, escapeXML(imageTitle));
+    
+    // Process product image with the same logic as solar-kit-social
+    const productImage = image || imageUrl;
+    if (productImage) {
+      try {
+        const decodedImage = decodeURIComponent(productImage);
+        if (decodedImage.startsWith('data:image/')) {
+          if (decodedImage.length > 500000) {
+            svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
+          } else {
+            svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, decodedImage);
+          }
+        } else if (decodedImage.startsWith('http')) {
+          svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, decodedImage);
+        } else {
+          svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
+        }
+      } catch (error) {
+        svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
+      }
+    } else {
+      svgContent = svgContent.replace(/\{\{PRODUCT_IMAGE\}\}/g, '');
+    }
+    
+    // Bullet points
+    if (bulletPoint1) svgContent = svgContent.replace(/\{\{BULLET_POINT_1\}\}/g, escapeXML(bulletPoint1));
+    if (bulletPoint2) svgContent = svgContent.replace(/\{\{BULLET_POINT_2\}\}/g, escapeXML(bulletPoint2));
+    if (bulletPoint3) svgContent = svgContent.replace(/\{\{BULLET_POINT_3\}\}/g, escapeXML(bulletPoint3));
+    if (bulletPoint4) svgContent = svgContent.replace(/\{\{BULLET_POINT_4\}\}/g, escapeXML(bulletPoint4));
+    
+    // Price
+    if (productPrice) svgContent = svgContent.replace(/\{\{PRODUCT_PRICE\}\}/g, escapeXML(productPrice));
+    
+    // Contact information
+    if (phoneNumber) svgContent = svgContent.replace(/\{\{PHONE_NUMBER\}\}/g, escapeXML(phoneNumber));
+    if (phoneNumber2) svgContent = svgContent.replace(/\{\{PHONE_NUMBER_2\}\}/g, escapeXML(phoneNumber2));
+    if (email) svgContent = svgContent.replace(/\{\{EMAIL\}\}/g, escapeXML(email));
+    if (website) svgContent = svgContent.replace(/\{\{WEBSITE\}\}/g, escapeXML(website));
+    
+    // Delivery information (shared with solar-kit-social)
+    if (delivery1) svgContent = svgContent.replace(/\{\{DELIVERY_1\}\}/g, escapeXML(delivery1));
+    if (delivery2) svgContent = svgContent.replace(/\{\{DELIVERY_2\}\}/g, escapeXML(delivery2));
+    if (delivery3) svgContent = svgContent.replace(/\{\{DELIVERY_3\}\}/g, escapeXML(delivery3));
+  }
+  
   // Clean up unused placeholders
   svgContent = svgContent.replace(/\{\{[^}]+\}\}/g, '');
   

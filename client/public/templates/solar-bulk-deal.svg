@@ -7,21 +7,11 @@
     <!-- Company Logo Section -->
     <rect x="40" y="40" width="1120" height="120" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
     
-    <!-- 5 stars - static -->
-    <g transform="translate(60, 80)">
-      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(30, 0) scale(0.7)"/>
-      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(80, 0) scale(0.7)"/>
-      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(130, 0) scale(0.7)"/>
-      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(180, 0) scale(0.7)"/>
-      <polygon points="0,0 10,30 40,30 15,50 25,80 0,60 -25,80 -15,50 -40,30 -10,30" fill="#FFB900" transform="translate(230, 0) scale(0.7)"/>
-    </g>
+    <!-- Removed stars and Hellopeter rating -->
     
-    <!-- Username and rating - static -->
-    <text x="350" y="90" font-family="Arial, sans-serif" font-size="36" font-weight="bold" fill="white">Hellopeter 4.99</text>
-    
-    <!-- Company name -->
-    <text x="680" y="90" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white">{{COMPANY_NAME}}</text>
-    <text x="680" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="normal" fill="white">ELECTRICAL | SOLAR</text>
+    <!-- Company name and category -->
+    <text x="200" y="90" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="white">{{COMPANY_NAME}}</text>
+    <text x="200" y="130" font-family="Arial, sans-serif" font-size="20" font-weight="normal" fill="white">{{CATEGORY_TEXT}}</text>
   </g>
   
   <!-- Title Container - EDITABLE PROMOTIONAL PHASE -->
@@ -94,7 +84,7 @@
     <text x="600" y="910" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#002651" text-anchor="middle">Incl. VAT</text>
   </g>
   
-  <!-- Delivery Container - STATIC -->
+  <!-- Delivery Container - EDITABLE -->
   <g id="delivery-container">
     <rect x="40" y="940" width="520" height="180" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
     <text x="300" y="980" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">DELIVERY INFORMATION</text>
@@ -102,21 +92,21 @@
     
     <g transform="translate(90, 1020)">
       <circle cx="10" cy="-5" r="8" fill="#FFB900"/>
-      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">Delivery JHB free up to 20 km</text>
+      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">{{DELIVERY_1}}</text>
     </g>
     
     <g transform="translate(90, 1060)">
       <circle cx="10" cy="-5" r="8" fill="#FFB900"/>
-      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">Delivery 60-100 km JHB R440 fee</text>
+      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">{{DELIVERY_2}}</text>
     </g>
     
     <g transform="translate(90, 1100)">
       <circle cx="10" cy="-5" r="8" fill="#FFB900"/>
-      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">Fee for other regions calculated</text>
+      <text x="30" y="0" font-family="Arial, sans-serif" font-size="20" fill="white">{{DELIVERY_3}}</text>
     </g>
   </g>
   
-  <!-- Contact Container - STATIC but uses company data -->
+  <!-- Contact Container - EDITABLE -->
   <g id="contact-container">
     <rect x="580" y="940" width="580" height="180" fill="#002651" stroke="#FFB900" stroke-width="2" rx="10" opacity="0.8"/>
     <text x="870" y="980" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">CONTACT INFORMATION</text>
@@ -129,7 +119,7 @@
     
     <g transform="translate(630, 1060)">
       <circle cx="15" cy="10" r="10" fill="transparent" stroke="#FFB900" stroke-width="2"/>
-      <text x="40" y="15" font-family="Arial, sans-serif" font-size="20" fill="white">067 923 6196</text>
+      <text x="40" y="15" font-family="Arial, sans-serif" font-size="20" fill="white">{{PHONE_NUMBER_2}}</text>
     </g>
     
     <g transform="translate(850, 1020)">
