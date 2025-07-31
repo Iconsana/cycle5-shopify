@@ -10,7 +10,7 @@
     <!-- Removed stars and Hellopeter rating -->
     
     <!-- Company name and category -->
-    <text x="80" y="100" font-family="Arial, sans-serif" font-size="45" font-weight="bold" fill="white">{{COMPANY_NAME}}</text>
+    <text x="80" y="100" font-family="Arial, sans-serif" font-size="47" font-weight="bold" fill="white">{{COMPANY_NAME}}</text>
     <text x="1080" y="100" font-family="Arial, sans-serif" font-size="45" font-weight="normal" fill="white" text-anchor="end">{{CATEGORY_TEXT}}</text>
   </g>
   

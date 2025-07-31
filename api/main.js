@@ -326,11 +326,13 @@ async function handleRender(req, res) {
     const {
       companyName, promotionTitle, productSku, productTitle, productPrice,
       bulletPoint1, bulletPoint2, bulletPoint3, bulletPoint4,
-      phoneNumber, phoneNumber2, email, website
+      phoneNumber, phoneNumber2, email, website,
+      brandText // Add brandText as fallback for companyName
     } = queryData;
     
-    // Header fields
-    if (companyName) svgContent = svgContent.replace(/\{\{COMPANY_NAME\}\}/g, escapeXML(companyName));
+    // Header fields - use brandText as fallback for companyName
+    const actualCompanyName = companyName || brandText;
+    if (actualCompanyName) svgContent = svgContent.replace(/\{\{COMPANY_NAME\}\}/g, escapeXML(actualCompanyName));
     if (categoryText) svgContent = svgContent.replace(/\{\{CATEGORY_TEXT\}\}/g, escapeXML(categoryText));
     
     // Title fields
